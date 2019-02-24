@@ -15,7 +15,7 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $faqs = Faq::where('1', $store_id)->get();
+        $faqs = Faq::where('store_id', '1')->get();
         return response()->json($faqs);
     }
 

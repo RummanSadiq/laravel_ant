@@ -34,7 +34,7 @@ Route::get('/products/{id}', 'Api\ProductController@myProducts');
 
 
 //Faqs
-Route::get('/faqs', 'Api\Faqontroller@index');
+Route::get('/faqs', 'Api\FaqController@index');
 Route::post('/faqs', 'Api\FaqController@store');
 Route::post('/faqs/{id}', 'Api\FaqController@update');
 Route::delete('/faqs/{id}', 'Api\FaqController@destroy');

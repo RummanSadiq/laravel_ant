@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Row, Col, Button, Card, Modal, Input } from "antd";
+import axios from 'axios';
 
 class Faqs extends Component {
   constructor(props) {
@@ -10,17 +11,19 @@ class Faqs extends Component {
   }
   state = {
     faqs: [
-      { id: 1, question: "rfdksjbfh?", answer: "No sir we don't sell weed." },
-      { id: 2, question: "rfdksjbfh?", answer: "No sir we don't sell weed." },
-      { id: 3, question: "rfdksjbfh?", answer: "No sir we don't sell weed." },
-      { id: 4, question: "rfdksjbfh?", answer: "No sir we don't sell weed." },
-      { id: 5, question: "rfdksjbfh?", answer: "No sir we don't sell weed." }
     ],
     visible: false,
     m2visible: false,
     newquestion: "",
     newanswer: ""
   };
+
+componentDidMount (){
+axios.get('/api/faqs').then(res=>{
+  const faqsdata = res.data;
+  this.setState({faqs:faqsdata});
+})
+}
 
   handleDelete(event, counterId) {
     event.preventDefault();
