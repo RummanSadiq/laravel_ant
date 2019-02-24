@@ -18,6 +18,7 @@ class App extends Component {
             <BrowserRouter>
                 <div>
                     <Sidemenu />
+                    <Route path="/" component={Shop} />
                     <Route path="/Messages" component={Chat} />
                     <Route path="/Faqs" component={Faqs} />
                     <Route path="/Reviews" component={UserReviews} />
