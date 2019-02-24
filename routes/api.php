@@ -19,11 +19,26 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 //Posts
-Route::get('/posts', 'Api\PostController@index'); //Shows posts of that specific user
-Route::get('/posts/{id}', 'Api\PostController@show');
+Route::get('/posts', 'Api\PostController@index');
 Route::post('/posts', 'Api\PostController@store');
 Route::post('/posts/{id}', 'Api\PostController@update');
 Route::delete('/posts/{id}', 'Api\PostController@destroy');
+Route::get('/myposts', 'Api\PostController@show');
+
+//Products
+Route::get('/products', 'Api\ProductController@index');
+Route::post('/products', 'Api\ProductController@store');
+Route::post('/products/{id}', 'Api\ProductController@update');
+Route::delete('/products/{id}', 'Api\ProductController@destroy');
+Route::get('/products/{id}', 'Api\ProductController@myProducts');
+
+
+//Faqs
+Route::get('/faqs', 'Api\Faqontroller@index');
+Route::post('/faqs', 'Api\FaqController@store');
+Route::post('/faqs/{id}', 'Api\FaqController@update');
+Route::delete('/faqs/{id}', 'Api\FaqController@destroy');
+
 
 //Messages
 Route::get('/messages', 'Api\MessageController@index');

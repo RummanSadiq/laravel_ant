@@ -22,22 +22,22 @@ class CreateStoresTable extends Migration
             $table->integer('store_type_id')->unsigned();
             $table->foreign('store_type_id')->references('id')->on('store_types');
 
-            $table->integer('address_id')->unsigned();
+            $table->integer('address_id')->unsigned()->nullable();
             $table->foreign('address_id')->references('id')->on('addresses');
 
             $table->string('name');
-            $table->string('display_picture');
-            $table->boolean('wifi');
-            $table->boolean('try_room');
-            $table->boolean('card_payment');
-            $table->boolean('wheel_chair');
-            $table->boolean('wash_room');
-            $table->boolean('delivery');
+            $table->string('display_picture')->nullable();
+            $table->boolean('wifi')->nullable();
+            $table->boolean('try_room')->nullable();
+            $table->boolean('card_payment')->nullable();
+            $table->boolean('wheel_chair')->nullable();
+            $table->boolean('wash_room')->nullable();
+            $table->boolean('delivery')->nullable();
 
-            $table->string('return_policy');
+            $table->string('return_policy')->nullable();
 
-            $table->time('open_time');
-            $table->time('close_time');
+            $table->time('open_time')->nullable();
+            $table->time('close_time')->nullable();
             
             $table->timestamps();
         });

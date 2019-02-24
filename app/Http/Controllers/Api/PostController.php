@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
+use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,7 +17,6 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::all();
-        
         return response()->json($posts);
     }
 
@@ -38,7 +38,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return Post::create([
+            'store_id' => auth()->user()->id,
+            'text' => $data['text'],
+        ]);
     }
 
     /**
@@ -47,9 +50,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $posts = Post::where('store_id', '1')->get();
+        return response()->json($posts);
     }
 
     /**
@@ -81,8 +85,8 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
     }
 }

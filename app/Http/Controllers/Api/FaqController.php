@@ -15,7 +15,8 @@ class FaqController extends Controller
      */
     public function index()
     {
-        //
+        $faqs = Faq::where('1', $store_id)->get();
+        return response()->json($faqs);
     }
 
     /**
@@ -36,7 +37,8 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $faq = Faq::create($request->all());
+        return response()->json($faq, 201);
     }
 
     /**
@@ -47,7 +49,6 @@ class FaqController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -70,7 +71,9 @@ class FaqController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $faq = Faq::find($id);
+        $faq->update($request->all());
+        return response()->json($faq, 201);
     }
 
     /**
@@ -81,6 +84,7 @@ class FaqController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $faq = Faq::find($id);
+        $faq->delete();
     }
 }
