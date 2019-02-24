@@ -43,10 +43,17 @@ axios.get('/api/faqs').then(res=>{
     });
     let id = this.state.faqs.length - 1;
     var str = {
-      id: id,
+      store_id: 1,
       question: this.state.newquestion,
       answer: this.state.newanswer
     };
+
+    axios.post('/api/faqs',{str}).then(res=>{
+      console.log(res);
+      console.log(res.data);
+    });
+
+
     this.state.faqs.push(str);
     this.setState({ faqs: this.state.faqs });
     e.preventDefault();
