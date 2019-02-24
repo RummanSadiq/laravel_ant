@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Row, Col, Button, Card, Modal, Input } from "antd";
-// import Sidemenu from "./Sidemenu";
 
 class Faqs extends Component {
   constructor(props) {
