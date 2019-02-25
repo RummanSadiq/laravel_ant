@@ -12,6 +12,13 @@ class Sidemenu extends Component {
         collapsed: false
     };
 
+logout(){
+    Axios.get('/api/logout').then (res=>{
+        console.log(res);
+        console.log(res.data);
+    });
+}
+
     onCollapse = collapsed => {
         console.log(collapsed);
         this.setState({ collapsed });

@@ -47,7 +47,7 @@ class Faqs extends Component {
             answer: this.state.newanswer
         };
 
-        axios.post("http://pulsespace.com/api/faqs", str).then(res => {
+        axios.post("/api/faqs", str).then(res => {
             console.log(res);
             console.log(res.data);
         });
