@@ -18,7 +18,7 @@ class Faqs extends Component {
     };
 
     componentDidMount() {
-        axios.get("/api/faqs").then(res => {
+        axios.get("http://pulsespace.com/api/faqs").then(res => {
             const faqsdata = res.data;
             this.setState({ faqs: faqsdata });
         });
@@ -47,7 +47,7 @@ class Faqs extends Component {
             answer: this.state.newanswer
         };
 
-        axios.post("/api/faqs", str).then(res => {
+        axios.post("http://pulsespace.com/api/faqs", str).then(res => {
             console.log(res);
             console.log(res.data);
         });

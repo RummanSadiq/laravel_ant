@@ -26,6 +26,13 @@ class App extends Component {
                     <Route path="/Add" component={AddProduct} />
                     <Route path="/ViewProduct" component={ViewProducts} />
                     <Route path="/Shop" component={Shop} />
+                    <Route
+                        path="/logout"
+                        component={() => {
+                            window.location.href = "/logout";
+                            return null;
+                        }}
+                    />
                 </div>
             </BrowserRouter>
         );
