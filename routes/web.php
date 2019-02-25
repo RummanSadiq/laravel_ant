@@ -16,10 +16,14 @@
 // });
 
 Auth::routes();
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/{path?}', 'HomeController@index')->name('home');
 
 // Route::view('/', 'home');
+
+
+
 
 
 // Route::group(['middleware' => 'auth:api'], function() {

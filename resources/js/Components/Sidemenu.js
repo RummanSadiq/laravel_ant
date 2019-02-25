@@ -24,6 +24,8 @@ logout(){
         this.setState({ collapsed });
     };
 
+    go() {}
+
     render() {
         return (
             <Row style={{ position: "absolute" }}>
@@ -138,9 +140,8 @@ logout(){
                             </Menu.Item>
                             <Divider />
 
-                            <Menu.Item key="8" onClick={this.logout} style={{ fontSize: "22px" }}>
-                                
-                                <NavLink to="/logout">
+                            <Menu.Item key="8" style={{ fontSize: "22px" }}>
+                                <NavLink to="/logout" onClick={this.go}>
                                     <Icon
                                         type="logout"
                                         style={{

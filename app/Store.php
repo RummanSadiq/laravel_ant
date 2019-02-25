@@ -27,4 +27,9 @@ class Store extends Model
         'open_time',
         'close_time',
     ];
+
+    public function faqs()
+    {
+        return $this->hasMany(Faq::class);
+    }
 }

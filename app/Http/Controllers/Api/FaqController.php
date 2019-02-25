@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Faq;
+use App\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class FaqController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +18,11 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $faqs = Faq::where('store_id', '1')->get();
+        $id = Auth::id();
+        $store = Store::select('id')->where('owner_id', $id)->first();
+        $store_id = $store->id;
+        
+        $faqs = Faq::where('store_id', $store_id)->get();
         return response()->json($faqs);
     }
 
