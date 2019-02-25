@@ -17,6 +17,8 @@ class Sidemenu extends Component {
         this.setState({ collapsed });
     };
 
+    go() {}
+
     render() {
         return (
             <Row style={{ position: "absolute" }}>
@@ -132,7 +134,7 @@ class Sidemenu extends Component {
                             <Divider />
 
                             <Menu.Item key="8" style={{ fontSize: "22px" }}>
-                                <NavLink to="/logout">
+                                <NavLink to="/logout" onClick={this.go}>
                                     <Icon
                                         type="logout"
                                         style={{
