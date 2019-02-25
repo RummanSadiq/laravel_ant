@@ -12,6 +12,13 @@ class Sidemenu extends Component {
         collapsed: false
     };
 
+logout(){
+    Axios.get('/api/logout').then (res=>{
+        console.log(res);
+        console.log(res.data);
+    });
+}
+
     onCollapse = collapsed => {
         console.log(collapsed);
         this.setState({ collapsed });
@@ -131,7 +138,8 @@ class Sidemenu extends Component {
                             </Menu.Item>
                             <Divider />
 
-                            <Menu.Item key="8" style={{ fontSize: "22px" }}>
+                            <Menu.Item key="8" onClick={this.logout} style={{ fontSize: "22px" }}>
+                                
                                 <NavLink to="/logout">
                                     <Icon
                                         type="logout"

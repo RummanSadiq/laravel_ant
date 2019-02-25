@@ -48,7 +48,7 @@ axios.get('/api/faqs').then(res=>{
       answer: this.state.newanswer
     };
 
-    axios.post('/api/faqs',{str}).then(res=>{
+    axios.post('/api/faqs',str).then(res=>{
       console.log(res);
       console.log(res.data);
     });

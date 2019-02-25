@@ -17,15 +17,17 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div>
-                    <Sidemenu />
+                    {/* <Sidemenu /> */}
+                    <Route path="" component={Sidemenu}/>
                     {/* <Route path="" component={Shop} /> */}
                     <Route path="/Messages" component={Chat} />
                     <Route path="/Faqs" component={Faqs} />
                     <Route path="/Reviews" component={UserReviews} />
-                    <Route path="/Posts" component={Posts} />7
+                    <Route path="/Posts" component={Posts} />
                     <Route path="/Add" component={AddProduct} />
                     <Route path="/ViewProduct" component={ViewProducts} />
                     <Route path="/Shop" component={Shop} />
+                    {/* <Route exact path="/logout" component={Shop}/> */}
                 </div>
             </BrowserRouter>
         );
