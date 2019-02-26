@@ -17,7 +17,7 @@ class Faqs extends Component {
         newanswer: "",
         nid: "",
 
-        newfaq:{}
+        newfaq: {}
     };
 
     componentDidMount() {
@@ -31,6 +31,10 @@ class Faqs extends Component {
         event.preventDefault();
         const counters = this.state.faqs.filter(c => c.id !== counterId);
         this.setState({ faqs: counters });
+        axios.delete('/faqs/${counterId}').then(res => {
+          const faqsdata = res.data;
+          this.setState({ faqs: faqsdata });
+      });
     }
 
     showModal = () => {
@@ -75,32 +79,28 @@ class Faqs extends Component {
         this.setState({ newanswer: e.target.value });
     };
 
-    showModalm2 = (element) => {
+    showModalm2 = element => {
+        let str = element;
+        // {id:element.id,store_id:element.store_id,question:element.question, answer:element.answer, created_at:element.created_at,updated_at:element.updated_at};
 
-      
-let str=element;
-  // {id:element.id,store_id:element.store_id,question:element.question, answer:element.answer, created_at:element.created_at,updated_at:element.updated_at};
-  
-      this.setState({
-       newfaq:str
-      }, function (){
+        this.setState(
+            {
+                newfaq: str
+            },
+            function() {
+                console.log(this.state.newfaq);
+                this.setState({
+                    m2visible: true
+                });
+            }
+        );
+        this.setState({ newquestion: str.question, newanswer: str.answer });
+
         console.log(this.state.newfaq);
-         this.setState(
-        {
-          m2visible:true
-        }
-      );
-      });
-      this.setState({newquestion:str.question,newanswer:str.answer});
-
-    
-      console.log(this.state.newfaq);
-
-    }
+    };
 
     m2handleOk(event) {
         console.log(event);
-
 
         let faq = this.state.faqs;
         var index = faq.indexOf(this.state.newfaq);
@@ -108,12 +108,10 @@ let str=element;
         faq[index].answer = this.state.newanswer;
 
         let updatedfaq = faq[index];
-        axios.post("/api/faqs${updatedfaq.id}", updatedfaq).then(res => {
-          const faqsdata = res.data;
-          this.setState({ faqs: faqsdata });
-      });
-
-
+        axios.post("/api/faqs/${updatedfaq.id}", updatedfaq).then(res => {
+            const faqsdata = res.data;
+            this.setState({ faqs: faqsdata });
+        });
 
         this.setState({ faqs: faq });
         this.setState({
@@ -180,10 +178,8 @@ let str=element;
                                                 type="danger"
                                                 size={"large"}
                                                 icon="edit"
-                                                onClick={()=>
-                                                    this.showModalm2(
-                                                        element
-                                                    )
+                                                onClick={() =>
+                                                    this.showModalm2(element)
                                                 }
                                             />{" "}
                                             <Button
@@ -204,7 +200,7 @@ let str=element;
                                 </Card>
                             </div>
                         ))}
-                        
+
                         <Modal
                             title="Edit a Question"
                             visible={this.state.m2visible}
@@ -225,7 +221,6 @@ let str=element;
                                 allowClear
                                 onChange={this.onChangeAnswer}
                                 defaultValue={this.state.newfaq.answer}
-
                             />
                         </Modal>
                     </div>
