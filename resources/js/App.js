@@ -18,7 +18,7 @@ class App extends Component {
             <BrowserRouter>
                 <div>
                     {/* <Sidemenu /> */}
-                    <Route path="" component={Sidemenu}/>
+                    <Route path="" component={Sidemenu} />
                     {/* <Route path="" component={Shop} /> */}
                     <Route path="/Messages" component={Chat} />
                     <Route path="/Faqs" component={Faqs} />
@@ -27,7 +27,13 @@ class App extends Component {
                     <Route path="/Add" component={AddProduct} />
                     <Route path="/ViewProduct" component={ViewProducts} />
                     <Route path="/Shop" component={Shop} />
-                    {/* <Route exact path="/logout" component={Shop}/> */}
+                    <Route
+                        path="/logout"
+                        component={() => {
+                            window.location.href = "/logout";
+                            return null;
+                        }}
+                    />
                 </div>
             </BrowserRouter>
         );

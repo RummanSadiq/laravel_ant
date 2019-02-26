@@ -21,7 +21,7 @@ class Faqs extends Component {
     };
 
     componentDidMount() {
-        axios.get("/api/faqs").then(res => {
+        axios.get("http://pulsespace.com/api/faqs").then(res => {
             const faqsdata = res.data;
             this.setState({ faqs: faqsdata });
         });
