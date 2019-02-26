@@ -14,7 +14,10 @@ class Faqs extends Component {
         visible: false,
         m2visible: false,
         newquestion: "",
-        newanswer: ""
+        newanswer: "",
+        nid: "",
+
+        newfaq:{}
     };
 
     componentDidMount() {
@@ -47,10 +50,10 @@ class Faqs extends Component {
             answer: this.state.newanswer
         };
 
-    axios.post('/api/faqs',str).then(res=>{
-      console.log(res);
-      console.log(res.data);
-    });
+        axios.post("/api/faqs", str).then(res => {
+            console.log(res);
+            console.log(res.data);
+        });
 
         this.state.faqs.push(str);
         this.setState({ faqs: this.state.faqs });
@@ -72,20 +75,46 @@ class Faqs extends Component {
         this.setState({ newanswer: e.target.value });
     };
 
-    showModalm2(event, element) {
-        this.setState({
-            m2visible: true,
-            newquestion: element.question,
-            newanswer: element.answer
-        });
+    showModalm2 = (element) => {
+
+      
+let str=element;
+  // {id:element.id,store_id:element.store_id,question:element.question, answer:element.answer, created_at:element.created_at,updated_at:element.updated_at};
+  
+      this.setState({
+       newfaq:str
+      }, function (){
+        console.log(this.state.newfaq);
+         this.setState(
+        {
+          m2visible:true
+        }
+      );
+      });
+      this.setState({newquestion:str.question,newanswer:str.answer});
+
+    
+      console.log(this.state.newfaq);
+
     }
 
-    m2handleOk(event, element) {
+    m2handleOk(event) {
         console.log(event);
+
+
         let faq = this.state.faqs;
-        var index = faq.indexOf(element);
+        var index = faq.indexOf(this.state.newfaq);
         faq[index].question = this.state.newquestion;
         faq[index].answer = this.state.newanswer;
+
+        let updatedfaq = faq[index];
+        axios.post("/api/faqs${updatedfaq.id}", updatedfaq).then(res => {
+          const faqsdata = res.data;
+          this.setState({ faqs: faqsdata });
+      });
+
+
+
         this.setState({ faqs: faq });
         this.setState({
             m2visible: false
@@ -95,7 +124,10 @@ class Faqs extends Component {
     m2handleCancel = e => {
         console.log(e);
         this.setState({
-            m2visible: false
+            m2visible: false,
+            newquestion: "",
+            newanswer: "",
+            nid: ""
         });
     };
 
@@ -137,6 +169,7 @@ class Faqs extends Component {
                             <div style={{ paddingTop: "10px" }}>
                                 <Card
                                     title={element.question}
+                                    // key={element.id}
                                     type="inner"
                                     hoverable="true"
                                     bordered={false}
@@ -147,9 +180,8 @@ class Faqs extends Component {
                                                 type="danger"
                                                 size={"large"}
                                                 icon="edit"
-                                                onClick={event =>
+                                                onClick={()=>
                                                     this.showModalm2(
-                                                        event,
                                                         element
                                                     )
                                                 }
@@ -168,33 +200,34 @@ class Faqs extends Component {
                                         </div>
                                     }
                                 >
-                                    <Modal
-                                        title="Edit a Question"
-                                        visible={this.state.m2visible}
-                                        onOk={event =>
-                                            this.m2handleOk(event, element)
-                                        }
-                                        onCancel={this.m2handleCancel}
-                                    >
-                                        <Input
-                                            placeholder="Question"
-                                            allowClear
-                                            onChange={this.onChangeQuestion}
-                                            defaultValue={
-                                                this.state.newquestion
-                                            }
-                                        />
-                                        <Input
-                                            placeholder="Answer"
-                                            allowClear
-                                            onChange={this.onChangeAnswer}
-                                            defaultValue={this.state.newanswer}
-                                        />
-                                    </Modal>
                                     <p>{element.answer}</p>
                                 </Card>
                             </div>
                         ))}
+                        
+                        <Modal
+                            title="Edit a Question"
+                            visible={this.state.m2visible}
+                            onOk={event => this.m2handleOk(event)}
+                            onCancel={this.m2handleCancel}
+                            destroyOnClose={true}
+                            // mquestion={this.state.newfaq.question}
+                            // manswer={this.state.newfaq.answer}
+                        >
+                            <Input
+                                placeholder="Question"
+                                allowClear
+                                onChange={this.onChangeQuestion}
+                                defaultValue={this.state.newfaq.question}
+                            />
+                            <Input
+                                placeholder="Answer"
+                                allowClear
+                                onChange={this.onChangeAnswer}
+                                defaultValue={this.state.newfaq.answer}
+
+                            />
+                        </Modal>
                     </div>
                 </Col>
                 {/* </Row> */}
