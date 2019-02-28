@@ -16,8 +16,8 @@ class CreateListItemsTable extends Migration
         Schema::create('list_items', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->integer('list_id')->unsigned();
-            $table->foreign('list_id')->references('id')->on('shopping_lists');
+            $table->integer('shopping_list_id')->unsigned();
+            $table->foreign('shopping_list_id')->references('id')->on('shopping_lists');
             
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references('id')->on('products');

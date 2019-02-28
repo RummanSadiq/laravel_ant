@@ -12,7 +12,7 @@ class Store extends Model
      * @var array
      */
     protected $fillable = [
-        'owner_id', 
+        'user_id', 
         'store_type_id', 
         'address_id',
         'name',
@@ -28,8 +28,43 @@ class Store extends Model
         'close_time',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function address() 
+    {
+        return $this->hasOne('App\Address');
+    }
+
+    public function products() 
+    {
+        return $this->hasMany('App\Product');
+    }
+
+    public function storeType()
+    {
+        return $this->belongsTo('App\StoreType');
+    }
+
+    public function storeFollowers() 
+    {
+        return $this->hasMany('App\StoreFollower');
+    } 
+    
+    public function reviews() 
+    {
+        return $this->hasMany('App\Review');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Post');
+    }
+
     public function faqs()
     {
-        return $this->hasMany(Faq::class);
+        return $this->hasMany('App\Faq');
     }
 }

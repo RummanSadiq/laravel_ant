@@ -21,7 +21,7 @@ class Faqs extends Component {
     };
 
     componentDidMount() {
-        axios.get("http://pulsespace.com/api/faqs").then(res => {
+        axios.get("/api/faqs").then(res => {
             const faqsdata = res.data;
             this.setState({ faqs: faqsdata });
         });
@@ -31,10 +31,10 @@ class Faqs extends Component {
         event.preventDefault();
         const counters = this.state.faqs.filter(c => c.id !== counterId);
         this.setState({ faqs: counters });
-        axios.delete('/faqs/${counterId}').then(res => {
-          const faqsdata = res.data;
-          this.setState({ faqs: faqsdata });
-      });
+        axios.delete("/api//faqs/${counterId}").then(res => {
+            const faqsdata = res.data;
+            this.setState({ faqs: faqsdata });
+        });
     }
 
     showModal = () => {

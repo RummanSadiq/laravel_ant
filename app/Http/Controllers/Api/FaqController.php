@@ -18,11 +18,13 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $id = Auth::id();
-        $store = Store::select('id')->where('owner_id', $id)->first();
-        $store_id = $store->id;
+        $user = Auth::user();
+        // $store = Store::select('id')->where('owner_id', $id)->first();
+        $store = $user->store;
+        // $store_id = $store->id;
         
-        $faqs = Faq::where('store_id', $store_id)->get();
+        // $faqs = Faq::where('store_id', $store_id)->get();
+        $faqs = $store->faqs;
         return response()->json($faqs);
     }
 

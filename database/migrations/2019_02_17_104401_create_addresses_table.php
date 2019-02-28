@@ -17,8 +17,8 @@ class CreateAddressesTable extends Migration
             $table->increments('id');
 
             $table->string('place');
-            $table->float('latitude')->nullable();
-            $table->float('longitude')->nullable();
+            $table->decimal('latitude', 10, 8)->nullable();
+            $table->decimal('longitude', 11, 8)->nullable();
             $table->string('zip')->nullable();
             $table->string('country');
 

@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->integer('store_id')->unsigned();
             $table->foreign('store_id')->references('id')->on('stores');
 
-            $table->string('text');
+            $table->string('description');
 
             $table->timestamps();
         });

@@ -12,6 +12,11 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'store_id', 'text'
+        'store_id', 'description'
     ];
+
+    public function store() 
+    {
+        return $this->belongsTo('App\Store');
+    }
 }

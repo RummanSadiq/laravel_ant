@@ -24,6 +24,8 @@ class CreateMessagesTable extends Migration
 
             $table->boolean('receiver_type');
             $table->boolean('sender_type');
+
+            $table->string('description');
             
             $table->timestamps();
         });

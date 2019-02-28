@@ -14,4 +14,24 @@ class Product extends Model
     protected $fillable = [
         'store_id', 'name', 'description', 'display_picture', 'price', 'category_id',
     ];
+
+    public function store()
+    {
+        return $this->belongsTo('App\Store');
+    }
+
+    public function category() 
+    {
+        return $this->belongsTo('App\Category');
+    }
+
+    public function shoppingLists()
+    {
+        return $this->belongsToMany('App\ShoppingList', 'list_items');
+    }
+
+    public function promotion()
+    {
+        return $this->hasOne('App\Promotion');
+    }
 }

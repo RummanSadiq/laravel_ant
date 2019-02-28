@@ -14,4 +14,9 @@ class Faq extends Model
     protected $fillable = [
         'store_id', 'question', 'answer',
     ];
+
+    public function store()
+    {
+        return $this->belongsTo('App\Store');
+    }
 }
