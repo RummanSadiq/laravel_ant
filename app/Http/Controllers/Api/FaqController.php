@@ -18,8 +18,8 @@ class FaqController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
         // $store = Store::select('id')->where('owner_id', $id)->first();
+        $user = Auth::user();
         $store = $user->store;
         // $store_id = $store->id;
         
@@ -46,6 +46,9 @@ class FaqController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $store = $user->store;
+        $request['store_id'] = $store->id;
         $faq = Faq::create($request->all());
         return response()->json($faq, 201);
     }

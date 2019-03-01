@@ -27,11 +27,11 @@ class Faqs extends Component {
         });
     }
 
-    handleDelete(event, counterId) {
+    handleDelete(event, id) {
         event.preventDefault();
-        const counters = this.state.faqs.filter(c => c.id !== counterId);
+        const counters = this.state.faqs.filter(c => c.id !== id);
         this.setState({ faqs: counters });
-        axios.delete("/api//faqs/${counterId}").then(res => {
+        axios.delete("/api/faqs/" + id).then(res => {
             const faqsdata = res.data;
             this.setState({ faqs: faqsdata });
         });
@@ -49,7 +49,6 @@ class Faqs extends Component {
         });
         let id = this.state.faqs.length - 1;
         var str = {
-            store_id: 1,
             question: this.state.newquestion,
             answer: this.state.newanswer
         };
@@ -108,7 +107,7 @@ class Faqs extends Component {
         faq[index].answer = this.state.newanswer;
 
         let updatedfaq = faq[index];
-        axios.post("/api/faqs/${updatedfaq.id}", updatedfaq).then(res => {
+        axios.post("/api/faqs/" + updatedfaq.id, updatedfaq).then(res => {
             const faqsdata = res.data;
             this.setState({ faqs: faqsdata });
         });
