@@ -30,7 +30,6 @@ Route::get('/products', 'Api\ProductController@index');
 Route::post('/products', 'Api\ProductController@store');
 Route::post('/products/{id}', 'Api\ProductController@update');
 Route::delete('/products/{id}', 'Api\ProductController@destroy');
-Route::get('/products/{id}', 'Api\ProductController@myProducts');
 
 
 //Faqs

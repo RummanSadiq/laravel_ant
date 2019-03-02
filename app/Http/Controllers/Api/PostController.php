@@ -16,7 +16,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $user = Auth::user();
+        $store = $user->store;
+        $posts = $store->posts;
         return response()->json($posts);
     }
 
@@ -38,10 +40,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        return Post::create([
-            'store_id' => auth()->user()->id,
-            'text' => $data['text'],
-        ]);
+        $user = Auth::user();
+        $store = $user->store;
+        $request['store_id'] = $store->id;
+        $post = Post::create($request->all());
+        return response()->json($post, 201);
     }
 
     /**
@@ -50,10 +53,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
-        $posts = Post::where('store_id', '1')->get();
-        return response()->json($posts);
+        //
     }
 
     /**
@@ -76,7 +78,9 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::find($id);
+        $post->update($request->all());
+        return response()->json($post, 201);
     }
 
     /**
@@ -85,8 +89,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy($id)
     {
+        $post = Post::find($id);
         $post->delete();
     }
 }

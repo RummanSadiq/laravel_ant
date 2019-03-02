@@ -15,7 +15,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $user = Auth::user();
+        $store = $user->store;
+        $products = $store->products;
         return response()->json($products);
     }
 
@@ -37,6 +39,9 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $store = $user->store;
+        $request['store_id'] = $store->id;
         $product = Product::create($request->all());
         return response()->json($product, 201);
     }
@@ -50,12 +55,6 @@ class ProductController extends Controller
     public function show($id)
     {
         //
-    }
-
-    public function myProducts($store_id) {
-
-        $products = Product::where('store_id', $store_id)->get();
-        return response()->json($products);
     }
 
     /**
@@ -78,7 +77,9 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->update($request->all());
+        return response()->json($product, 201);
     }
 
     /**
@@ -89,6 +90,7 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
     }
 }
