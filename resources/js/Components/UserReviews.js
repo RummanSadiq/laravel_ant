@@ -24,7 +24,6 @@ class UserReviews extends Component {
   render() {
     return (
       <div style={{ maxWidth: "80%" }}>
-        {/* <Row style={{position:"inherit"}}> */}
         <Col span={16} offset={6}>
           <h1 style={{ textAlign: "center" }}>
             What Users think about your store
@@ -46,7 +45,6 @@ class UserReviews extends Component {
             </div>
           ))}
         </Col>
-        {/* </Row> */}
       </div>
     );
   }
