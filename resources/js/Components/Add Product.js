@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Col, Input, Button, Upload, Card, Icon, Select } from "antd";
+import axios from "axios";
 
 const { TextArea } = Input;
 const Option = Select.Option;
@@ -47,20 +48,18 @@ function handletagsChange(value) {
 
 class AddProduct extends Component {
     state = {
-   product:[
-      product_name='',
-      product_description='',
-      pictures='',
-      category='',
-   ]
-     
-
+        product: [
+            (product_name = ""),
+            (product_description = ""),
+            (pictures = ""),
+            (category = "")
+        ]
     };
 
     handleChangeCategory(value) {
-      console.log(`selected ${value}`);
-      this.setState({});
-  }
+        console.log(`selected ${value}`);
+        this.setState({});
+    }
 
     render() {
         return (
