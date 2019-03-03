@@ -1,25 +1,27 @@
 import React, { Component } from "react";
 import { Row, Col, Card, Avatar, Rate } from "antd";
-
+import axios from 'axios';
 class UserReviews extends Component {
   state = {
     Review: [
-      {
-        username: "John",
-        time: "12/12/12",
-        description: "this is not a good store",
-        rating: 1
-      },
-      {
-        username: "John",
-        time: "12/12/12",
-        description: "this is not a good store",
-        rating: 2
-      }
+      // {
+      //   username: "John",
+      //   time: "12/12/12",
+      //   description: "this is not a good store",
+      //   rating: 1
+      // },
+      // {
+      //   username: "John",
+      //   time: "12/12/12",
+      //   description: "this is not a good store",
+      //   rating: 2
+      // }
     ]   
   };
 
-  
+// componentDidMount(){
+// axios.get('/api/')
+// }  
 
   render() {
     return (
@@ -35,7 +37,7 @@ class UserReviews extends Component {
                   <div>
                     {" "}
                     <Avatar size={64} icon="user" />
-                    <span style={{marginLeft:'1%'}}>{element.username}</span>
+                    <span style={{marginLeft:'1%'}}>{element.user_id}</span>
                   </div>
                 }
                 extra={<Rate disabled defaultValue={element.rating} />}

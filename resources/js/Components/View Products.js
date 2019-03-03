@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Col, Card, Table, Tag, Divider} from 'antd';
+import axios from "axios";
 
 const columns = [{
     title: 'Name',
@@ -12,7 +13,7 @@ const columns = [{
     key: 'description',
   }, {
     title: 'Picture',
-    dataIndex: 'picture',
+    dataIndex: 'display_picture',
     key: 'picture',
   },{
     title: 'Price',
@@ -20,7 +21,7 @@ const columns = [{
     key: 'price',
   },{
     title: 'Category',
-    dataIndex: 'category',
+    dataIndex: 'category_id',
     key: 'category',
   }, {
     title: 'Tags',
@@ -53,20 +54,19 @@ const columns = [{
     category: 'Category',
     tags: ['nice', 'developer'],
   }];
+
+
 class ViewProducts extends Component {
     state = { 
-      product:[{
-        key: '1',
-    name: 'Sweat Shirt',
-    description: 'This is a SweatShirt',
-    display_picture: 'image here',
-    price: '$25',
-    category: 'Category',
-    tags: ['nice', 'developer'],
-      }
+      product:[
       ]
      }
-    
+     componentDidMount() {
+        axios.get("/api/products").then(res => {
+            const data = res.data;
+            this.setState({ product: data });
+        });
+    }
     render() { 
         return (  
             <div>

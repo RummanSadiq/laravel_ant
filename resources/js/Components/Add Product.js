@@ -41,18 +41,18 @@ const props = {
 //     // this.setState({addproduct.category:value});
 // }
 
-function handletagsChange(value) {
-    console.log(`selected ${value}`);
-}
+// function handletagsChange(value) {
+//     console.log(`selected ${value}`);
+// }
 
 class AddProduct extends Component {
     state = {
-   product:[
-      product_name='',
-      product_description='',
-      pictures='',
-      category='',
-   ]
+//    product:[
+//       product_name='',
+//       product_description='',
+//       pictures='',
+//       category='',
+//    ]
      
 
     };
@@ -92,7 +92,7 @@ class AddProduct extends Component {
                         <Select
                             placeholder="Select Category"
                             style={{ width: 320 }}
-                            onChange={handleChangeCategory}
+                            // onChange={handleChangeCategory}
                         >
                             <option value="Women's Fashion">
                                 Women's Fashion
@@ -140,7 +140,7 @@ class AddProduct extends Component {
                             style={{ width: "100%" }}
                             placeholder="Please select"
                             defaultValue={["a10", "c12"]}
-                            onChange={handletagsChange}
+                            // onChange={handletagsChange}
                         >
                             {children}
                         </Select>
