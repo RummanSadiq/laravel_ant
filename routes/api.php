@@ -38,6 +38,12 @@ Route::post('/faqs', 'Api\FaqController@store');
 Route::post('/faqs/{id}', 'Api\FaqController@update');
 Route::delete('/faqs/{id}', 'Api\FaqController@destroy');
 
+//Reviews
+Route::get('/reviews', 'Api\ReviewController@index');
+Route::post('/reviews', 'Api\ReviewController@store');
+Route::post('/reviews/{id}', 'Api\ReviewController@update');
+Route::delete('/reviews/{id}', 'Api\ReviewController@destroy');
+
 
 //Messages
 Route::get('/messages', 'Api\MessageController@index');

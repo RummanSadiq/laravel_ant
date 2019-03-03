@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Review;
+use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
@@ -18,6 +20,11 @@ class ReviewController extends Controller
         $user = Auth::user();
         $store = $user->store;
         $reviews = $store->reviews;
+
+        foreach($reviews as $rev) {
+            $rev["key"] = $rev->id;
+            $rev['username'] = User::find($rev->user_id)->name;
+        }
         return response()->json($reviews);
     }
 

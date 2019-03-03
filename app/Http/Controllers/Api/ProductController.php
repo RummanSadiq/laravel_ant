@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Product;
+use App\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -18,6 +20,10 @@ class ProductController extends Controller
         $user = Auth::user();
         $store = $user->store;
         $products = $store->products;
+        foreach($products as $prod) {
+            $prod["key"] = $prod->id;
+            $prod["category"] = Category::find($prod->category_id)->name;
+        }
         return response()->json($products);
     }
 
