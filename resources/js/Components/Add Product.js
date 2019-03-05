@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Input, Button, Upload, Card, Icon, Select, Form } from "antd";
+import { Col, Input, Button, Upload, Card, Icon, Select, Form, Row } from "antd";
 import axios from "axios";
 
 const { TextArea } = Input;
@@ -102,6 +102,7 @@ class AddProductForm extends React.Component {
             isFieldTouched("category") && getFieldError("category");
             const tagsError =
             isFieldTouched("tags") && getFieldError("tags");
+            const priceError = isFieldTouched("price") && getFieldError("price");
         return (
             <Col span={12} offset={6}>
                 <Card
@@ -127,6 +128,23 @@ class AddProductForm extends React.Component {
                         </Form.Item>
                         <div style={{ marginTop: "2%" }} />
 
+                        <Form.Item
+                        validateStatus={priceError ? 'error' : ''}
+                        help={descriptionError || ''}
+                        >
+                        {getFieldDecorator('price', {
+            rules: [{ required: true, message: 'Please input your Product Price!' }],
+          })(
+              <Row>
+                  <Col span={4}> <Input
+            size="small"
+            placeholder="price"
+        /> 
+                  </Col>
+              </Row>
+                    )}
+                           
+                        </Form.Item>
                         <Form.Item
                         validateStatus={descriptionError ? 'error' : ''}
                         help={descriptionError || ''}

@@ -49,10 +49,13 @@ class UserReviews extends Component {
                                     </div>
                                 }
                                 extra={
-                                    <Rate
-                                        disabled
-                                        defaultValue={element.rating}
-                                    />
+                                    <div>
+                                        <Rate
+                                            disabled
+                                            defaultValue={element.rating}
+                                        />
+                                        {element.created_at}
+                                    </div>
                                 }
                             >
                                 {element.description}
