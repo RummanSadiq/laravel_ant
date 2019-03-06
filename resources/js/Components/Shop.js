@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-
+import moment from 'moment';
 import {
     Col,
     Card,
@@ -21,8 +21,8 @@ const InputGroup = Input.Group;
 class Shop extends Component {
     state = {
         StoreName: "Raheem Store",
-        Contact: "+92-xxx-xxxxxxx",
-        StoreType: "Clothing",
+        Contact: "+923355454",
+        StoreType: "Men's Fashion",
         OpeningTime: "10 am",
         ClosingTime: "10 pm",
         OpensonWeekend: "yes",
@@ -30,6 +30,7 @@ class Shop extends Component {
         Wifi: "no",
         Delivery: "yes",
         Address: "SHop no. 65 5th street",
+        City: "Lahore",
         edit: false
     };
 
@@ -180,7 +181,21 @@ class Shop extends Component {
                             </Row>
                         )}
                     </Card>
-                    {this.state.edit && <SHForm />}
+                    {this.state.edit && (
+                        <SHForm
+                            storeName={this.state.StoreName}
+                            contact={this.state.Contact}
+                            StoreType={this.state.StoreType}
+                            OpeningTime={this.state.OpeningTime}
+                            ClosingTime={this.state.ClosingTime}
+                            OpensonWeekend={this.state.OpensonWeekend}
+                            AcceptsCard={this.state.AcceptsCard}
+                            Wifi={this.state.Wifi}
+                            Delivery={this.state.Delivery}
+                            Address={this.state.Address}
+                            City={this.state.City}
+                        />
+                    )}
                 </Col>
 
                 <Col span={12} offset={6}>
@@ -199,14 +214,18 @@ class Shop extends Component {
                         </div>
                     </Carousel>
                 </Col>
-                {/* <Row gutter={16}>
-    <Col span={12}> */}
-      <Statistic title="Feedback" value={1128} prefix={<Icon type="like" />} />
-    {/* </Col> */}
-    {/* <Col span={12}> */}
-      <Statistic title="Views" value={93}  prefix={<Icon type="eye" />}/>
-    {/* </Col>
-  </Row> */}
+
+                <Statistic
+                    title="Feedback"
+                    value={1128}
+                    prefix={<Icon type="like" />}
+                />
+
+                <Statistic
+                    title="Views"
+                    value={93}
+                    prefix={<Icon type="eye" />}
+                />
             </div>
         );
     }
@@ -226,6 +245,8 @@ class ShopForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
+            }else{
+                console.log('Errors',err);
             }
         });
     };
@@ -268,6 +289,8 @@ class ShopForm extends React.Component {
                         help={storeTypeError || ""}
                     >
                         {getFieldDecorator("storetype", {
+                            initialValue:this.props.StoreType,
+                            valuePropName:'StoreType',
                             rules: [
                                 {
                                     required: true,
@@ -278,41 +301,41 @@ class ShopForm extends React.Component {
                             <Select
                                 placeholder="Select Category"
                                 style={{ width: 320 }}
-                                // onChange={handleChangeCategory}
+                                
                             >
-                                <Option value="Women's Fashion">
+                                <Option value="WomensFashion">
                                     Women's Fashion
                                 </Option>
-                                <Option key="1" value="Men's Fashion">
+                                <Option key="1" value="MensFashion">
                                     Men's Fashion
                                 </Option>
-                                <Option key="2" value="Electronics and Devices">
+                                <Option key="2" value="ElectronicsandDevices">
                                     Electronics and Devices
                                 </Option>
-                                <Option key="3" value="Electronic Accessories">
+                                <Option key="3" value="ElectronicAccessories">
                                     Electronic Accessories
                                 </Option>
-                                <Option key="4" value="TV and Home Applicances">
+                                <Option key="4" value="TVandHomeApplicances">
                                     TV and Home Applicances
                                 </Option>
-                                <Option key="5" value="Health and Beauty">
+                                <Option key="5" value="HealthandBeauty">
                                     Health and Beauty
                                 </Option>
-                                <Option key="6" value="Babies and Toys">
+                                <Option key="6" value="BabiesandToys">
                                     Babies and Toys
                                 </Option>
-                                <Option key="7" value="Grocery and Pets">
+                                <Option key="7" value="GroceryandPets">
                                     Grocery and Pets
                                 </Option>
-                                <Option key="8" value="Home and Lifestyle">
+                                <Option key="8" value="HomeandLifestyle">
                                     Home and Lifestyle
                                 </Option>
-                                <Option key="9" value="Watches and Accessories">
+                                <Option key="9" value="WatchesandAccessories">
                                     Watches and Accessories
                                 </Option>
                                 <Option
                                     key="10"
-                                    value="Automotive and Motorbike"
+                                    value="AutomotiveandMotorbike"
                                 >
                                     Automotive and Motorbike
                                 </Option>
@@ -328,13 +351,18 @@ class ShopForm extends React.Component {
                         help={storeNameError || ""}
                     >
                         {getFieldDecorator("storename", {
+                            initialValue:this.props.storeName,
                             rules: [
                                 {
                                     required: true,
                                     message: "Please input your Store Name"
                                 }
                             ]
-                        })(<Input placeholder="Store Name" />)}
+                        })(
+                            <Input
+                                placeholder="Store Name"
+                            />
+                        )}
                     </Form.Item>
                     <InputGroup>
                         <Row>
@@ -346,6 +374,8 @@ class ShopForm extends React.Component {
                                     help={openTimeError || ""}
                                 >
                                     {getFieldDecorator("opentime", {
+                                    initialValue:moment(this.props.ClosingTime, 'HH:mm:ss'),
+
                                         rules: [
                                             {
                                                 required: true,
@@ -357,6 +387,7 @@ class ShopForm extends React.Component {
                                             use12Hours
                                             format="h:mm a"
                                             placeholder="Opening Time"
+                                            
                                         />
                                     )}
                                 </Form.Item>
@@ -369,6 +400,7 @@ class ShopForm extends React.Component {
                                     help={closeTimeError || ""}
                                 >
                                     {getFieldDecorator("closetime", {
+                                        initialValue: moment(this.props.ClosingTime, 'HH:mm:ss'),
                                         rules: [
                                             {
                                                 required: true,
@@ -380,6 +412,7 @@ class ShopForm extends React.Component {
                                             use12Hours
                                             format="h:mm a"
                                             placeholder="Closing Time"
+                                            
                                         />
                                     )}
                                 </Form.Item>
@@ -391,6 +424,7 @@ class ShopForm extends React.Component {
                         help={contactError || ""}
                     >
                         {getFieldDecorator("contact", {
+                            initialValue:this.props.contact,
                             rules: [
                                 {
                                     required: true,
@@ -398,7 +432,12 @@ class ShopForm extends React.Component {
                                         "Please input your Store Contact number"
                                 }
                             ]
-                        })(<Input placeholder="Contact" type="number" />)}
+                        })(
+                            <Input
+                                placeholder="Contact"
+                                type="phone"
+                            />
+                        )}
                     </Form.Item>
 
                     <Form.Item
@@ -406,6 +445,7 @@ class ShopForm extends React.Component {
                         help={weekendError || ""}
                     >
                         {getFieldDecorator("weekend", {
+                            initialValue:this.props.OpensonWeekend,
                             rules: [
                                 {
                                     required: true,
@@ -413,7 +453,9 @@ class ShopForm extends React.Component {
                                 }
                             ]
                         })(
-                            <Select placeholder="Opens on weekend">
+                            <Select
+                                placeholder="Opens on weekend"
+                            >
                                 <Option value={true}>Yes</Option>
                                 <Option value={false}>No</Option>
                             </Select>
@@ -424,6 +466,7 @@ class ShopForm extends React.Component {
                         help={cardError || ""}
                     >
                         {getFieldDecorator("card", {
+                            initialValue:this.props.AcceptsCard,
                             rules: [
                                 {
                                     required: true,
@@ -431,7 +474,9 @@ class ShopForm extends React.Component {
                                 }
                             ]
                         })(
-                            <Select placeholder="Store accepts credit card?">
+                            <Select
+                                placeholder="Store accepts credit card?"
+                            >
                                 <Option value={true}>Yes</Option>
                                 <Option value={false}>No</Option>
                             </Select>
@@ -443,6 +488,7 @@ class ShopForm extends React.Component {
                         help={wifiError || ""}
                     >
                         {getFieldDecorator("wifi", {
+                            initialValue:this.props.Wifi,
                             rules: [
                                 {
                                     required: true,
@@ -450,7 +496,9 @@ class ShopForm extends React.Component {
                                 }
                             ]
                         })(
-                            <Select placeholder="Store has wifi?">
+                            <Select
+                                placeholder="Store has wifi?"
+                            >
                                 <Option value={true}>Yes</Option>
                                 <Option value={false}>No</Option>
                             </Select>
@@ -462,6 +510,7 @@ class ShopForm extends React.Component {
                         help={deliveryError || ""}
                     >
                         {getFieldDecorator("wifi", {
+                            initialValue:this.props.Delivery,
                             rules: [
                                 {
                                     required: true,
@@ -469,7 +518,9 @@ class ShopForm extends React.Component {
                                 }
                             ]
                         })(
-                            <Select placeholder="Store provides Delivery?">
+                            <Select
+                                placeholder="Store provides Delivery?"
+                            >
                                 <Option value={true}>Yes</Option>
                                 <Option value={false}>No</Option>
                             </Select>
@@ -481,9 +532,12 @@ class ShopForm extends React.Component {
                         help={cityError || ""}
                     >
                         {getFieldDecorator("city", {
+                            initialValue:this.props.City,
                             rules: [{ required: true, message: "Store city" }]
                         })(
-                            <Select placeholder="Store cityprovides Delivery?">
+                            <Select
+                                placeholder="Store city"
+                            >
                                 <Option value="Lahore">Lahore</Option>
                                 <Option value="Islamabad">Islamabad</Option>
                             </Select>
@@ -495,10 +549,15 @@ class ShopForm extends React.Component {
                         help={addressError || ""}
                     >
                         {getFieldDecorator("address", {
+                            initialValue:this.props.Address,
                             rules: [
                                 { required: true, message: "Store address" }
                             ]
-                        })(<Input placeholder="Store address" />)}
+                        })(
+                            <Input
+                                placeholder="Store address"
+                            />
+                        )}
                     </Form.Item>
 
                     <Form.Item>
