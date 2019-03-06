@@ -1,41 +1,35 @@
 import React, { Component } from "react";
-import { Col, Input, Button, Upload, Card, Icon, Select, Form, Row } from "antd";
+import { Col, Input, Button, Upload, Card, Icon, Select, Form, Row,message } from "antd";
 import axios from "axios";
 
 const { TextArea } = Input;
 const Option = Select.Option;
 
-const fileList = [
-    {
-        uid: "-1",
-        name: "xxx.png",
-        status: "done",
-        url:
-            "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-        thumbUrl:
-            "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-    },
-    {
-        uid: "-2",
-        name: "yyy.png",
-        status: "done",
-        url:
-            "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-        thumbUrl:
-            "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-    }
-];
+
 const children = [];
 for (let i = 10; i < 36; i++) {
     children.push(
         <Option key={i.toString(36) + i}>{i.toString(36) + i}</Option>
     );
 }
+
 const props = {
-    action: "//jsonplaceholder.typicode.com/posts/",
-    listType: "picture",
-    defaultFileList: [...fileList]
-};
+    name: 'file',
+    action: '//jsonplaceholder.typicode.com/posts/',
+    headers: {
+      authorization: 'authorization-text',
+    },
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
 
 // function handleChange(value) {
 //     console.log(`selected ${value}`);
@@ -68,10 +62,10 @@ function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 class AddProductForm extends React.Component {
-    componentDidMount() {
-        // To disabled submit button at the beginning.
-        this.props.form.validateFields();
-    }
+    // componentDidMount() {
+    //     // To disabled submit button at the beginning.
+    //     this.props.form.validateFields();
+    // }
 
     handleSubmit = e => {
         e.preventDefault();
@@ -138,6 +132,7 @@ class AddProductForm extends React.Component {
               <Row>
                   <Col span={4}> <Input
             size="small"
+            type="number"
             placeholder="price"
         /> 
                   </Col>
