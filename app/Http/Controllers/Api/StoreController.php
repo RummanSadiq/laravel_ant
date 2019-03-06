@@ -64,11 +64,14 @@ class StoreController extends Controller
             'country'=>$request->input('country')
         ]);
 
-        
+        $storetype = StoreType::select('id')->where('name', $request['store_type'])->first();
+        $request['store_type_id'] = $storetype->id;
         $request['user_id'] = $user->id;
         $request['address_id'] = $address->id;
 
-        $store = Store::create($request->all());
+        $store = Store::create([
+            'name'=>$request->input('name')
+        ]);
         return response()->json($store, 201);
     }
 
@@ -105,7 +108,39 @@ class StoreController extends Controller
     {
         $user = Auth::user();
         $store = $user->store;
-        $store->update($request->all());
+
+        if($request->has('address_id')) 
+        {
+            $address = Address::create([
+                'place'=>$request->input('place'),
+                'latitude'=>$request->input('latitude'),
+                'longitude'=>$request->input('longitude'),
+                'zip'=>$request->input('zip'),
+                'country'=>$request->input('country')
+            ]);
+            $request['address_id'] = $address->id;
+        } 
+        else
+        {
+            $address = Address::update([
+                'place'=>$request->input('place'),
+                'latitude'=>$request->input('latitude'),
+                'longitude'=>$request->input('longitude'),
+                'zip'=>$request->input('zip'),
+                'country'=>$request->input('country')
+            ]);
+        }
+        
+
+        if($request->has('store_type')) 
+        {
+            $storetype = StoreType::select('id')->where('name', $request['store_type'])->first();
+            $request['store_type_id'] = $storetype->id;
+        }
+        
+        $store->update([
+            'name'=>$request->input('name')
+        ]);
         return response()->json($store, 201);
     }
 
