@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Store;
+use App\StoreType;
+use App\Address;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class StoreController extends Controller
 {
@@ -15,7 +19,21 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        $stores = Store::all();
+        return response()->json($stores);
+    }
+
+    public function myShop()
+    {
+        
+        $user = Auth::user();
+        $store = $user->store;
+
+        $store['store_owner'] = $user->name;
+        $store['store_type'] = StoreType::find($store->store_type_id)->name;
+        $store['address'] = Address::find($store->address_id)->place;
+
+        return response()->json($store);
     }
 
     /**
@@ -36,7 +54,11 @@ class StoreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $store = $user->store;
+        $request['user_id'] = $user->id;
+        $store = Store::create($request->all());
+        return response()->json($store, 201);
     }
 
     /**
@@ -68,9 +90,12 @@ class StoreController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+        $store = $user->store;
+        $store->update($request->all());
+        return response()->json($store, 201);
     }
 
     /**
@@ -81,6 +106,7 @@ class StoreController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $store = Store::find($id);
+        $store->delete();
     }
 }
