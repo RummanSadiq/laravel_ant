@@ -274,7 +274,7 @@ axios.get ('/api/storetypes').then(res => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
-                 axios.post("/api/shop",values).then(res => {
+                 axios.post("/api/updateshop",values).then(res => {
             console.log(res);
         });
             }else{
