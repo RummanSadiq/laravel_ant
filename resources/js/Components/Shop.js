@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import { Col, Card, Row, Button, Form, Select, Input } from "antd";
+import axios from 'axios';
 
 const Option = Select.Option;
 
@@ -21,6 +22,10 @@ class Shop extends Component {
 
     handleedit=()=>{
         this.setState({edit:!this.state.edit});
+    }
+
+    componentDidMount (){
+
     }
     render() {
         return (
@@ -163,7 +168,7 @@ function hasErrors(fieldsError) {
 class ShopForm extends React.Component {
     componentDidMount() {
         // To disabled submit button at the beginning.
-        this.props.form.validateFields();
+        // this.props.form.validateFields();
     }
 
     handleSubmit = e => {
