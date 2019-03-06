@@ -17,6 +17,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//Shop
+Route::get('/shops', 'Api\StoreController@index');
+Route::post('/shop', 'Api\StoreController@store');
+Route::post('/updateshop', 'Api\StoreController@update');
+Route::delete('/shops/{id}', 'Api\StoreController@destroy');
+Route::get('/myshop', 'Api\StoreController@myShop');
+
 
 //Posts
 Route::get('/posts', 'Api\PostController@index');
