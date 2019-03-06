@@ -268,10 +268,6 @@ class ShopForm extends React.Component {
                     console.log(res);
                 });
             } else {
-                console.log("Received values of form: ", values);
-                axios.post("/api/updateshop", values).then(res => {
-                    console.log(res);
-                });
                 console.log("Errors", err);
             }
         });
