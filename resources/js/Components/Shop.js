@@ -197,7 +197,7 @@ class Shop extends Component {
                             contact={this.state.store.Contact}
                             store_type={this.state.store.store_type}
                             OpeningTime={this.state.store.open_time}
-                            ClosingTime={this.state.store.close-time}
+                            ClosingTime={this.state.store.close_time}
                             OpensonWeekend={this.state.store.OpensonWeekend}
                             AcceptsCard={this.state.store.card_payment}
                             Wifi={this.state.store.wifi}
@@ -241,14 +241,31 @@ class Shop extends Component {
     }
 }
 
+
+
+
+
+
+
+
+
+
+
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 class ShopForm extends React.Component {
+    state={
+        store_types:[]
+    };
     componentDidMount() {
         // To disabled submit button at the beginning.
         // this.props.form.validateFields();
-
+axios.get ('/api/storetypes').then(res => {
+    const storedata = res.data;
+    console.log(storedata);
+    this.setState({ store_types: storedata });
+});
        
     }
 
@@ -319,49 +336,17 @@ class ShopForm extends React.Component {
                             ]
                         })(
                             <Select
-                                placeholder="Select Category"
+                                placeholder="Select Type of store"
                                 style={{ width: 320 }}
                                 
                             >
-                                <Option value="WomensFashion">
-                                    Women's Fashion
-                                </Option>
-                                <Option key="1" value="MensFashion">
-                                    Men's Fashion
-                                </Option>
-                                <Option key="2" value="ElectronicsandDevices">
-                                    Electronics and Devices
-                                </Option>
-                                <Option key="3" value="ElectronicAccessories">
-                                    Electronic Accessories
-                                </Option>
-                                <Option key="4" value="TVandHomeApplicances">
-                                    TV and Home Applicances
-                                </Option>
-                                <Option key="5" value="HealthandBeauty">
-                                    Health and Beauty
-                                </Option>
-                                <Option key="6" value="BabiesandToys">
-                                    Babies and Toys
-                                </Option>
-                                <Option key="7" value="GroceryandPets">
-                                    Grocery and Pets
-                                </Option>
-                                <Option key="8" value="HomeandLifestyle">
-                                    Home and Lifestyle
-                                </Option>
-                                <Option key="9" value="WatchesandAccessories">
-                                    Watches and Accessories
-                                </Option>
-                                <Option
-                                    key="10"
-                                    value="AutomotiveandMotorbike"
-                                >
-                                    Automotive and Motorbike
-                                </Option>
-                                <Option key="12" value="Sports">
-                                    Sports
-                                </Option>
+
+                            {this.state.store_types.map(element=>(
+                                <option value={element.id}>{element.name}</option>
+
+
+                            ))}
+                                
                             </Select>
                         )}
                     </Form.Item>
