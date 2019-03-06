@@ -20,7 +20,7 @@ class CreateAddressesTable extends Migration
             $table->decimal('latitude', 10, 8)->nullable();
             $table->decimal('longitude', 11, 8)->nullable();
             $table->string('zip')->nullable();
-            $table->string('country');
+            $table->string('country')->nullable();
 
             $table->timestamps();
         });

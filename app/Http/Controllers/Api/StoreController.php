@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Store;
 use App\StoreType;
 use App\Address;
+use App\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -107,39 +108,44 @@ class StoreController extends Controller
     public function update(Request $request)
     {
         $user = Auth::user();
+        // $user = User::find(1);
         $store = $user->store;
 
-        if($request->has('address_id')) 
-        {
-            $address = Address::create([
-                'place'=>$request->input('place'),
-                'latitude'=>$request->input('latitude'),
-                'longitude'=>$request->input('longitude'),
-                'zip'=>$request->input('zip'),
-                'country'=>$request->input('country')
-            ]);
-            $request['address_id'] = $address->id;
-        } 
-        else
-        {
-            $address = Address::update([
-                'place'=>$request->input('place'),
-                'latitude'=>$request->input('latitude'),
-                'longitude'=>$request->input('longitude'),
-                'zip'=>$request->input('zip'),
-                'country'=>$request->input('country')
-            ]);
-        }
+        // if($request->has('address_id')) 
+        // {
+        //     $address = Address::create([
+                // 'place'=>$request->input('place'),
+                // 'latitude'=>$request->input('latitude'),
+                // 'longitude'=>$request->input('longitude'),
+                // 'zip'=>$request->input('zip'),
+                // 'country'=>$request->input('country')
+        //     ]);
+        //     $request['address_id'] = $address->id;
+        // } 
+        // else
+        // {
+            
+        // } 
+        
+        $address = Address::find($store->address_id);
+        $address->update([
+            'place'=>$request->input('address'),
+            'latitude'=>$request->input('latitude'),
+            'longitude'=>$request->input('longitude'),
+            'zip'=>$request->input('zip'),
+            'country'=>$request->input('country')
+        ]);
         
 
-        if($request->has('store_type')) 
-        {
-            $storetype = StoreType::select('id')->where('name', $request['store_type'])->first();
-            $request['store_type_id'] = $storetype->id;
-        }
+        // if($request->has('store_type')) 
+        // {
+        //     $storetype = StoreType::select('id')->where('name', $request['store_type'])->first();
+        //     $request['store_type_id'] = $storetype->id;
+        // }
         
         $store->update([
-            'name'=>$request->input('name')
+            'name'=>$request->input('name'),
+            'store_type_id'=>$request['store_type']
         ]);
         return response()->json($store, 201);
     }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import moment from 'moment';
+import moment from "moment";
 import {
     Col,
     Card,
@@ -31,12 +31,11 @@ class Shop extends Component {
         // Delivery: "yes",
         // Address: "SHop no. 65 5th street",
         // City: "Lahore",
-        store:{},
+        store: {},
         edit: false
     };
 
-
-    componentWillMount (){
+    componentWillMount() {
         axios.get("/api/myshop").then(res => {
             const storedata = res.data;
             console.log(storedata);
@@ -53,7 +52,9 @@ class Shop extends Component {
         return (
             <div>
                 <Col span={12} offset={6}>
-                    <h1 style={{ textAlign: "center" }}>{this.state.store.name}</h1>
+                    <h1 style={{ textAlign: "center" }}>
+                        {this.state.store.name}
+                    </h1>
                     <Card
                         title={<h1>Store Information</h1>}
                         extra={
@@ -241,32 +242,21 @@ class Shop extends Component {
     }
 }
 
-
-
-
-
-
-
-
-
-
-
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 class ShopForm extends React.Component {
-    state={
-        store_types:[]
+    state = {
+        store_types: []
     };
     componentDidMount() {
         // To disabled submit button at the beginning.
         // this.props.form.validateFields();
-axios.get ('/api/storetypes').then(res => {
-    const storedata = res.data;
-    console.log(storedata);
-    this.setState({ store_types: storedata });
-});
-       
+        axios.get("/api/storetypes").then(res => {
+            const storedata = res.data;
+            console.log(storedata);
+            this.setState({ store_types: storedata });
+        });
     }
 
     handleSubmit = e => {
@@ -274,11 +264,15 @@ axios.get ('/api/storetypes').then(res => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
-                 axios.post("/api/shop",values).then(res => {
-            console.log(res);
-        });
-            }else{
-                console.log('Errors',err);
+                axios.post("/api/updateshop", values).then(res => {
+                    console.log(res);
+                });
+            } else {
+                console.log("Received values of form: ", values);
+                axios.post("/api/updateshop", values).then(res => {
+                    console.log(res);
+                });
+                console.log("Errors", err);
             }
         });
     };
@@ -294,8 +288,7 @@ axios.get ('/api/storetypes').then(res => {
         // Only show error after a field is touched.
         const store_typeError =
             isFieldTouched("store_type") && getFieldError("store_type");
-        const storeNameError =
-            isFieldTouched("name") && getFieldError("name");
+        const storeNameError = isFieldTouched("name") && getFieldError("name");
 
         const contactError =
             isFieldTouched("contact") && getFieldError("contact");
@@ -303,20 +296,20 @@ axios.get ('/api/storetypes').then(res => {
             isFieldTouched("open_time") && getFieldError("open_time");
         const closeTimeError =
             isFieldTouched("close_time") && getFieldError("close_time");
-        const weekendError =
-            isFieldTouched("weekend") && getFieldError("weekend");
-        const cardError = isFieldTouched("card_payment") && getFieldError("card_payment");
+        // const weekendError =
+        //     isFieldTouched("weekend") && getFieldError("weekend");
+        const cardError =
+            isFieldTouched("card_payment") && getFieldError("card_payment");
         const wifiError = isFieldTouched("wifi") && getFieldError("wifi");
         const deliveryError =
             isFieldTouched("delivery") && getFieldError("delivery");
         const cityError = isFieldTouched("city") && getFieldError("city");
         const addressError =
             isFieldTouched("address") && getFieldError("address");
-            const wheelchairError =
+        const wheelchairError =
             isFieldTouched("wheel_chair") && getFieldError("wheel_chair");
-            const washroomError =
+        const washroomError =
             isFieldTouched("wash_room") && getFieldError("wash_room");
-            
 
         return (
             <Col span={12} offset={6}>
@@ -326,8 +319,8 @@ axios.get ('/api/storetypes').then(res => {
                         help={store_typeError || ""}
                     >
                         {getFieldDecorator("store_type", {
-                            initialValue:this.props.store_type,
-                            valuePropName:'store_type',
+                            initialValue: this.props.store_type,
+                            valuePropName: "store_type",
                             rules: [
                                 {
                                     required: true,
@@ -338,15 +331,12 @@ axios.get ('/api/storetypes').then(res => {
                             <Select
                                 placeholder="Select Type of store"
                                 style={{ width: 320 }}
-                                
                             >
-
-                            {this.state.store_types.map(element=>(
-                                <option value={element.id}>{element.name}</option>
-
-
-                            ))}
-                                
+                                {this.state.store_types.map(element => (
+                                    <option value={element.id}>
+                                        {element.name}
+                                    </option>
+                                ))}
                             </Select>
                         )}
                     </Form.Item>
@@ -356,18 +346,14 @@ axios.get ('/api/storetypes').then(res => {
                         help={storeNameError || ""}
                     >
                         {getFieldDecorator("name", {
-                            initialValue:this.props.storeName,
+                            initialValue: this.props.storeName,
                             rules: [
                                 {
                                     required: true,
                                     message: "Please input your Store Name"
                                 }
                             ]
-                        })(
-                            <Input
-                                placeholder="Store Name"
-                            />
-                        )}
+                        })(<Input placeholder="Store Name" />)}
                     </Form.Item>
                     <InputGroup>
                         <Row>
@@ -379,7 +365,10 @@ axios.get ('/api/storetypes').then(res => {
                                     help={openTimeError || ""}
                                 >
                                     {getFieldDecorator("open_time", {
-                                    initialValue:moment(this.props.ClosingTime, 'HH:mm:ss'),
+                                        initialValue: moment(
+                                            this.props.ClosingTime,
+                                            "HH:mm:ss"
+                                        ),
 
                                         rules: [
                                             {
@@ -392,7 +381,6 @@ axios.get ('/api/storetypes').then(res => {
                                             use12Hours
                                             format="h:mm a"
                                             placeholder="Opening Time"
-                                            
                                         />
                                     )}
                                 </Form.Item>
@@ -405,7 +393,10 @@ axios.get ('/api/storetypes').then(res => {
                                     help={closeTimeError || ""}
                                 >
                                     {getFieldDecorator("close_time", {
-                                        initialValue: moment(this.props.ClosingTime, 'HH:mm:ss'),
+                                        initialValue: moment(
+                                            this.props.ClosingTime,
+                                            "HH:mm:ss"
+                                        ),
                                         rules: [
                                             {
                                                 required: true,
@@ -417,7 +408,6 @@ axios.get ('/api/storetypes').then(res => {
                                             use12Hours
                                             format="h:mm a"
                                             placeholder="Closing Time"
-                                            
                                         />
                                     )}
                                 </Form.Item>
@@ -429,7 +419,7 @@ axios.get ('/api/storetypes').then(res => {
                         help={contactError || ""}
                     >
                         {getFieldDecorator("contact", {
-                            initialValue:this.props.contact,
+                            initialValue: this.props.contact,
                             rules: [
                                 {
                                     required: true,
@@ -437,20 +427,15 @@ axios.get ('/api/storetypes').then(res => {
                                         "Please input your Store Contact number"
                                 }
                             ]
-                        })(
-                            <Input
-                                placeholder="Contact"
-                                type="phone"
-                            />
-                        )}
+                        })(<Input placeholder="Contact" type="phone" />)}
                     </Form.Item>
 
-                    <Form.Item
+                    {/* <Form.Item
                         validateStatus={weekendError ? "error" : ""}
                         help={weekendError || ""}
                     >
                         {getFieldDecorator("weekend", {
-                            initialValue:this.props.OpensonWeekend,
+                            initialValue: this.props.OpensonWeekend,
                             rules: [
                                 {
                                     required: true,
@@ -458,20 +443,18 @@ axios.get ('/api/storetypes').then(res => {
                                 }
                             ]
                         })(
-                            <Select
-                                placeholder="Opens on weekend"
-                            >
+                            <Select placeholder="Opens on weekend">
                                 <Option value={true}>Yes</Option>
                                 <Option value={false}>No</Option>
                             </Select>
                         )}
-                    </Form.Item>
+                    </Form.Item> */}
                     <Form.Item
                         validateStatus={cardError ? "error" : ""}
                         help={cardError || ""}
                     >
                         {getFieldDecorator("card_payment", {
-                            initialValue:this.props.AcceptsCard,
+                            initialValue: this.props.AcceptsCard,
                             rules: [
                                 {
                                     required: true,
@@ -479,9 +462,7 @@ axios.get ('/api/storetypes').then(res => {
                                 }
                             ]
                         })(
-                            <Select
-                                placeholder="Store accepts credit card?"
-                            >
+                            <Select placeholder="Store accepts credit card?">
                                 <Option value={true}>Yes</Option>
                                 <Option value={false}>No</Option>
                             </Select>
@@ -493,7 +474,7 @@ axios.get ('/api/storetypes').then(res => {
                         help={wifiError || ""}
                     >
                         {getFieldDecorator("wifi", {
-                            initialValue:this.props.Wifi,
+                            initialValue: this.props.Wifi,
                             rules: [
                                 {
                                     required: true,
@@ -501,9 +482,7 @@ axios.get ('/api/storetypes').then(res => {
                                 }
                             ]
                         })(
-                            <Select
-                                placeholder="Store has wifi?"
-                            >
+                            <Select placeholder="Store has wifi?">
                                 <Option value={true}>Yes</Option>
                                 <Option value={false}>No</Option>
                             </Select>
@@ -515,7 +494,7 @@ axios.get ('/api/storetypes').then(res => {
                         help={deliveryError || ""}
                     >
                         {getFieldDecorator("wifi", {
-                            initialValue:this.props.Delivery,
+                            initialValue: this.props.Delivery,
                             rules: [
                                 {
                                     required: true,
@@ -523,9 +502,7 @@ axios.get ('/api/storetypes').then(res => {
                                 }
                             ]
                         })(
-                            <Select
-                                placeholder="Store provides Delivery?"
-                            >
+                            <Select placeholder="Store provides Delivery?">
                                 <Option value={true}>Yes</Option>
                                 <Option value={false}>No</Option>
                             </Select>
@@ -537,12 +514,10 @@ axios.get ('/api/storetypes').then(res => {
                         help={cityError || ""}
                     >
                         {getFieldDecorator("city", {
-                            initialValue:this.props.City,
+                            initialValue: this.props.City,
                             rules: [{ required: true, message: "Store city" }]
                         })(
-                            <Select
-                                placeholder="Store city"
-                            >
+                            <Select placeholder="Store city">
                                 <Option value="Lahore">Lahore</Option>
                                 <Option value="Islamabad">Islamabad</Option>
                             </Select>
@@ -554,15 +529,11 @@ axios.get ('/api/storetypes').then(res => {
                         help={addressError || ""}
                     >
                         {getFieldDecorator("address", {
-                            initialValue:this.props.Address,
+                            initialValue: this.props.Address,
                             rules: [
                                 { required: true, message: "Store address" }
                             ]
-                        })(
-                            <Input
-                                placeholder="Store address"
-                            />
-                        )}
+                        })(<Input placeholder="Store address" />)}
                     </Form.Item>
 
                     <Form.Item>
