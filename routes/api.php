@@ -25,6 +25,9 @@ Route::delete('/shops/{id}', 'Api\StoreController@destroy');
 Route::get('/myshop', 'Api\StoreController@myShop');
 
 
+//Store Types
+Route::get('/storetypes', 'Api\StoreTypeController@index');
+
 //Posts
 Route::get('/posts', 'Api\PostController@index');
 Route::post('/posts', 'Api\PostController@store');
