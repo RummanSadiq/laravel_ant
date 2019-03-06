@@ -15,7 +15,9 @@ class StoreTypeController extends Controller
      */
     public function index()
     {
-        //
+        $types = StoreType::all();
+
+        return response()->json($types);
     }
 
     /**

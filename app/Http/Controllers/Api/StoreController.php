@@ -55,8 +55,19 @@ class StoreController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
-        $store = $user->store;
+
+        $address = Address::create([
+            'place'=>$request->input('place'),
+            'latitude'=>$request->input('latitude'),
+            'longitude'=>$request->input('longitude'),
+            'zip'=>$request->input('zip'),
+            'country'=>$request->input('country')
+        ]);
+
+        
         $request['user_id'] = $user->id;
+        $request['address_id'] = $address->id;
+
         $store = Store::create($request->all());
         return response()->json($store, 201);
     }
