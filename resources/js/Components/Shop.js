@@ -20,19 +20,29 @@ const InputGroup = Input.Group;
 
 class Shop extends Component {
     state = {
-        StoreName: "Raheem Store",
-        Contact: "+923355454",
-        StoreType: "Men's Fashion",
-        OpeningTime: "10 am",
-        ClosingTime: "10 pm",
-        OpensonWeekend: "yes",
-        AcceptsCard: "no",
-        Wifi: "no",
-        Delivery: "yes",
-        Address: "SHop no. 65 5th street",
-        City: "Lahore",
+        // StoreName: "Raheem Store",
+        // Contact: "+923355454",
+        // store_type: "Men's Fashion",
+        // OpeningTime: "10 am",
+        // ClosingTime: "10 pm",
+        // OpensonWeekend: "yes",
+        // AcceptsCard: "no",
+        // Wifi: "no",
+        // Delivery: "yes",
+        // Address: "SHop no. 65 5th street",
+        // City: "Lahore",
+        store:{},
         edit: false
     };
+
+
+    componentWillMount (){
+        axios.get("/api/myshop").then(res => {
+            const storedata = res.data;
+            console.log(storedata);
+            this.setState({ store: storedata });
+        });
+    }
 
     handleedit = () => {
         this.setState({ edit: !this.state.edit });
@@ -43,7 +53,7 @@ class Shop extends Component {
         return (
             <div>
                 <Col span={12} offset={6}>
-                    <h1 style={{ textAlign: "center" }}>Shop name here</h1>
+                    <h1 style={{ textAlign: "center" }}>{this.state.store.name}</h1>
                     <Card
                         title={<h1>Store Information</h1>}
                         extra={
@@ -111,7 +121,7 @@ class Shop extends Component {
                                             marginLeft: "60%"
                                         }}
                                     >
-                                        {this.state.StoreType}
+                                        {this.state.store.store_type}
                                     </div>
                                     <div
                                         style={{
@@ -119,7 +129,7 @@ class Shop extends Component {
                                             marginLeft: "60%"
                                         }}
                                     >
-                                        {this.state.Contact}
+                                        {this.state.store.contact}
                                     </div>
                                     <div
                                         style={{
@@ -127,7 +137,7 @@ class Shop extends Component {
                                             marginLeft: "60%"
                                         }}
                                     >
-                                        {this.state.OpeningTime}
+                                        {this.state.store.open_time}
                                     </div>
                                     <div
                                         style={{
@@ -135,7 +145,7 @@ class Shop extends Component {
                                             marginLeft: "60%"
                                         }}
                                     >
-                                        {this.state.ClosingTime}
+                                        {this.state.store.close_time}
                                     </div>
                                     <div
                                         style={{
@@ -143,7 +153,7 @@ class Shop extends Component {
                                             marginLeft: "60%"
                                         }}
                                     >
-                                        {this.state.OpensonWeekend}
+                                        {this.state.store.OpensonWeekend}
                                     </div>
                                     <div
                                         style={{
@@ -151,7 +161,7 @@ class Shop extends Component {
                                             marginLeft: "60%"
                                         }}
                                     >
-                                        {this.state.AcceptsCard}
+                                        {this.state.store.card_payment}
                                     </div>
                                     <div
                                         style={{
@@ -159,7 +169,7 @@ class Shop extends Component {
                                             marginLeft: "60%"
                                         }}
                                     >
-                                        {this.state.Wifi}
+                                        {this.state.store.Wifi}
                                     </div>
                                     <div
                                         style={{
@@ -167,7 +177,7 @@ class Shop extends Component {
                                             marginLeft: "60%"
                                         }}
                                     >
-                                        {this.state.Delivery}
+                                        {this.state.store.Delivery}
                                     </div>
                                     <div
                                         style={{
@@ -175,7 +185,7 @@ class Shop extends Component {
                                             marginLeft: "60%"
                                         }}
                                     >
-                                        {this.state.Address}
+                                        {this.state.store.address}
                                     </div>
                                 </Col>
                             </Row>
@@ -183,17 +193,17 @@ class Shop extends Component {
                     </Card>
                     {this.state.edit && (
                         <SHForm
-                            storeName={this.state.StoreName}
-                            contact={this.state.Contact}
-                            StoreType={this.state.StoreType}
-                            OpeningTime={this.state.OpeningTime}
-                            ClosingTime={this.state.ClosingTime}
-                            OpensonWeekend={this.state.OpensonWeekend}
-                            AcceptsCard={this.state.AcceptsCard}
-                            Wifi={this.state.Wifi}
-                            Delivery={this.state.Delivery}
-                            Address={this.state.Address}
-                            City={this.state.City}
+                            storeName={this.state.store.name}
+                            contact={this.state.store.Contact}
+                            store_type={this.state.store.store_type}
+                            OpeningTime={this.state.store.open_time}
+                            ClosingTime={this.state.store.close-time}
+                            OpensonWeekend={this.state.store.OpensonWeekend}
+                            AcceptsCard={this.state.store.card_payment}
+                            Wifi={this.state.store.wifi}
+                            Delivery={this.state.store.Delivery}
+                            Address={this.state.store.address}
+                            City={this.state.store.City}
                         />
                     )}
                 </Col>
@@ -238,6 +248,8 @@ class ShopForm extends React.Component {
     componentDidMount() {
         // To disabled submit button at the beginning.
         // this.props.form.validateFields();
+
+       
     }
 
     handleSubmit = e => {
@@ -245,6 +257,9 @@ class ShopForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
+                 axios.post("/api/shop",values).then(res => {
+            console.log(res);
+        });
             }else{
                 console.log('Errors',err);
             }
@@ -260,37 +275,42 @@ class ShopForm extends React.Component {
         } = this.props.form;
 
         // Only show error after a field is touched.
-        const storeTypeError =
-            isFieldTouched("storetype") && getFieldError("storetype");
+        const store_typeError =
+            isFieldTouched("store_type") && getFieldError("store_type");
         const storeNameError =
-            isFieldTouched("storename") && getFieldError("storename");
+            isFieldTouched("name") && getFieldError("name");
 
         const contactError =
             isFieldTouched("contact") && getFieldError("contact");
         const openTimeError =
-            isFieldTouched("opentime") && getFieldError("opentime");
+            isFieldTouched("open_time") && getFieldError("open_time");
         const closeTimeError =
-            isFieldTouched("closetime") && getFieldError("closetime");
+            isFieldTouched("close_time") && getFieldError("close_time");
         const weekendError =
             isFieldTouched("weekend") && getFieldError("weekend");
-        const cardError = isFieldTouched("card") && getFieldError("card");
+        const cardError = isFieldTouched("card_payment") && getFieldError("card_payment");
         const wifiError = isFieldTouched("wifi") && getFieldError("wifi");
         const deliveryError =
             isFieldTouched("delivery") && getFieldError("delivery");
         const cityError = isFieldTouched("city") && getFieldError("city");
         const addressError =
             isFieldTouched("address") && getFieldError("address");
+            const wheelchairError =
+            isFieldTouched("wheel_chair") && getFieldError("wheel_chair");
+            const washroomError =
+            isFieldTouched("wash_room") && getFieldError("wash_room");
+            
 
         return (
             <Col span={12} offset={6}>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Item
-                        validateStatus={storeTypeError ? "error" : ""}
-                        help={storeTypeError || ""}
+                        validateStatus={store_typeError ? "error" : ""}
+                        help={store_typeError || ""}
                     >
-                        {getFieldDecorator("storetype", {
-                            initialValue:this.props.StoreType,
-                            valuePropName:'StoreType',
+                        {getFieldDecorator("store_type", {
+                            initialValue:this.props.store_type,
+                            valuePropName:'store_type',
                             rules: [
                                 {
                                     required: true,
@@ -350,7 +370,7 @@ class ShopForm extends React.Component {
                         validateStatus={storeNameError ? "error" : ""}
                         help={storeNameError || ""}
                     >
-                        {getFieldDecorator("storename", {
+                        {getFieldDecorator("name", {
                             initialValue:this.props.storeName,
                             rules: [
                                 {
@@ -373,7 +393,7 @@ class ShopForm extends React.Component {
                                     }
                                     help={openTimeError || ""}
                                 >
-                                    {getFieldDecorator("opentime", {
+                                    {getFieldDecorator("open_time", {
                                     initialValue:moment(this.props.ClosingTime, 'HH:mm:ss'),
 
                                         rules: [
@@ -399,7 +419,7 @@ class ShopForm extends React.Component {
                                     }
                                     help={closeTimeError || ""}
                                 >
-                                    {getFieldDecorator("closetime", {
+                                    {getFieldDecorator("close_time", {
                                         initialValue: moment(this.props.ClosingTime, 'HH:mm:ss'),
                                         rules: [
                                             {
@@ -465,7 +485,7 @@ class ShopForm extends React.Component {
                         validateStatus={cardError ? "error" : ""}
                         help={cardError || ""}
                     >
-                        {getFieldDecorator("card", {
+                        {getFieldDecorator("card_payment", {
                             initialValue:this.props.AcceptsCard,
                             rules: [
                                 {
