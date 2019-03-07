@@ -193,7 +193,9 @@ class Shop extends Component {
                         )}
                     </Card>
                     {this.state.edit && (
+                        
                         <SHForm
+                       
                             storeName={this.state.store.name}
                             contact={this.state.store.Contact}
                             store_type={this.state.store.store_type}
@@ -362,8 +364,8 @@ class ShopForm extends React.Component {
                                 >
                                     {getFieldDecorator("open_time", {
                                         initialValue: moment(
-                                            this.props.ClosingTime,
-                                            "HH:mm:ss"
+                                            this.props.OpeningTime,
+                                            "HH:mm:ss "
                                         ),
 
                                         rules: [
@@ -374,7 +376,6 @@ class ShopForm extends React.Component {
                                         ]
                                     })(
                                         <TimePicker
-                                            use12Hours
                                             format="h:mm a"
                                             placeholder="Opening Time"
                                         />
@@ -401,7 +402,6 @@ class ShopForm extends React.Component {
                                         ]
                                     })(
                                         <TimePicker
-                                            use12Hours
                                             format="h:mm a"
                                             placeholder="Closing Time"
                                         />

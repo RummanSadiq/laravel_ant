@@ -14,7 +14,7 @@ for (let i = 10; i < 36; i++) {
 }
 
 const props = {
-    name: 'file',
+    name: 'image',
     action: '//jsonplaceholder.typicode.com/posts/',
     headers: {
       authorization: 'authorization-text',
@@ -157,7 +157,7 @@ class AddProductForm extends React.Component {
                             <h3>Upload Pictures</h3>
                         </div>
                         <Form.Item>
-                            <Upload {...props}>
+                            <Upload >
                                 <Button>
                                     <Icon type="upload" /> Upload
                                 </Button>
