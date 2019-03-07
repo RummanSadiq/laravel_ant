@@ -19,6 +19,8 @@ class App extends Component {
                 <div>
                     {/* <Sidemenu /> */}
                     <Route path="" component={Sidemenu} />
+                    <Route exact path="" component={Shop} />
+
                     {/* <Route path="" component={Shop} /> */}
                     <Route path="/Messages" component={Chat} />
                     <Route path="/Faqs" component={Faqs} />
