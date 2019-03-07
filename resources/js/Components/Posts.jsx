@@ -1,58 +1,92 @@
 import React, { Component } from "react";
 import { Col, Row, Card, Input, Button, Upload } from "antd";
+import APostForm from './AddPostForm';
+import axios from'axios';
 import image1 from "../Images/img1.jpg";
-const { TextArea } = Input;
 const { Meta } = Card;
+const { TextArea } = Input;
+
 class Posts extends Component {
   state = {
-    post: [{ description: "", image: "" }]
+    post:[],
+    description:''
   };
+
+  componentDidMount (){
+    axios.get("/api/posts").then(res => {
+      const postdata = res.data;
+      console.log(postdata);
+      this.setState({ post: postdata });
+  });
+  }
+
+handlePost=()=>{
+  console.log("in here!");
+  axios.post("/api/posts",this.state.description).then(res => {
+    const postdata = res.data;
+    console.log(postdata);
+    
+});
+}
+
+handleChange = event=>{
+  this.setState({description:event.target.value});
+  console.log(event.target.value);
+}
+
   render() {
     return (
       <div>
         {/* <Row> */}
           <Col span={16} offset={6}>
-            <Card
-              title={<h1> Create posts for annoucements </h1>}
-              type="inner"
-              hoverable="true"
-              bordered={false}
-              style={{ width: 1000 }}
-              headStyle={{ textAlign: "center" }}
+           {/* <APostForm/> */}
+
+           <Card
+            title={<h1> Create posts for annoucements </h1>}
+            type="inner"
+            hoverable="true"
+            bordered={false}
+            style={{ width: 1000 }}
+            headStyle={{ textAlign: "center" }}
+          >
+         
+                              <TextArea
+                              placeholder="Write Something"
+                              autosize={{ minRows: 2, maxRows: 6 }}
+                              onChange={this.handleChange}
+                            />                            
+
+           
+            <div
+              style={{
+                marginLeft: "60%",
+                display: "inline block",
+                paddingTop: "1%",
+                textAlign: "right"
+              }}
             >
-              <TextArea
-                placeholder="Write Something"
-                autosize={{ minRows: 2, maxRows: 6 }}
-              />
-              <div
-                style={{
-                  marginLeft: "60%",
-                  display: "inline block",
-                  paddingTop: "1%",
-                  textAlign: "right"
-                }}
-              >
-                <span style={{ padding: "1%" }} />
-                <Upload>
-                  <Button
-                    type="secondary"
-                    shape="round"
-                    icon="upload"
-                    size={"medium"}
-                  >
-                    Upload photos
-                  </Button>
-                </Upload>
+              <span style={{ padding: "1%" }} />
+              <Upload>
                 <Button
-                  type="primary"
+                  type="secondary"
                   shape="round"
-                  icon="check"
+                  icon="upload"
                   size={"medium"}
                 >
-                  Done
+                  Upload photos
                 </Button>
-              </div>
-            </Card>
+              </Upload>
+              <Button
+                type="primary"
+                shape="round"
+                icon="check"
+                size={"medium"}
+                onClick={this.handlePost}
+              >
+                Done
+              </Button>
+            </div>
+          </Card>
             <Card
               title={<h3> Previous Posts </h3>}
               type="inner"
@@ -76,6 +110,20 @@ class Posts extends Component {
                     description="2/8/2019 7:09Pm"
                   />
                 </Card>
+
+                {this.state.post.map(element=>{
+                      <Card
+                      hoverable={true}
+                      bordered={false}
+                      cover={<img alt="postimage" src={image1elem} />}
+                      extra={<Button type="danger" size={"large"} icon="delete" />}
+                    >
+                      {element.description}
+                      <Meta
+                        description={element.created_at}
+                      />
+                    </Card>
+                })}
               </div>
             </Card>
           </Col>
