@@ -302,7 +302,7 @@ class ShopForm extends React.Component {
                     </Form.Item>
                         <Row>
                             <Col span={12}>
-                                <Form.Item
+                                {/* <Form.Item
                                     validateStatus={
                                         openTimeError ? "error" : ""
                                     }
@@ -360,7 +360,7 @@ class ShopForm extends React.Component {
                                             placeholder="Closing Time"
                                         />
                                     )}
-                                </Form.Item>
+                                </Form.Item> */}
                             </Col>
                         </Row>
                     <Form.Item
@@ -462,7 +462,7 @@ class ShopForm extends React.Component {
                                 <Option value="Islamabad">Islamabad</Option>
                             </Select>
                         )}
-                    </Form.Item>
+                    </Form.Item>*/}
 
                     <Form.Item
                         validateStatus={addressError ? "error" : ""}
@@ -476,7 +476,7 @@ class ShopForm extends React.Component {
                                 { required: true, message: "Store address" }
                             ]
                         })(<Input placeholder="Store address" />)}
-                    </Form.Item> */}
+                    </Form.Item> 
 
                     <Form.Item>
                         {" "}
