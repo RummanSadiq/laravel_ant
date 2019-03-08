@@ -6,8 +6,6 @@ import image1 from "../Images/img1.jpg";
 const { Meta } = Card;
 const { TextArea } = Input;
 
-const props = {};
-
 class Posts extends Component {
     state = {
         post: [],
