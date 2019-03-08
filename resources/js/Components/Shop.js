@@ -87,7 +87,7 @@ class Shop extends Component {
                             <Row>
                                 <Col span={12}>
                                    <div><span style={{fontWeight:'bold'}}>Store Type: </span>{this.state.store.store_type}</div>
-                                   <div><span style={{fontWeight:'bold'}}>Store Contact: </span>{this.state.store.Contact}</div>
+                                   <div><span style={{fontWeight:'bold'}}>Store Contact: </span>{this.state.store.contact}</div>
                                    <div><span style={{fontWeight:'bold'}}>Store Address: </span>{this.state.store.address}</div>
                                    <div><span style={{fontWeight:'bold'}}>Store opens At: </span>{this.state.store.open_time}</div>
                                    <div><span style={{fontWeight:'bold'}}>Store Closes At: </span>{this.state.store.close_time}</div>
@@ -134,7 +134,7 @@ class Shop extends Component {
                     {this.state.edit && (
                         <SHForm
                             storeName={this.state.store.name}
-                            Contact={this.state.store.Contact}
+                            Contact={this.state.store.contact}
                             store_type={this.state.store.store_type_id}
                             OpeningTime={this.state.store.open_time}
                             ClosingTime={this.state.store.close_time}
@@ -226,7 +226,7 @@ class ShopForm extends React.Component {
         const storeNameError = isFieldTouched("name") && getFieldError("name");
 
         const ContactError =
-            isFieldTouched("Contact") && getFieldError("Contact");
+            isFieldTouched("contact") && getFieldError("contact");
 
         const openTimeError =
             isFieldTouched("open_time") && getFieldError("open_time");
@@ -247,10 +247,10 @@ class ShopForm extends React.Component {
         const addressError =
             isFieldTouched("address") && getFieldError("address");
 
-        const wheelchairError =
-            isFieldTouched("wheel_chair") && getFieldError("wheel_chair");
-        const washroomError =
-            isFieldTouched("wash_room") && getFieldError("wash_room");
+        // const wheelchairError =
+        //     isFieldTouched("wheel_chair") && getFieldError("wheel_chair");
+        // const washroomError =
+        //     isFieldTouched("wash_room") && getFieldError("wash_room");
 
         return (
             <Col span={12} offset={6}>
@@ -302,7 +302,7 @@ class ShopForm extends React.Component {
                     </Form.Item>
                         <Row>
                             <Col span={12}>
-                                {/* <Form.Item
+                                <Form.Item
                                     validateStatus={
                                         openTimeError ? "error" : ""
                                     }
@@ -325,11 +325,13 @@ class ShopForm extends React.Component {
                                             }
                                         ]
                                     })(
-                                        <TimePicker
-                                            use12Hours
-                                            format="h:mm a"
-                                            placeholder="Opening Time"
-                                        />
+                                        // <TimePicker
+                                        //     use12Hours
+                                        //     format="h:mm a"
+                                        //     placeholder="Opening Time"
+                                        // />
+                                        <Input type="time" />
+
                                     )}
                                 </Form.Item>
                             </Col>
@@ -354,13 +356,14 @@ class ShopForm extends React.Component {
                                             }
                                         ]
                                     })(
-                                        <TimePicker
-                                            use12Hours
-                                            format="h:mm a"
-                                            placeholder="Closing Time"
-                                        />
+                                        // <TimePicker
+                                        //     use12Hours
+                                        //     format="h:mm a"
+                                        //     placeholder="Closing Time"
+                                        // />
+                                        <Input type="time" />
                                     )}
-                                </Form.Item> */}
+                                </Form.Item>
                             </Col>
                         </Row>
                     <Form.Item
@@ -369,7 +372,7 @@ class ShopForm extends React.Component {
                         label="Contact#"
 
                     >
-                        {getFieldDecorator("Contact", {
+                        {getFieldDecorator("contact", {
                             initialValue: this.props.Contact,
                             rules: [
                                 {
@@ -425,7 +428,7 @@ class ShopForm extends React.Component {
                         )}
                     </Form.Item>
 
-                    {/* <Form.Item
+                    <Form.Item
                         validateStatus={deliveryError ? "error" : ""}
                         help={deliveryError || ""}
                         label="Provides Delivery?"
@@ -445,9 +448,9 @@ class ShopForm extends React.Component {
                                 <Option value={0}>No</Option>
                             </Select>
                         )}
-                    </Form.Item> */}
+                    </Form.Item> 
 
-                    {/* <Form.Item
+                 <Form.Item
                         validateStatus={cityError ? "error" : ""}
                         help={cityError || ""}
                         label="City:"
@@ -462,7 +465,7 @@ class ShopForm extends React.Component {
                                 <Option value="Islamabad">Islamabad</Option>
                             </Select>
                         )}
-                    </Form.Item>*/}
+                    </Form.Item>
 
                     <Form.Item
                         validateStatus={addressError ? "error" : ""}

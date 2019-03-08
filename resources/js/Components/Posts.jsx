@@ -128,12 +128,17 @@ class Posts extends Component {
                                 <Meta description="2/8/2019 7:09Pm" />
                             </Card> */}
 
-{this.state.post.map(element => (
+                            {this.state.post.map(element => (
                                 <Card
                                     hoverable={true}
                                     bordered={false}
                                     type="inner"
-                                    cover={<img alt="postimage"  src={element.image_path} />}
+                                    cover={
+                                        <img
+                                            alt="postimage"
+                                            src={element.image_path}
+                                        />
+                                    }
                                     extra={
                                         <Button
                                             type="danger"
@@ -145,7 +150,7 @@ class Posts extends Component {
                                     {element.description}
                                     <Meta description={element.created_at} />
                                 </Card>
-                        ))}
+                            ))}
                         </div>
                     </Card>
                 </Col>
