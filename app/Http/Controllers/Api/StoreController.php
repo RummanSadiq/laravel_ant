@@ -110,22 +110,6 @@ class StoreController extends Controller
         $user = Auth::user();
         // $user = User::find(1);
         $store = $user->store;
-
-        // if($request->has('address_id')) 
-        // {
-        //     $address = Address::create([
-                // 'place'=>$request->input('place'),
-                // 'latitude'=>$request->input('latitude'),
-                // 'longitude'=>$request->input('longitude'),
-                // 'zip'=>$request->input('zip'),
-                // 'country'=>$request->input('country')
-        //     ]);
-        //     $request['address_id'] = $address->id;
-        // } 
-        // else
-        // {
-            
-        // } 
         
         $address = Address::find($store->address_id);
         $address->update([
@@ -133,20 +117,18 @@ class StoreController extends Controller
             'latitude'=>$request->input('latitude'),
             'longitude'=>$request->input('longitude'),
             'zip'=>$request->input('zip'),
+            'city'=>$request->input('city'),
             'country'=>$request->input('country')
         ]);
-        
 
-        // if($request->has('store_type')) 
-        // {
-        //     $storetype = StoreType::select('id')->where('name', $request['store_type'])->first();
-        //     $request['store_type_id'] = $storetype->id;
-        // }
-        
-        $store->update([
-            'name'=>$request->input('name'),
-            'store_type_id'=>$request['store_type']
-        ]);
+        unset($request['address']);
+        unset($request['latitude']);
+        unset($request['longitude']);
+        unset($request['zip']);
+        unset($request['country']);
+        unset($request['city']);
+
+        $store->update($request->all());
         return response()->json($store, 201);
     }
 

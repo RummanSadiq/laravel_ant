@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Post;
+use App\User;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +19,8 @@ class PostController extends Controller
     public function index()
     {
         $user = Auth::user();
+        // $user = User::find(1);
+
         $store = $user->store;
         $posts = $store->posts;
         return response()->json($posts);
@@ -41,10 +45,26 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        // $user = User::find(1);
+
         $store = $user->store;
         $request['store_id'] = $store->id;
+
         $post = Post::create($request->all());
         return response()->json($post, 201);
+    }
+
+    public function attachment(Request $request) 
+    {
+        $image = $request->file('image');
+        $input['imagename'] = time() . '.' . $image->getClientOriginalExtension();
+        $destinationPath = public_path('images');
+        $image->move($destinationPath, $input['imagename']);
+
+        return response()->json([
+            'status'=>'done',
+            'url'=>$destinationPath . '\\' . $input['imagename']
+            ]);
     }
 
     /**

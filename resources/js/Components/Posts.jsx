@@ -1,136 +1,159 @@
 import React, { Component } from "react";
 import { Col, Row, Card, Input, Button, Upload } from "antd";
-import APostForm from './AddPostForm';
-import axios from'axios';
+import APostForm from "./AddPostForm";
+import axios from "axios";
 import image1 from "../Images/img1.jpg";
 const { Meta } = Card;
 const { TextArea } = Input;
 
+const props = {};
+
 class Posts extends Component {
-  state = {
-    post:[],
-    description:''
-  };
+    state = {
+        post: [],
+        description: "",
+        image_path: ""
+    };
 
-  componentDidMount (){
-    axios.get("/api/posts").then(res => {
-      const postdata = res.data;
-      console.log(postdata);
-      this.setState({ post: postdata });
-  });
-  }
+    componentDidMount() {
+        axios.get("/api/posts").then(res => {
+            const postdata = res.data;
+            console.log(postdata);
+            this.setState({ post: postdata });
+        });
+    }
 
-handlePost=()=>{
-  console.log("in here!");
-  axios.post("/api/posts",this.state.description).then(res => {
-    const postdata = res.data;
-    console.log(postdata);
-    
-});
-}
+    handlePost = () => {
+        var arr = {
+            description: this.state.description,
+            image_path: this.state.image_path
+        };
+        axios.post("/api/posts", arr).then(res => {
+            const postdata = res.data;
+            console.log(postdata);
+        });
+    };
 
-handleChange = event=>{
-  this.setState({description:event.target.value});
-  console.log(event.target.value);
-}
+    handleUpload = event => {
+        if (event.file.status !== "uploading") {
+            console.log(event.file);
+            this.setState({ image_path: event.file.response.url });
+        }
+    };
 
-  render() {
-    return (
-      <div>
-        {/* <Row> */}
-          <Col span={16} offset={6}>
-           {/* <APostForm/> */}
+    handleChange = event => {
+        this.setState({ description: event.target.value });
+        console.log(event.target.value);
+    };
 
-           <Card
-            title={<h1> Create posts for annoucements </h1>}
-            type="inner"
-            hoverable="true"
-            bordered={false}
-            style={{ width: 1000 }}
-            headStyle={{ textAlign: "center" }}
-          >
-         
-                              <TextArea
-                              placeholder="Write Something"
-                              autosize={{ minRows: 2, maxRows: 6 }}
-                              onChange={this.handleChange}
-                            />                            
+    render() {
+        return (
+            <div>
+                {/* <Row> */}
+                <Col span={16} offset={6}>
+                    {/* <APostForm/> */}
 
-           
-            <div
-              style={{
-                marginLeft: "60%",
-                display: "inline block",
-                paddingTop: "1%",
-                textAlign: "right"
-              }}
-            >
-              <span style={{ padding: "1%" }} />
-              <Upload>
-                <Button
-                  type="secondary"
-                  shape="round"
-                  icon="upload"
-                  size={"medium"}
-                >
-                  Upload photos
-                </Button>
-              </Upload>
-              <Button
-                type="primary"
-                shape="round"
-                icon="check"
-                size={"medium"}
-                onClick={this.handlePost}
-              >
-                Done
-              </Button>
-            </div>
-          </Card>
-            <Card
-              title={<h3> Previous Posts </h3>}
-              type="inner"
-              hoverable="true"
-              bordered={false}
-              style={{ width: 1000 }}
-              headStyle={{ textAlign: "center" }}
-            >
-              <div style={{ paddingTop: "3%" }}>
-                <Card
-                  hoverable={true}
-                  bordered={false}
-                  cover={<img alt="postimage" src={image1} />}
-                  extra={<Button type="danger" size={"large"} icon="delete" />}
-                >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Veniam quia neque perferendis earum. Sunt voluptatem
-                  blanditiis officia! Odio dignissimos, vitae unde animi maxime,
-                  eius suscipit quis distinctio iure accusamus ab?
-                  <Meta
-                    description="2/8/2019 7:09Pm"
-                  />
-                </Card>
-
-                {this.state.post.map(element=>{
-                      <Card
-                      hoverable={true}
-                      bordered={false}
-                      cover={<img alt="postimage" src={image1elem} />}
-                      extra={<Button type="danger" size={"large"} icon="delete" />}
+                    <Card
+                        title={<h1> Create posts for annoucements </h1>}
+                        type="inner"
+                        hoverable="true"
+                        bordered={false}
+                        style={{ width: 1000 }}
+                        headStyle={{ textAlign: "center" }}
                     >
-                      {element.description}
-                      <Meta
-                        description={element.created_at}
-                      />
+                        <TextArea
+                            placeholder="Write Something"
+                            autosize={{ minRows: 2, maxRows: 6 }}
+                            onChange={this.handleChange}
+                        />
+
+                        <div
+                            style={{
+                                marginLeft: "60%",
+                                display: "inline block",
+                                paddingTop: "1%",
+                                textAlign: "right"
+                            }}
+                        >
+                            <span style={{ padding: "1%" }} />
+                            <Upload
+                                action="/api/post_attachment"
+                                onChange={this.handleUpload}
+                                name="image"
+                            >
+                                <Button
+                                    type="secondary"
+                                    shape="round"
+                                    icon="upload"
+                                    size={"medium"}
+                                >
+                                    Upload photos
+                                </Button>
+                            </Upload>
+                            <Button
+                                type="primary"
+                                shape="round"
+                                icon="check"
+                                size={"medium"}
+                                onClick={this.handlePost}
+                            >
+                                Done
+                            </Button>
+                        </div>
                     </Card>
-                })}
-              </div>
-            </Card>
-          </Col>
-        {/* </Row> */}
-      </div>
-    );
-  }
+                    <Card
+                        title={<h3> Previous Posts </h3>}
+                        type="inner"
+                        hoverable="true"
+                        bordered={false}
+                        style={{ width: 1000 }}
+                        headStyle={{ textAlign: "center" }}
+                    >
+                        <div style={{ paddingTop: "3%" }}>
+                            <Card
+                                hoverable={true}
+                                bordered={false}
+                                cover={<img alt="postimage" src={image1} />}
+                                extra={
+                                    <Button
+                                        type="danger"
+                                        size={"large"}
+                                        icon="delete"
+                                    />
+                                }
+                            >
+                                Lorem ipsum dolor sit amet consectetur
+                                adipisicing elit. Veniam quia neque perferendis
+                                earum. Sunt voluptatem blanditiis officia! Odio
+                                dignissimos, vitae unde animi maxime, eius
+                                suscipit quis distinctio iure accusamus ab?
+                                <Meta description="2/8/2019 7:09Pm" />
+                            </Card>
+
+                            {this.state.post.map(element => {
+                                <Card
+                                    hoverable={true}
+                                    bordered={false}
+                                    cover={<img alt="postimage" src={image1} />}
+                                    extra={
+                                        <Button
+                                            type="danger"
+                                            size={"large"}
+                                            icon="delete"
+                                        />
+                                    }
+                                >
+                                    {element.description}
+                                    <Meta description={element.created_at} />
+                                </Card>;
+                            })}
+                        </div>
+                    </Card>
+                </Col>
+                {/* </Row> */}
+            </div>
+        );
+    }
 }
 
 export default Posts;

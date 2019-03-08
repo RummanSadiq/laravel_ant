@@ -16,6 +16,7 @@ class Store extends Model
         'store_type_id', 
         'address_id',
         'name',
+        'contact',
         'display_picture',
         'wifi',
         'try_room',

@@ -31,9 +31,10 @@ Route::get('/storetypes', 'Api\StoreTypeController@index');
 //Posts
 Route::get('/posts', 'Api\PostController@index');
 Route::post('/posts', 'Api\PostController@store');
+Route::post('/post_attachment', 'Api\PostController@attachment');
 Route::post('/posts/{id}', 'Api\PostController@update');
 Route::delete('/posts/{id}', 'Api\PostController@destroy');
-Route::get('/myposts', 'Api\PostController@show');
+// Route::get('/myposts', 'Api\PostController@show');
 
 //Products
 Route::get('/products', 'Api\ProductController@index');

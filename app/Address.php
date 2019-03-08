@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     protected $fillable = [
-        "place", "latitude", "longitude", "zip", "country"
+        "place", "latitude", "longitude", "zip", "city", "country"
     ];
 
     public function store() 

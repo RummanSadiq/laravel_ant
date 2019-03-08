@@ -27,6 +27,7 @@ class CreateStoresTable extends Migration
             $table->foreign('address_id')->references('id')->on('addresses');
 
             $table->string('name');
+            $table->string('contact')->nullable();
             $table->string('display_picture')->nullable();
             $table->boolean('wifi')->nullable();
             $table->boolean('try_room')->nullable();

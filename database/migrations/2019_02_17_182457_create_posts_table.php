@@ -20,6 +20,7 @@ class CreatePostsTable extends Migration
             $table->foreign('store_id')->references('id')->on('stores');
 
             $table->string('description');
+            $table->string('image_path')->nullable();
 
             $table->timestamps();
         });

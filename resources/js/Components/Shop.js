@@ -193,9 +193,7 @@ class Shop extends Component {
                         )}
                     </Card>
                     {this.state.edit && (
-                        
                         <SHForm
-                       
                             storeName={this.state.store.name}
                             contact={this.state.store.Contact}
                             store_type={this.state.store.store_type}
@@ -274,7 +272,6 @@ class ShopForm extends React.Component {
             }
         });
     };
-
     render() {
         const {
             getFieldDecorator,
@@ -285,7 +282,7 @@ class ShopForm extends React.Component {
 
         // Only show error after a field is touched.
         const store_typeError =
-            isFieldTouched("store_type") && getFieldError("store_type");
+            isFieldTouched("store_type_id") && getFieldError("store_type_id");
         const storeNameError = isFieldTouched("name") && getFieldError("name");
 
         const contactError =
@@ -294,8 +291,6 @@ class ShopForm extends React.Component {
             isFieldTouched("open_time") && getFieldError("open_time");
         const closeTimeError =
             isFieldTouched("close_time") && getFieldError("close_time");
-        // const weekendError =
-        //     isFieldTouched("weekend") && getFieldError("weekend");
         const cardError =
             isFieldTouched("card_payment") && getFieldError("card_payment");
         const wifiError = isFieldTouched("wifi") && getFieldError("wifi");
@@ -316,9 +311,9 @@ class ShopForm extends React.Component {
                         validateStatus={store_typeError ? "error" : ""}
                         help={store_typeError || ""}
                     >
-                        {getFieldDecorator("store_type", {
-                            initialValue: this.props.store_type,
-                            valuePropName: "store_type",
+                        {getFieldDecorator("store_type_id", {
+                            initialValue: this.props.store_type_id,
+                            valuePropName: "store_type_id",
                             rules: [
                                 {
                                     required: true,
@@ -331,9 +326,9 @@ class ShopForm extends React.Component {
                                 style={{ width: 320 }}
                             >
                                 {this.state.store_types.map(element => (
-                                    <option value={element.id}>
+                                    <Option value={element.id}>
                                         {element.name}
-                                    </option>
+                                    </Option>
                                 ))}
                             </Select>
                         )}
@@ -376,6 +371,7 @@ class ShopForm extends React.Component {
                                         ]
                                     })(
                                         <TimePicker
+                                            use12Hours
                                             format="h:mm a"
                                             placeholder="Opening Time"
                                         />
@@ -402,6 +398,7 @@ class ShopForm extends React.Component {
                                         ]
                                     })(
                                         <TimePicker
+                                            use12Hours
                                             format="h:mm a"
                                             placeholder="Closing Time"
                                         />
@@ -426,25 +423,6 @@ class ShopForm extends React.Component {
                         })(<Input placeholder="Contact" type="phone" />)}
                     </Form.Item>
 
-                    {/* <Form.Item
-                        validateStatus={weekendError ? "error" : ""}
-                        help={weekendError || ""}
-                    >
-                        {getFieldDecorator("weekend", {
-                            initialValue: this.props.OpensonWeekend,
-                            rules: [
-                                {
-                                    required: true,
-                                    message: "Store opens on weekend?"
-                                }
-                            ]
-                        })(
-                            <Select placeholder="Opens on weekend">
-                                <Option value={true}>Yes</Option>
-                                <Option value={false}>No</Option>
-                            </Select>
-                        )}
-                    </Form.Item> */}
                     <Form.Item
                         validateStatus={cardError ? "error" : ""}
                         help={cardError || ""}

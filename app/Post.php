@@ -12,7 +12,7 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'store_id', 'description'
+        'store_id', 'description', 'image_path'
     ];
 
     public function store() 
