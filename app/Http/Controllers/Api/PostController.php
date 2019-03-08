@@ -62,8 +62,8 @@ class PostController extends Controller
         $image->move($destinationPath, $input['imagename']);
 
         return response()->json([
-            'status'=>'done',
-            'url'=>$destinationPath . '\\' . $input['imagename']
+            'status'=> 'done',
+            'url'=> '../Images/'  . $input['imagename']
             ]);
     }
 
