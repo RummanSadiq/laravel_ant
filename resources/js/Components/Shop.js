@@ -46,6 +46,16 @@ class Shop extends Component {
         this.setState({ edit: !this.state.edit });
     };
 
+    handleStateChange = ()=>{
+        axios.get("/api/myshop").then(res => {
+            const storedata = res.data;
+            console.log(storedata);
+            this.setState({ store: storedata });
+        });
+
+        this.setState({edit:!this.state.edit});
+        }
+
     componentDidMount() {}
     render() {
         return (
@@ -69,16 +79,6 @@ class Shop extends Component {
                                     </Button>
                                 )}
 
-                                {this.state.edit && (
-                                    <Button
-                                        shape="round"
-                                        icon="save"
-                                        size={"large"}
-                                        onClick={this.handleedit}
-                                    >
-                                        Save
-                                    </Button>
-                                )}
                             </div>
                         }
                         bordered={false}
@@ -101,17 +101,19 @@ class Shop extends Component {
                                     <div style={{fontWeight:'bold'}}>Store does not Provide Delivery</div>
  
                                    }
-                                    if(this.state.wifi > 0){
+                                {this.state.wifi > 0 &&
                                    <div style={{fontWeight:'bold'}}>Store has Wifi</div>
 
-                                   }else{
+                                   }
+                                {!this.state.wifi > 0 &&
                                     <div style={{fontWeight:'bold'}}>Store does not have Wifi</div>
  
                                    }
-                                    if(this.state.card_payment>0){
+                                    {this.state.card_payment > 0 &&
                                    <div style={{fontWeight:'bold'}}>Store has Card Payment</div>
 
-                                   }else{
+                                   }
+                                    {!this.state.card_payment > 0 &&
                                     <div style={{fontWeight:'bold'}}>Store does not have Card Payment</div>
  
                                    }
@@ -122,11 +124,6 @@ class Shop extends Component {
                                     <div style={{fontWeight:'bold'}}>Store does not open on Weekends</div>
  
                                    } */}
-
-
-
-
-
                                 </Col>
                             </Row>
                         )}
@@ -144,6 +141,7 @@ class Shop extends Component {
                             Delivery={this.state.store.delivery}
                             Address={this.state.store.address}
                             City={this.state.store.city}
+                            changeState={this.handleStateChange}
                         />
                     )}
                 </Col>
@@ -203,9 +201,24 @@ class ShopForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
-                axios.post("/api/updateshop", values).then(res => {
-                    console.log(res);
-                });
+                this.props.changeState();
+
+                values.open_time=moment.utc(values.open_time).format("HH:mm:ss");
+
+                values.close_time=moment.utc(values.close_time).format("HH:mm:ss");
+
+                axios
+                    .post("/api/updateshop", values)
+                    .then(res => {
+                        console.log(res);
+                    })
+                    .catch(function(error) {
+                        // handle error
+                        console.log(error);
+                        console.log(values);
+                    });
+
+
             } else {
                 console.log("Errors", err);
             }
@@ -259,10 +272,9 @@ class ShopForm extends React.Component {
                         validateStatus={store_typeError ? "error" : ""}
                         help={store_typeError || ""}
                         label="Store Type:"
-
                     >
                         {getFieldDecorator("store_type_id", {
-                            initialValue: "Pharmacy",
+                            initialValue: 1,
                             valuePropName: "store_type_id",
                             rules: [
                                 {
@@ -288,7 +300,6 @@ class ShopForm extends React.Component {
                         validateStatus={storeNameError ? "error" : ""}
                         help={storeNameError || ""}
                         label="Store Name:"
-
                     >
                         {getFieldDecorator("name", {
                             initialValue: this.props.storeName,
@@ -325,12 +336,13 @@ class ShopForm extends React.Component {
                                             }
                                         ]
                                     })(
-                                        // <TimePicker
-                                        //     use12Hours
-                                        //     format="h:mm a"
-                                        //     placeholder="Opening Time"
-                                        // />
-                                        <Input type="time" />
+                                        <TimePicker
+                                            use12Hours
+                                            format="h:mm a"
+                                            placeholder="Opening Time"
+
+                                        />
+                                        // <Input type="time" />
 
                                     )}
                                 </Form.Item>
@@ -356,12 +368,12 @@ class ShopForm extends React.Component {
                                             }
                                         ]
                                     })(
-                                        // <TimePicker
-                                        //     use12Hours
-                                        //     format="h:mm a"
-                                        //     placeholder="Closing Time"
-                                        // />
-                                        <Input type="time" />
+                                        <TimePicker
+                                            use12Hours
+                                            format="h:mm a"
+                                            placeholder="Closing Time"
+                                        />
+                                        // <Input type="time" />
                                     )}
                                 </Form.Item>
                             </Col>
@@ -370,7 +382,6 @@ class ShopForm extends React.Component {
                         validateStatus={ContactError ? "error" : ""}
                         help={ContactError || ""}
                         label="Contact#"
-
                     >
                         {getFieldDecorator("contact", {
                             initialValue: this.props.Contact,
@@ -383,7 +394,6 @@ class ShopForm extends React.Component {
                             ]
                         })(<Input placeholder="Contact" type="phone" />)}
                     </Form.Item>
-
                     <Form.Item
                         validateStatus={cardError ? "error" : ""}
                         help={cardError || ""}
@@ -391,7 +401,7 @@ class ShopForm extends React.Component {
                     >
                         {getFieldDecorator("card_payment", {
                             initialValue: this.props.AcceptsCard,
-                            placeholder:'Store accepts credit card? ',
+                            placeholder: "Store accepts credit card? ",
                             rules: [
                                 {
                                     required: true,
@@ -405,12 +415,10 @@ class ShopForm extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-
                     <Form.Item
                         validateStatus={wifiError ? "error" : ""}
                         help={wifiError || ""}
                         label="Has Wifi?"
-
                     >
                         {getFieldDecorator("wifi", {
                             initialValue: this.props.Wifi,
@@ -427,12 +435,10 @@ class ShopForm extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-
                     <Form.Item
                         validateStatus={deliveryError ? "error" : ""}
                         help={deliveryError || ""}
                         label="Provides Delivery?"
-
                     >
                         {getFieldDecorator("delivery", {
                             initialValue: this.props.Delivery,
@@ -454,7 +460,6 @@ class ShopForm extends React.Component {
                         validateStatus={cityError ? "error" : ""}
                         help={cityError || ""}
                         label="City:"
-
                     >
                         {getFieldDecorator("city", {
                             initialValue: this.props.City,
@@ -466,12 +471,10 @@ class ShopForm extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-
                     <Form.Item
                         validateStatus={addressError ? "error" : ""}
                         help={addressError || ""}
                         label="Address:"
-
                     >
                         {getFieldDecorator("address", {
                             initialValue: this.props.Address,
@@ -479,8 +482,7 @@ class ShopForm extends React.Component {
                                 { required: true, message: "Store address" }
                             ]
                         })(<Input placeholder="Store address" />)}
-                    </Form.Item> 
-
+                    </Form.Item>
                     <Form.Item>
                         {" "}
                         <div style={{ marginLeft: "70%", marginTop: "2%" }}>
