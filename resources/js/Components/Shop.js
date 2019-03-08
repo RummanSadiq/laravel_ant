@@ -350,57 +350,64 @@ class ShopForm extends React.Component {
                     <Row>
                         <Col span={12}>
                             {/* <Form.Item
-                                validateStatus={openTimeError ? "error" : ""}
-                                help={openTimeError || ""}
-                                label="Accepts Card?"
-                                label="Opens at:"
-                            >
-                                {getFieldDecorator("open_time", {
-                                    initialValue: moment(
-                                        this.props.OpeningTime,
-                                        "HH:mm:ss "
-                                    ),
+                                    validateStatus={
+                                        openTimeError ? "error" : ""
+                                    }
+                                    help={openTimeError || ""}
+                                    label="Accepts Card?"
+                                    label="Opens at:"
 
-                                    rules: [
-                                        {
-                                            required: true,
-                                            message: "Store opens at"
-                                        }
-                                    ]
-                                })(
-                                    <TimePicker
-                                        use12Hours
-                                        format="h:mm a"
-                                        placeholder="Opening Time"
-                                    />
-                                )}
-                            </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item
-                                validateStatus={closeTimeError ? "error" : ""}
-                                help={closeTimeError || ""}
-                                label="Closes at:"
-                            >
-                                {getFieldDecorator("close_time", {
-                                    initialValue: moment(
-                                        this.props.ClosingTime,
-                                        "HH:mm:ss"
-                                    ),
-                                    rules: [
-                                        {
-                                            required: true,
-                                            message: "Store closes at"
-                                        }
-                                    ]
-                                })(
-                                    <TimePicker
-                                        use12Hours
-                                        format="h:mm a"
-                                        placeholder="Closing Time"
-                                    />
-                                )}
-                            </Form.Item> */}
+
+                                >
+                                    {getFieldDecorator("open_time", {
+                                        initialValue: moment(
+                                            this.props.OpeningTime,
+                                            "HH:mm:ss "
+                                        ),
+
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: "Store opens at"
+                                            }
+                                        ]
+                                    })(
+                                        <TimePicker
+                                            use12Hours
+                                            format="h:mm a"
+                                            placeholder="Opening Time"
+                                        />
+                                    )}
+                                </Form.Item>
+                            </Col>
+                            <Col span={12}>
+                                <Form.Item
+                                    validateStatus={
+                                        closeTimeError ? "error" : ""
+                                    }
+                                    help={closeTimeError || ""}
+                                    label="Closes at:"
+
+                                >
+                                    {getFieldDecorator("close_time", {
+                                        initialValue: moment(
+                                            this.props.ClosingTime,
+                                            "HH:mm:ss"
+                                        ),
+                                        rules: [
+                                            {
+                                                required: true,
+                                                message: "Store closes at"
+                                            }
+                                        ]
+                                    })(
+                                        <TimePicker
+                                            use12Hours
+                                            format="h:mm a"
+                                            placeholder="Closing Time"
+                                        />
+                                    )}
+                                </Form.Item> */}
                         </Col>
                     </Row>
                     <Form.Item
@@ -419,7 +426,6 @@ class ShopForm extends React.Component {
                             ]
                         })(<Input placeholder="Contact" type="phone" />)}
                     </Form.Item>
-
                     <Form.Item
                         validateStatus={cardError ? "error" : ""}
                         help={cardError || ""}
@@ -441,7 +447,6 @@ class ShopForm extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-
                     <Form.Item
                         validateStatus={wifiError ? "error" : ""}
                         help={wifiError || ""}
@@ -462,7 +467,6 @@ class ShopForm extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-
                     <Form.Item
                         validateStatus={deliveryError ? "error" : ""}
                         help={deliveryError || ""}
@@ -483,7 +487,6 @@ class ShopForm extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-
                     <Form.Item
                         validateStatus={cityError ? "error" : ""}
                         help={cityError || ""}
@@ -499,7 +502,7 @@ class ShopForm extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-
+                    */}
                     <Form.Item
                         validateStatus={addressError ? "error" : ""}
                         help={addressError || ""}
@@ -512,7 +515,6 @@ class ShopForm extends React.Component {
                             ]
                         })(<Input placeholder="Store address" />)}
                     </Form.Item>
-
                     <Form.Item>
                         {" "}
                         <div style={{ marginLeft: "70%", marginTop: "2%" }}>
