@@ -16,7 +16,6 @@ import {
 import axios from "axios";
 
 const Option = Select.Option;
-const InputGroup = Input.Group;
 
 class Shop extends Component {
     state = {
@@ -87,107 +86,47 @@ class Shop extends Component {
                         {!this.state.edit && (
                             <Row>
                                 <Col span={12}>
-                                    <span style={{ fontWeight: "bold" }}>
-                                        Store Type:
-                                    </span>
-                                    <div style={{ fontWeight: "bold" }}>
-                                        Contact
-                                    </div>
-                                    <div style={{ fontWeight: "bold" }}>
-                                        OpeningTime
-                                    </div>
-                                    <div style={{ fontWeight: "bold" }}>
-                                        ClosingTime
-                                    </div>
-                                    <div style={{ fontWeight: "bold" }}>
-                                        Opens on Weekend
-                                    </div>
-                                    <div style={{ fontWeight: "bold" }}>
-                                        Accepts Card
-                                    </div>
-                                    <div style={{ fontWeight: "bold" }}>
-                                        Wifi
-                                    </div>
-                                    <div style={{ fontWeight: "bold" }}>
-                                        Delivery
-                                    </div>
-                                    <div style={{ fontWeight: "bold" }}>
-                                        Address
-                                    </div>
-                                </Col>
-                                <Col span={12}>
-                                    <div
-                                        style={{
-                                            textAlign: "right",
-                                            marginLeft: "60%"
-                                        }}
-                                    >
-                                        {this.state.store.store_type}
-                                    </div>
-                                    <div
-                                        style={{
-                                            textAlign: "right",
-                                            marginLeft: "60%"
-                                        }}
-                                    >
-                                        {this.state.store.contact}
-                                    </div>
-                                    <div
-                                        style={{
-                                            textAlign: "right",
-                                            marginLeft: "60%"
-                                        }}
-                                    >
-                                        {this.state.store.open_time}
-                                    </div>
-                                    <div
-                                        style={{
-                                            textAlign: "right",
-                                            marginLeft: "60%"
-                                        }}
-                                    >
-                                        {this.state.store.close_time}
-                                    </div>
-                                    <div
-                                        style={{
-                                            textAlign: "right",
-                                            marginLeft: "60%"
-                                        }}
-                                    >
-                                        {this.state.store.OpensonWeekend}
-                                    </div>
-                                    <div
-                                        style={{
-                                            textAlign: "right",
-                                            marginLeft: "60%"
-                                        }}
-                                    >
-                                        {this.state.store.card_payment}
-                                    </div>
-                                    <div
-                                        style={{
-                                            textAlign: "right",
-                                            marginLeft: "60%"
-                                        }}
-                                    >
-                                        {this.state.store.Wifi}
-                                    </div>
-                                    <div
-                                        style={{
-                                            textAlign: "right",
-                                            marginLeft: "60%"
-                                        }}
-                                    >
-                                        {this.state.store.Delivery}
-                                    </div>
-                                    <div
-                                        style={{
-                                            textAlign: "right",
-                                            marginLeft: "60%"
-                                        }}
-                                    >
-                                        {this.state.store.address}
-                                    </div>
+                                   <div><span style={{fontWeight:'bold'}}>Store Type: </span>{this.state.store.store_type}</div>
+                                   <div><span style={{fontWeight:'bold'}}>Store Contact: </span>{this.state.store.Contact}</div>
+                                   <div><span style={{fontWeight:'bold'}}>Store Address: </span>{this.state.store.address}</div>
+                                   <div><span style={{fontWeight:'bold'}}>Store opens At: </span>{this.state.store.open_time}</div>
+                                   <div><span style={{fontWeight:'bold'}}>Store Closes At: </span>{this.state.store.close_time}</div>
+                                   <div><span style={{fontWeight:'bold'}}>Store Type: </span>{this.state.store.store_type}</div>
+
+                                   {this.state.delivery > 0 &&
+                                   <div style={{fontWeight:'bold'}}>Store Provides Delivery</div>
+
+                                   } {!this.state.delivery > 0 &&
+
+                                    <div style={{fontWeight:'bold'}}>Store does not Provide Delivery</div>
+ 
+                                   }
+                                    if(this.state.wifi > 0){
+                                   <div style={{fontWeight:'bold'}}>Store has Wifi</div>
+
+                                   }else{
+                                    <div style={{fontWeight:'bold'}}>Store does not have Wifi</div>
+ 
+                                   }
+                                    if(this.state.card_payment>0){
+                                   <div style={{fontWeight:'bold'}}>Store has Card Payment</div>
+
+                                   }else{
+                                    <div style={{fontWeight:'bold'}}>Store does not have Card Payment</div>
+ 
+                                   }
+                                    {/* if(this.state.OpensonWeekend>0){
+                                   <div style={{fontWeight:'bold'}}>Store opens on Weekend </div>
+
+                                   }else{
+                                    <div style={{fontWeight:'bold'}}>Store does not open on Weekends</div>
+ 
+                                   } */}
+
+
+
+
+
                                 </Col>
                             </Row>
                         )}
@@ -195,16 +134,16 @@ class Shop extends Component {
                     {this.state.edit && (
                         <SHForm
                             storeName={this.state.store.name}
-                            contact={this.state.store.Contact}
-                            store_type={this.state.store.store_type}
+                            Contact={this.state.store.Contact}
+                            store_type={this.state.store.store_type_id}
                             OpeningTime={this.state.store.open_time}
                             ClosingTime={this.state.store.close_time}
                             OpensonWeekend={this.state.store.OpensonWeekend}
                             AcceptsCard={this.state.store.card_payment}
                             Wifi={this.state.store.wifi}
-                            Delivery={this.state.store.Delivery}
+                            Delivery={this.state.store.delivery}
                             Address={this.state.store.address}
-                            City={this.state.store.City}
+                            City={this.state.store.city}
                         />
                     )}
                 </Col>
@@ -283,22 +222,31 @@ class ShopForm extends React.Component {
         // Only show error after a field is touched.
         const store_typeError =
             isFieldTouched("store_type_id") && getFieldError("store_type_id");
+
         const storeNameError = isFieldTouched("name") && getFieldError("name");
 
-        const contactError =
-            isFieldTouched("contact") && getFieldError("contact");
+        const ContactError =
+            isFieldTouched("Contact") && getFieldError("Contact");
+
         const openTimeError =
             isFieldTouched("open_time") && getFieldError("open_time");
+
         const closeTimeError =
             isFieldTouched("close_time") && getFieldError("close_time");
+
         const cardError =
             isFieldTouched("card_payment") && getFieldError("card_payment");
+
         const wifiError = isFieldTouched("wifi") && getFieldError("wifi");
+
         const deliveryError =
             isFieldTouched("delivery") && getFieldError("delivery");
+
         const cityError = isFieldTouched("city") && getFieldError("city");
+
         const addressError =
             isFieldTouched("address") && getFieldError("address");
+
         const wheelchairError =
             isFieldTouched("wheel_chair") && getFieldError("wheel_chair");
         const washroomError =
@@ -310,9 +258,11 @@ class ShopForm extends React.Component {
                     <Form.Item
                         validateStatus={store_typeError ? "error" : ""}
                         help={store_typeError || ""}
+                        label="Store Type:"
+
                     >
                         {getFieldDecorator("store_type_id", {
-                            initialValue: this.props.store_type_id,
+                            initialValue: "Pharmacy",
                             valuePropName: "store_type_id",
                             rules: [
                                 {
@@ -337,6 +287,8 @@ class ShopForm extends React.Component {
                     <Form.Item
                         validateStatus={storeNameError ? "error" : ""}
                         help={storeNameError || ""}
+                        label="Store Name:"
+
                     >
                         {getFieldDecorator("name", {
                             initialValue: this.props.storeName,
@@ -348,7 +300,6 @@ class ShopForm extends React.Component {
                             ]
                         })(<Input placeholder="Store Name" />)}
                     </Form.Item>
-                    <InputGroup>
                         <Row>
                             <Col span={12}>
                                 <Form.Item
@@ -356,6 +307,10 @@ class ShopForm extends React.Component {
                                         openTimeError ? "error" : ""
                                     }
                                     help={openTimeError || ""}
+                                    label="Accepts Card?"
+                                    label="Opens at:"
+
+
                                 >
                                     {getFieldDecorator("open_time", {
                                         initialValue: moment(
@@ -384,6 +339,8 @@ class ShopForm extends React.Component {
                                         closeTimeError ? "error" : ""
                                     }
                                     help={closeTimeError || ""}
+                                    label="Closes at:"
+
                                 >
                                     {getFieldDecorator("close_time", {
                                         initialValue: moment(
@@ -406,13 +363,14 @@ class ShopForm extends React.Component {
                                 </Form.Item>
                             </Col>
                         </Row>
-                    </InputGroup>
                     <Form.Item
-                        validateStatus={contactError ? "error" : ""}
-                        help={contactError || ""}
+                        validateStatus={ContactError ? "error" : ""}
+                        help={ContactError || ""}
+                        label="Contact#"
+
                     >
-                        {getFieldDecorator("contact", {
-                            initialValue: this.props.contact,
+                        {getFieldDecorator("Contact", {
+                            initialValue: this.props.Contact,
                             rules: [
                                 {
                                     required: true,
@@ -426,9 +384,11 @@ class ShopForm extends React.Component {
                     <Form.Item
                         validateStatus={cardError ? "error" : ""}
                         help={cardError || ""}
+                        label="Accepts Card?"
                     >
                         {getFieldDecorator("card_payment", {
                             initialValue: this.props.AcceptsCard,
+                            placeholder:'Store accepts credit card? ',
                             rules: [
                                 {
                                     required: true,
@@ -437,8 +397,8 @@ class ShopForm extends React.Component {
                             ]
                         })(
                             <Select placeholder="Store accepts credit card?">
-                                <Option value={true}>Yes</Option>
-                                <Option value={false}>No</Option>
+                                <Option value={1}>Yes</Option>
+                                <Option value={0}>No</Option>
                             </Select>
                         )}
                     </Form.Item>
@@ -446,6 +406,8 @@ class ShopForm extends React.Component {
                     <Form.Item
                         validateStatus={wifiError ? "error" : ""}
                         help={wifiError || ""}
+                        label="Has Wifi?"
+
                     >
                         {getFieldDecorator("wifi", {
                             initialValue: this.props.Wifi,
@@ -457,17 +419,19 @@ class ShopForm extends React.Component {
                             ]
                         })(
                             <Select placeholder="Store has wifi?">
-                                <Option value={true}>Yes</Option>
-                                <Option value={false}>No</Option>
+                                <Option value={1}>Yes</Option>
+                                <Option value={0}>No</Option>
                             </Select>
                         )}
                     </Form.Item>
 
-                    <Form.Item
+                    {/* <Form.Item
                         validateStatus={deliveryError ? "error" : ""}
                         help={deliveryError || ""}
+                        label="Provides Delivery?"
+
                     >
-                        {getFieldDecorator("wifi", {
+                        {getFieldDecorator("delivery", {
                             initialValue: this.props.Delivery,
                             rules: [
                                 {
@@ -477,15 +441,17 @@ class ShopForm extends React.Component {
                             ]
                         })(
                             <Select placeholder="Store provides Delivery?">
-                                <Option value={true}>Yes</Option>
-                                <Option value={false}>No</Option>
+                                <Option value={1}>Yes</Option>
+                                <Option value={0}>No</Option>
                             </Select>
                         )}
-                    </Form.Item>
+                    </Form.Item> */}
 
-                    <Form.Item
+                    {/* <Form.Item
                         validateStatus={cityError ? "error" : ""}
                         help={cityError || ""}
+                        label="City:"
+
                     >
                         {getFieldDecorator("city", {
                             initialValue: this.props.City,
@@ -501,6 +467,8 @@ class ShopForm extends React.Component {
                     <Form.Item
                         validateStatus={addressError ? "error" : ""}
                         help={addressError || ""}
+                        label="Address:"
+
                     >
                         {getFieldDecorator("address", {
                             initialValue: this.props.Address,
@@ -508,7 +476,7 @@ class ShopForm extends React.Component {
                                 { required: true, message: "Store address" }
                             ]
                         })(<Input placeholder="Store address" />)}
-                    </Form.Item>
+                    </Form.Item> */}
 
                     <Form.Item>
                         {" "}

@@ -15,9 +15,9 @@ class Posts extends Component {
 
     componentDidMount() {
         axios.get("/api/posts").then(res => {
-            const postdata = res.data;
-            console.log(postdata);
-            this.setState({ post: postdata });
+            const postd = res.data;
+            this.setState({ post: postd });
+            console.log(this.state.post);
         });
     }
 
@@ -108,7 +108,7 @@ class Posts extends Component {
                         headStyle={{ textAlign: "center" }}
                     >
                         <div style={{ paddingTop: "3%" }}>
-                            <Card
+                            {/* <Card
                                 hoverable={true}
                                 bordered={false}
                                 cover={<img alt="postimage" src={image1} />}
@@ -126,13 +126,14 @@ class Posts extends Component {
                                 dignissimos, vitae unde animi maxime, eius
                                 suscipit quis distinctio iure accusamus ab?
                                 <Meta description="2/8/2019 7:09Pm" />
-                            </Card>
+                            </Card> */}
 
-                            {this.state.post.map(element => {
+{this.state.post.map(element => (
                                 <Card
                                     hoverable={true}
                                     bordered={false}
-                                    cover={<img alt="postimage" src={image1} />}
+                                    type="inner"
+                                    cover={<img alt="postimage"  src={element.image_path} />}
                                     extra={
                                         <Button
                                             type="danger"
@@ -143,8 +144,8 @@ class Posts extends Component {
                                 >
                                     {element.description}
                                     <Meta description={element.created_at} />
-                                </Card>;
-                            })}
+                                </Card>
+                        ))}
                         </div>
                     </Card>
                 </Col>
