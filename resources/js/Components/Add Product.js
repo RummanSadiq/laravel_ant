@@ -113,7 +113,8 @@ class AddProductForm extends React.Component {
         const descriptionError =
             isFieldTouched("description") && getFieldError("description");
         const pictureError =
-            isFieldTouched("picture") && getFieldError("picture");
+            isFieldTouched("display_picture") &&
+            getFieldError("display_picture");
         const categoryError =
             isFieldTouched("category") && getFieldError("category");
         const tagsError = isFieldTouched("tags") && getFieldError("tags");
@@ -187,19 +188,32 @@ class AddProductForm extends React.Component {
                                 />
                             )}
                         </Form.Item>
+
                         <div style={{ margin: "2%" }}>
                             <h3>Upload Pictures</h3>
                         </div>
-                        <Form.Item>
-                            <Upload
-                                action="/api/attachment/products"
-                                onChange={this.handleUpload}
-                                name="image"
-                            >
-                                <Button>
-                                    <Icon type="upload" /> Upload
-                                </Button>
-                            </Upload>
+                        <Form.Item
+                            validateStatus={pictureError ? "error" : ""}
+                            help={pictureError || ""}
+                        >
+                            {getFieldDecorator("display_picture", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: "Must Upload Picture"
+                                    }
+                                ]
+                            })(
+                                <Upload
+                                    action="/api/attachment/products"
+                                    onChange={this.handleUpload}
+                                    name="image"
+                                >
+                                    <Button>
+                                        <Icon type="upload" /> Upload
+                                    </Button>
+                                </Upload>
+                            )}
                         </Form.Item>
 
                         <Form.Item
