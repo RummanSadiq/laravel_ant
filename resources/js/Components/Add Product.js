@@ -71,6 +71,8 @@ class AddProduct extends Component {
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
+
+
 class AddProductForm extends React.Component {
     // componentDidMount() {
     //     // To disabled submit button at the beginning.
@@ -80,6 +82,8 @@ class AddProductForm extends React.Component {
     state = {
         image_path: ""
     };
+
+   
 
     handleUpload = event => {
         if (event.file.status !== "uploading") {
@@ -93,7 +97,13 @@ class AddProductForm extends React.Component {
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
+                values.display_picture= this.state.image_path;
                 console.log("Received values of form: ", values);
+
+                axios.post("/api/products", values).then(res => {
+                    const data = res.data;
+                   console.log(data);
+                });
             }
         });
     };
@@ -108,13 +118,13 @@ class AddProductForm extends React.Component {
 
         // Only show error after a field is touched.
         const productNameError =
-            isFieldTouched("productname") && getFieldError("productname");
+            isFieldTouched("name") && getFieldError("name");
         const descriptionError =
             isFieldTouched("description") && getFieldError("description");
         const pictureError =
-            isFieldTouched("picture") && getFieldError("picture");
+            isFieldTouched("display_picture") && getFieldError("display_picture");
         const categoryError =
-            isFieldTouched("category") && getFieldError("category");
+            isFieldTouched("category_id") && getFieldError("category_id");
         const tagsError = isFieldTouched("tags") && getFieldError("tags");
         const priceError = isFieldTouched("price") && getFieldError("price");
         return (
@@ -129,7 +139,7 @@ class AddProductForm extends React.Component {
                             validateStatus={productNameError ? "error" : ""}
                             help={productNameError || ""}
                         >
-                            {getFieldDecorator("productname", {
+                            {getFieldDecorator("name", {
                                 rules: [
                                     {
                                         required: true,
@@ -189,7 +199,18 @@ class AddProductForm extends React.Component {
                         <div style={{ margin: "2%" }}>
                             <h3>Upload Pictures</h3>
                         </div>
-                        <Form.Item>
+                        <Form.Item
+                            validateStatus={pictureError ? "error" : ""}
+                            help={pictureError || ""}
+                        >
+                            {getFieldDecorator("display_picture", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: "Must Upload Picture"
+                                    }
+                                ]
+                            })(
                             <Upload
                                 action="/api/attachment/products"
                                 onChange={this.handleUpload}
@@ -199,6 +220,7 @@ class AddProductForm extends React.Component {
                                     <Icon type="upload" /> Upload
                                 </Button>
                             </Upload>
+                              )}
                         </Form.Item>
 
                         <Form.Item
@@ -207,7 +229,7 @@ class AddProductForm extends React.Component {
                         >
                             <h2>Select category</h2>
 
-                            {getFieldDecorator("category", {
+                            {getFieldDecorator("category_id", {
                                 rules: [
                                     {
                                         required: true,
@@ -221,61 +243,14 @@ class AddProductForm extends React.Component {
                                     style={{ width: 320 }}
                                     // onChange={handleChangeCategory}
                                 >
-                                    <option value="Women's Fashion">
+                                    <option value={1}>
                                         Women's Fashion
                                     </option>
-                                    <option key="1" value="Men's Fashion">
-                                        Men's Fashion
-                                    </option>
-                                    <option
-                                        key="2"
-                                        value="Electronics and Devices"
-                                    >
-                                        Electronics and Devices
-                                    </option>
-                                    <option
-                                        key="3"
-                                        value="Electronic Accessories"
-                                    >
-                                        Electronic Accessories
-                                    </option>
-                                    <option
-                                        key="4"
-                                        value="TV and Home Applicances"
-                                    >
-                                        TV and Home Applicances
-                                    </option>
-                                    <option key="5" value="Health and Beauty">
-                                        Health and Beauty
-                                    </option>
-                                    <option key="6" value="Babies and Toys">
-                                        Babies and Toys
-                                    </option>
-                                    <option key="7" value="Grocery and Pets">
-                                        Grocery and Pets
-                                    </option>
-                                    <option key="8" value="Home and Lifestyle">
-                                        Home and Lifestyle
-                                    </option>
-                                    <option
-                                        key="9"
-                                        value="Watches and Accessories"
-                                    >
-                                        Watches and Accessories
-                                    </option>
-                                    <option
-                                        key="10"
-                                        value="Automotive and Motorbike"
-                                    >
-                                        Automotive and Motorbike
-                                    </option>
-                                    <option key="12" value="Sports">
-                                        Sports
-                                    </option>
+                                   
                                 </Select>
                             )}
                         </Form.Item>
-                        <h2>Add tags</h2>
+                        {/* <h2>Add tags</h2>
 
                         <Form.Item
                             validateStatus={tagsError ? "error" : ""}
@@ -300,7 +275,7 @@ class AddProductForm extends React.Component {
                                     {children}
                                 </Select>
                             )}
-                        </Form.Item>
+                        </Form.Item> */}
 
                         <Form.Item>
                             {" "}

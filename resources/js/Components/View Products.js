@@ -1,64 +1,12 @@
 import React, { Component } from "react";
-import { Col, Card, Table, Tag, Divider } from "antd";
+import { Col, Card, Table, Tag, Divider, Button, Modal } from "antd";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
-const columns = [
-    {
-        title: "Name",
-        dataIndex: "name",
-        key: "name",
-        render: text => <a href="javascript:;">{text}</a>
-    },
-    {
-        title: "Description",
-        dataIndex: "description",
-        key: "description"
-    },
-    {
-        title: "Picture",
-        dataIndex: "display_picture",
-        key: "picture"
-    },
-    {
-        title: "Price",
-        dataIndex: "price",
-        key: "price"
-    },
-    {
-        title: "Category",
-        dataIndex: "category",
-        key: "category"
-    },
-    // {
-    //     title: "Tags",
-    //     key: "tags",
-    //     dataIndex: "tags",
-    //     render: tags => (
-    //         <span>
-    //             {tags.map(tag => {
-    //                 let color = "geekblue";
-    //                 return (
-    //                     <Tag color={color} key={tag}>
-    //                         {tag.toUpperCase()}
-    //                     </Tag>
-    //                 );
-    //             })}
-    //         </span>
-    //     )
-    // },
-    {
-        title: "Action",
-        key: "action",
-        render: () => (
-            <span>
-                <a href="javascript:;">Delete</a>
-            </span>
-        )
-    }
-];
 class ViewProducts extends Component {
     state = {
-        products: []
+        products: [],
+        visible:false
     };
 
     componentDidMount() {
@@ -69,7 +17,81 @@ class ViewProducts extends Component {
         });
     }
 
+    handleDelete = () => {
+        console.log("Deleting");
+        axios.delete('/products/{id}');
+    };
+
+    handleEdit = () => {
+        console.log("Handling Edit");
+    };
+
     render() {
+        const columns = [
+            {
+                title:'ID',
+                dataIndex:'id',
+                key:'id',
+            },
+            {
+                title: "Name",
+                dataIndex: "name",
+                key: "name",
+                render: text => <a href="javascript:;">{text}</a>
+            },
+            {
+                title: "Description",
+                dataIndex: "description",
+                key: "description"
+            },
+            {
+                title: "Picture",
+                dataIndex: "display_picture",
+                key: "picture",
+                render: Image => <img src={Image} />
+            },
+            {
+                title: "Price",
+                dataIndex: "price",
+                key: "price"
+            },
+            {
+                title: "Category",
+                dataIndex: "category",
+                key: "category"
+            },
+            // {
+            //     title: "Tags",
+            //     key: "tags",
+            //     dataIndex: "tags",
+            //     render: tags => (
+            //         <span>
+            //             {tags.map(tag => {
+            //                 let color = "geekblue";
+            //                 return (
+            //                     <Tag color={color} key={tag}>
+            //                         {tag.toUpperCase()}
+            //                     </Tag>
+            //                 );
+            //             })}
+            //         </span>
+            //     )
+            // },
+            {
+                title: "Action",
+                key: "action",
+                render: () => (
+                    <div>
+                        <Button icon="delete" onClick={this.handleDelete}/>
+                        <Button
+                        
+                            icon="edit"
+                            onClick={this.handleEdit}
+                        />
+                    </div>
+                )
+            }
+        ];
         return (
             <div>
                 <Col span={14} offset={6}>
@@ -81,6 +103,18 @@ class ViewProducts extends Component {
 
                     <Table columns={columns} dataSource={this.state.products} />
                 </Col>
+
+                <Modal
+                            title="Edit a Question"
+                            visible={this.state.visible}
+                            onOk={event => this.handleOk(event)}
+                            onCancel={this.handleCancel}
+                            destroyOnClose={true}
+                            // mquestion={this.state.newfaq.question}
+                            // manswer={this.state.newfaq.answer}
+                        >
+                           
+                        </Modal>
             </div>
         );
     }
