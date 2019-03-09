@@ -73,12 +73,8 @@ class AddProductForm extends React.Component {
         
         this.props.form.validateFields((err, values) => {
             if (!err) {
-<<<<<<< HEAD
                 console.log("Received values of form: ", values);
                 this.props.form.resetFields();
-=======
-              console.log('Received values of form: ', values);
->>>>>>> parent of cc88f7a... Upload: Add Product
             }
           });    };
 
@@ -95,16 +91,10 @@ class AddProductForm extends React.Component {
             isFieldTouched("productname") && getFieldError("productname");
         const descriptionError =
             isFieldTouched("description") && getFieldError("description");
-<<<<<<< HEAD
         const pictureError =
             isFieldTouched("display_picture") &&
             getFieldError("display_picture");
         const categoryError =
-=======
-            const pictureError =
-            isFieldTouched("picture") && getFieldError("picture");
-            const categoryError =
->>>>>>> parent of cc88f7a... Upload: Add Product
             isFieldTouched("category") && getFieldError("category");
             const tagsError =
             isFieldTouched("tags") && getFieldError("tags");
@@ -169,7 +159,6 @@ class AddProductForm extends React.Component {
                         <div style={{ margin: "2%" }}>
                             <h3>Upload Pictures</h3>
                         </div>
-<<<<<<< HEAD
                         <Form.Item
                             validateStatus={pictureError ? "error" : ""}
                             help={pictureError || ""}
@@ -188,14 +177,6 @@ class AddProductForm extends React.Component {
                                     </Button>
                                 </Upload>
                             )}
-=======
-                        <Form.Item>
-                            <Upload >
-                                <Button>
-                                    <Icon type="upload" /> Upload
-                                </Button>
-                            </Upload>
->>>>>>> parent of cc88f7a... Upload: Add Product
                         </Form.Item>
 
                         <Form.Item
@@ -211,92 +192,13 @@ class AddProductForm extends React.Component {
                                 style={{ width: 320 }}
                                 // onChange={handleChangeCategory}
                             >
-                                <option value="Women's Fashion">
+                                <option >
                                     Women's Fashion
                                 </option>
-                                <option key="1" value="Men's Fashion">
+                                <option value={1} >
                                     Men's Fashion
                                 </option>
-                                <option key="2" value="Electronics and Devices">
-                                    Electronics and Devices
-                                </option>
-                                <option key="3" value="Electronic Accessories">
-                                    Electronic Accessories
-                                </option>
-                                <option key="4" value="TV and Home Applicances">
-                                    TV and Home Applicances
-                                </option>
-                                <option key="5" value="Health and Beauty">
-                                    Health and Beauty
-                                </option>
-                                <option key="6" value="Babies and Toys">
-                                    Babies and Toys
-                                </option>
-                                <option key="7" value="Grocery and Pets">
-                                    Grocery and Pets
-                                </option>
-                                <option key="8" value="Home and Lifestyle">
-                                    Home and Lifestyle
-                                </option>
-                                <option key="9" value="Watches and Accessories">
-                                    Watches and Accessories
-                                </option>
-                                <option
-                                    key="10"
-                                    value="Automotive and Motorbike"
-                                >
-<<<<<<< HEAD
-                                    <option value="Women's Fashion">
-                                        Women's Fashion
-                                    </option>
-                                    <option key={1} value="Men's Fashion">
-                                        Men's Fashion
-                                    </option>
-                                    <option
-                                        key={2}
-                                        value="Electronics and Devices"
-                                    >
-                                        Electronics and Devices
-                                    </option>
-                                    <option
-                                        key={3}
-                                        value="Electronic Accessories"
-                                    >
-                                        Electronic Accessories
-                                    </option>
-                                    <option
-                                        key={4}
-                                        value="TV and Home Applicances"
-                                    >
-                                        TV and Home Applicances
-                                    </option>
-                                    <option key={5} value="Health and Beauty">
-                                        Health and Beauty
-                                    </option>
-                                    <option key={6} value="Babies and Toys">
-                                        Babies and Toys
-                                    </option>
-                                    <option key={7} value="Grocery and Pets">
-                                        Grocery and Pets
-                                    </option>
-                                    <option key={8} value="Home and Lifestyle">
-                                        Home and Lifestyle
-                                    </option>
-                                    <option
-                                        key={9}
-                                        value="Watches and Accessories"
-                                    >
-                                        Watches and Accessories
-                                    </option>
-                                    <option
-                                        key={10}
-                                        value="Automotive and Motorbike"
-                                    >
-                                        Automotive and Motorbike
-                                    </option>
-                                    <option key={11} value="Sports">
-                                        Sports
-                                    </option>
+                                
                                 </Select>
                             )}
                         </Form.Item>
@@ -326,37 +228,6 @@ class AddProductForm extends React.Component {
                                 </Select>
                             )}
                         </Form.Item> */}
-=======
-                                    Automotive and Motorbike
-                                </option>
-                                <option key="12" value="Sports">
-                                    Sports
-                                </option>
-                            </Select>
-                     )}
-                           
-                        </Form.Item>
-                        <h2>Add tags</h2>
-
-                        <Form.Item
-                        validateStatus={tagsError ? 'error' : ''}
-                        help={tagsError || ''}
-                        >{getFieldDecorator('tags', {
-                            rules: [{ required: true, message: 'Please input your Product Description!' }],
-                          })(
-                            <Select
-                                mode="multiple"
-                                style={{ width: "100%" }}
-                                placeholder="Please select"
-                                defaultValue={["a10", "c12"]}
-                                // onChange={handletagsChange}
-                            >
-                                {children}
-                            </Select>
-                                                 )}
-
-                        </Form.Item>
->>>>>>> parent of cc88f7a... Upload: Add Product
 
                         <Form.Item>
                             {" "}
