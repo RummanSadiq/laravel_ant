@@ -1,10 +1,20 @@
 import React, { Component } from "react";
-import { Col, Input, Button, Upload, Card, Icon, Select, Form, Row,message } from "antd";
+import {
+    Col,
+    Input,
+    Button,
+    Upload,
+    Card,
+    Icon,
+    Select,
+    Form,
+    Row,
+    message
+} from "antd";
 import axios from "axios";
 
 const { TextArea } = Input;
 const Option = Select.Option;
-
 
 const children = [];
 for (let i = 10; i < 36; i++) {
@@ -14,22 +24,22 @@ for (let i = 10; i < 36; i++) {
 }
 
 const props = {
-    name: 'image',
-    action: '//jsonplaceholder.typicode.com/posts/',
+    name: "image",
+    action: "//jsonplaceholder.typicode.com/posts/",
     headers: {
-      authorization: 'authorization-text',
+        authorization: "authorization-text"
     },
     onChange(info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
+        if (info.file.status !== "uploading") {
+            console.log(info.file, info.fileList);
+        }
+        if (info.file.status === "done") {
+            message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === "error") {
+            message.error(`${info.file.name} file upload failed.`);
+        }
+    }
+};
 
 // function handleChange(value) {
 //     console.log(`selected ${value}`);
@@ -70,13 +80,22 @@ class AddProductForm extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
                 this.props.form.resetFields();
+
+                console.log("Received values of form: ", values);
+                this.props.form.resetFields();
+
+                console.log("Received values of form: ", values);
+
+                console.log("Received values of form: ", values);
+
+                console.log("Received values of form: ", values);
             }
-          });    };
+        });
+    };
 
     render() {
         const {
@@ -91,14 +110,11 @@ class AddProductForm extends React.Component {
             isFieldTouched("productname") && getFieldError("productname");
         const descriptionError =
             isFieldTouched("description") && getFieldError("description");
-        const pictureError =
-            isFieldTouched("display_picture") &&
-            getFieldError("display_picture");
+
         const categoryError =
             isFieldTouched("category") && getFieldError("category");
-            const tagsError =
-            isFieldTouched("tags") && getFieldError("tags");
-            const priceError = isFieldTouched("price") && getFieldError("price");
+        const tagsError = isFieldTouched("tags") && getFieldError("tags");
+        const priceError = isFieldTouched("price") && getFieldError("price");
         return (
             <Col span={12} offset={6}>
                 <Card
@@ -123,39 +139,50 @@ class AddProductForm extends React.Component {
                             )}
                         </Form.Item>
                         <div style={{ marginTop: "2%" }} />
-
                         <Form.Item
-                        validateStatus={priceError ? 'error' : ''}
-                        help={descriptionError || ''}
+                            validateStatus={priceError ? "error" : ""}
+                            help={descriptionError || ""}
                         >
-                        {getFieldDecorator('price', {
-            rules: [{ required: true, message: 'Please input your Product Price!' }],
-          })(
-              <Row>
-                  <Col span={4}> <Input
-            size="small"
-            type="number"
-            placeholder="price"
-        /> 
-                  </Col>
-              </Row>
-                    )}
-                           
+                            {getFieldDecorator("price", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message:
+                                            "Please input your Product Price!"
+                                    }
+                                ]
+                            })(
+                                <Row>
+                                    <Col span={4}>
+                                        {" "}
+                                        <Input
+                                            size="small"
+                                            type="number"
+                                            placeholder="price"
+                                        />
+                                    </Col>
+                                </Row>
+                            )}
                         </Form.Item>
                         <Form.Item
-                        validateStatus={descriptionError ? 'error' : ''}
-                        help={descriptionError || ''}
+                            validateStatus={descriptionError ? "error" : ""}
+                            help={descriptionError || ""}
                         >
-                        {getFieldDecorator('description', {
-            rules: [{ required: true, message: 'Please input your Product Description!' }],
-          })(
-            <TextArea
-            placeholder="Write complete product Description"
-            autosize={{ minRows: 3, maxRows: 6 }}
-        />          )}
-                           
+                            {getFieldDecorator("description", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message:
+                                            "Please input your Product Description!"
+                                    }
+                                ]
+                            })(
+                                <TextArea
+                                    placeholder="Write complete product Description"
+                                    autosize={{ minRows: 3, maxRows: 6 }}
+                                />
+                            )}
                         </Form.Item>
-
                         <div style={{ margin: "2%" }}>
                             <h3>Upload Pictures</h3>
                         </div>
@@ -178,32 +205,41 @@ class AddProductForm extends React.Component {
                                 </Upload>
                             )}
                         </Form.Item>
-
+                        <div style={{ margin: "2%" }}>
+                            <h3>Upload Pictures</h3>
+                        </div>
+                        <Form.Item>
+                            <Upload>
+                                <Button>
+                                    <Icon type="upload" /> Upload
+                                </Button>
+                            </Upload>
+                        </Form.Item>
                         <Form.Item
-                         validateStatus={categoryError ? 'error' : ''}
-                         help={categoryError || ''}
+                            validateStatus={categoryError ? "error" : ""}
+                            help={categoryError || ""}
                         >
                             <h2>Select category</h2>
 
-{getFieldDecorator('category', {
-            rules: [{ required: true, message: 'Please input your Product Description!' }],
-          })( <Select
-                                placeholder="Select Category"
-                                style={{ width: 320 }}
-                                // onChange={handleChangeCategory}
-                            >
-                                <option >
-                                    Women's Fashion
-                                </option>
-                                <option value={1} >
-                                    Men's Fashion
-                                </option>
-                                
+                            {getFieldDecorator("category", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message:
+                                            "Please input your Product Description!"
+                                    }
+                                ]
+                            })(
+                                <Select
+                                    placeholder="Select Category"
+                                    style={{ width: 320 }}
+                                    // onChange={handleChangeCategory}
+                                >
+                                    <option value={1}>Men's Fashion</option>
                                 </Select>
                             )}
                         </Form.Item>
                         <h2>Add tags</h2>
-
                         {/* <Form.Item
                             validateStatus={tagsError ? "error" : ""}
                             help={tagsError || ""}
@@ -228,7 +264,32 @@ class AddProductForm extends React.Component {
                                 </Select>
                             )}
                         </Form.Item> */}
-
+                        )}
+                        <h2>Add tags</h2>
+                        <Form.Item
+                            validateStatus={tagsError ? "error" : ""}
+                            help={tagsError || ""}
+                        >
+                            {getFieldDecorator("tags", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message:
+                                            "Please input your Product Description!"
+                                    }
+                                ]
+                            })(
+                                <Select
+                                    mode="multiple"
+                                    style={{ width: "100%" }}
+                                    placeholder="Please select"
+                                    defaultValue={["a10", "c12"]}
+                                    // onChange={handletagsChange}
+                                >
+                                    {children}
+                                </Select>
+                            )}
+                        </Form.Item>
                         <Form.Item>
                             {" "}
                             <div style={{ marginLeft: "90%", marginTop: "2%" }}>
