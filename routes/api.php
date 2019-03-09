@@ -31,7 +31,6 @@ Route::get('/storetypes', 'Api\StoreTypeController@index');
 //Posts
 Route::get('/posts', 'Api\PostController@index');
 Route::post('/posts', 'Api\PostController@store');
-Route::post('/post_attachment', 'Api\PostController@attachment');
 Route::post('/posts/{id}', 'Api\PostController@update');
 Route::delete('/posts/{id}', 'Api\PostController@destroy');
 // Route::get('/myposts', 'Api\PostController@show');
@@ -62,3 +61,19 @@ Route::get('/messages/{id}', 'Api\MessageController@show');
 Route::post('/messages', 'Api\MessageController@store'); //might not get used 
 Route::post('/messages/{id}', 'Api\MessageController@update'); //sending message to a specific id
 Route::delete('/messages/{id}', 'Api\MessageController@destroy'); //Delete chat with some user
+
+
+//Image Attachments 
+Route::post('/attachment/{type}', function(Request $request, $type) 
+    {
+        $image = $request->file('image');
+        $input['imagename'] = time() . '.' . $image->getClientOriginalExtension();
+        $destinationPath = public_path('images/' . $type);
+        $image->move($destinationPath, $input['imagename']);
+
+        return response()->json([
+            'status'=> 'done',
+            'url'=> '../images/'. $type  .'/'. $input['imagename']
+            ]);
+    }
+);
