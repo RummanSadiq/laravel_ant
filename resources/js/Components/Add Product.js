@@ -74,8 +74,12 @@ class AddProductForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 console.log("Received values of form: ", values);
                 this.props.form.resetFields();
+=======
+              console.log('Received values of form: ', values);
+>>>>>>> parent of cc88f7a... Upload: Add Product
 =======
               console.log('Received values of form: ', values);
 >>>>>>> parent of cc88f7a... Upload: Add Product
@@ -96,10 +100,16 @@ class AddProductForm extends React.Component {
         const descriptionError =
             isFieldTouched("description") && getFieldError("description");
 <<<<<<< HEAD
+<<<<<<< HEAD
         const pictureError =
             isFieldTouched("display_picture") &&
             getFieldError("display_picture");
         const categoryError =
+=======
+            const pictureError =
+            isFieldTouched("picture") && getFieldError("picture");
+            const categoryError =
+>>>>>>> parent of cc88f7a... Upload: Add Product
 =======
             const pictureError =
             isFieldTouched("picture") && getFieldError("picture");
@@ -155,6 +165,7 @@ class AddProductForm extends React.Component {
                         <Form.Item
                         validateStatus={descriptionError ? 'error' : ''}
                         help={descriptionError || ''}
+<<<<<<< HEAD
                         >
                         {getFieldDecorator('description', {
             rules: [{ required: true, message: 'Please input your Product Description!' }],
@@ -189,6 +200,21 @@ class AddProductForm extends React.Component {
                                 </Upload>
                             )}
 =======
+=======
+                        >
+                        {getFieldDecorator('description', {
+            rules: [{ required: true, message: 'Please input your Product Description!' }],
+          })(
+            <TextArea
+            placeholder="Write complete product Description"
+            autosize={{ minRows: 3, maxRows: 6 }}
+        />          )}
+                           
+                        </Form.Item>
+                        <div style={{ margin: "2%" }}>
+                            <h3>Upload Pictures</h3>
+                        </div>
+>>>>>>> parent of cc88f7a... Upload: Add Product
                         <Form.Item>
                             <Upload >
                                 <Button>
@@ -245,6 +271,7 @@ class AddProductForm extends React.Component {
                                     key="10"
                                     value="Automotive and Motorbike"
                                 >
+<<<<<<< HEAD
 <<<<<<< HEAD
                                     <option value="Women's Fashion">
                                         Women's Fashion
@@ -338,6 +365,19 @@ class AddProductForm extends React.Component {
                         </Form.Item>
                         <h2>Add tags</h2>
 
+=======
+                                    Automotive and Motorbike
+                                </option>
+                                <option key="12" value="Sports">
+                                    Sports
+                                </option>
+                            </Select>
+                     )}
+                           
+                        </Form.Item>
+                        <h2>Add tags</h2>
+
+>>>>>>> parent of cc88f7a... Upload: Add Product
                         <Form.Item
                         validateStatus={tagsError ? 'error' : ''}
                         help={tagsError || ''}
