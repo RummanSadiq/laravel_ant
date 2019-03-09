@@ -1,10 +1,20 @@
 import React, { Component } from "react";
-import { Col, Input, Button, Upload, Card, Icon, Select, Form, Row,message } from "antd";
+import {
+    Col,
+    Input,
+    Button,
+    Upload,
+    Card,
+    Icon,
+    Select,
+    Form,
+    Row,
+    message
+} from "antd";
 import axios from "axios";
 
 const { TextArea } = Input;
 const Option = Select.Option;
-
 
 const children = [];
 for (let i = 10; i < 36; i++) {
@@ -14,22 +24,22 @@ for (let i = 10; i < 36; i++) {
 }
 
 const props = {
-    name: 'image',
-    action: '//jsonplaceholder.typicode.com/posts/',
+    name: "image",
+    action: "//jsonplaceholder.typicode.com/posts/",
     headers: {
-      authorization: 'authorization-text',
+        authorization: "authorization-text"
     },
     onChange(info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  };
+        if (info.file.status !== "uploading") {
+            console.log(info.file, info.fileList);
+        }
+        if (info.file.status === "done") {
+            message.success(`${info.file.name} file uploaded successfully`);
+        } else if (info.file.status === "error") {
+            message.error(`${info.file.name} file upload failed.`);
+        }
+    }
+};
 
 // function handleChange(value) {
 //     console.log(`selected ${value}`);
@@ -67,15 +77,26 @@ class AddProductForm extends React.Component {
     //     this.props.form.validateFields();
     // }
 
+    state = {
+        image_path: ""
+    };
+
+    handleUpload = event => {
+        if (event.file.status !== "uploading") {
+            console.log(event.file);
+            this.setState({ image_path: event.file.response.url });
+        }
+    };
+
     handleSubmit = e => {
         e.preventDefault();
 
-        
         this.props.form.validateFields((err, values) => {
             if (!err) {
-              console.log('Received values of form: ', values);
+                console.log("Received values of form: ", values);
             }
-          });    };
+        });
+    };
 
     render() {
         const {
@@ -90,13 +111,12 @@ class AddProductForm extends React.Component {
             isFieldTouched("productname") && getFieldError("productname");
         const descriptionError =
             isFieldTouched("description") && getFieldError("description");
-            const pictureError =
+        const pictureError =
             isFieldTouched("picture") && getFieldError("picture");
-            const categoryError =
+        const categoryError =
             isFieldTouched("category") && getFieldError("category");
-            const tagsError =
-            isFieldTouched("tags") && getFieldError("tags");
-            const priceError = isFieldTouched("price") && getFieldError("price");
+        const tagsError = isFieldTouched("tags") && getFieldError("tags");
+        const priceError = isFieldTouched("price") && getFieldError("price");
         return (
             <Col span={12} offset={6}>
                 <Card
@@ -123,41 +143,58 @@ class AddProductForm extends React.Component {
                         <div style={{ marginTop: "2%" }} />
 
                         <Form.Item
-                        validateStatus={priceError ? 'error' : ''}
-                        help={descriptionError || ''}
+                            validateStatus={priceError ? "error" : ""}
+                            help={descriptionError || ""}
                         >
-                        {getFieldDecorator('price', {
-            rules: [{ required: true, message: 'Please input your Product Price!' }],
-          })(
-              <Row>
-                  <Col span={4}> <Input
-            size="small"
-            type="number"
-            placeholder="price"
-        /> 
-                  </Col>
-              </Row>
-                    )}
-                           
+                            {getFieldDecorator("price", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message:
+                                            "Please input your Product Price!"
+                                    }
+                                ]
+                            })(
+                                <Row>
+                                    <Col span={4}>
+                                        {" "}
+                                        <Input
+                                            size="small"
+                                            type="number"
+                                            placeholder="price"
+                                        />
+                                    </Col>
+                                </Row>
+                            )}
                         </Form.Item>
                         <Form.Item
-                        validateStatus={descriptionError ? 'error' : ''}
-                        help={descriptionError || ''}
+                            validateStatus={descriptionError ? "error" : ""}
+                            help={descriptionError || ""}
                         >
-                        {getFieldDecorator('description', {
-            rules: [{ required: true, message: 'Please input your Product Description!' }],
-          })(
-            <TextArea
-            placeholder="Write complete product Description"
-            autosize={{ minRows: 3, maxRows: 6 }}
-        />          )}
-                           
+                            {getFieldDecorator("description", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message:
+                                            "Please input your Product Description!"
+                                    }
+                                ]
+                            })(
+                                <TextArea
+                                    placeholder="Write complete product Description"
+                                    autosize={{ minRows: 3, maxRows: 6 }}
+                                />
+                            )}
                         </Form.Item>
                         <div style={{ margin: "2%" }}>
                             <h3>Upload Pictures</h3>
                         </div>
                         <Form.Item>
-                            <Upload >
+                            <Upload
+                                action="/api/attachment/products"
+                                onChange={this.handleUpload}
+                                name="image"
+                            >
                                 <Button>
                                     <Icon type="upload" /> Upload
                                 </Button>
@@ -165,80 +202,104 @@ class AddProductForm extends React.Component {
                         </Form.Item>
 
                         <Form.Item
-                         validateStatus={categoryError ? 'error' : ''}
-                         help={categoryError || ''}
+                            validateStatus={categoryError ? "error" : ""}
+                            help={categoryError || ""}
                         >
                             <h2>Select category</h2>
 
-{getFieldDecorator('category', {
-            rules: [{ required: true, message: 'Please input your Product Description!' }],
-          })( <Select
-                                placeholder="Select Category"
-                                style={{ width: 320 }}
-                                // onChange={handleChangeCategory}
-                            >
-                                <option value="Women's Fashion">
-                                    Women's Fashion
-                                </option>
-                                <option key="1" value="Men's Fashion">
-                                    Men's Fashion
-                                </option>
-                                <option key="2" value="Electronics and Devices">
-                                    Electronics and Devices
-                                </option>
-                                <option key="3" value="Electronic Accessories">
-                                    Electronic Accessories
-                                </option>
-                                <option key="4" value="TV and Home Applicances">
-                                    TV and Home Applicances
-                                </option>
-                                <option key="5" value="Health and Beauty">
-                                    Health and Beauty
-                                </option>
-                                <option key="6" value="Babies and Toys">
-                                    Babies and Toys
-                                </option>
-                                <option key="7" value="Grocery and Pets">
-                                    Grocery and Pets
-                                </option>
-                                <option key="8" value="Home and Lifestyle">
-                                    Home and Lifestyle
-                                </option>
-                                <option key="9" value="Watches and Accessories">
-                                    Watches and Accessories
-                                </option>
-                                <option
-                                    key="10"
-                                    value="Automotive and Motorbike"
+                            {getFieldDecorator("category", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message:
+                                            "Please input your Product Description!"
+                                    }
+                                ]
+                            })(
+                                <Select
+                                    placeholder="Select Category"
+                                    style={{ width: 320 }}
+                                    // onChange={handleChangeCategory}
                                 >
-                                    Automotive and Motorbike
-                                </option>
-                                <option key="12" value="Sports">
-                                    Sports
-                                </option>
-                            </Select>
-                     )}
-                           
+                                    <option value="Women's Fashion">
+                                        Women's Fashion
+                                    </option>
+                                    <option key="1" value="Men's Fashion">
+                                        Men's Fashion
+                                    </option>
+                                    <option
+                                        key="2"
+                                        value="Electronics and Devices"
+                                    >
+                                        Electronics and Devices
+                                    </option>
+                                    <option
+                                        key="3"
+                                        value="Electronic Accessories"
+                                    >
+                                        Electronic Accessories
+                                    </option>
+                                    <option
+                                        key="4"
+                                        value="TV and Home Applicances"
+                                    >
+                                        TV and Home Applicances
+                                    </option>
+                                    <option key="5" value="Health and Beauty">
+                                        Health and Beauty
+                                    </option>
+                                    <option key="6" value="Babies and Toys">
+                                        Babies and Toys
+                                    </option>
+                                    <option key="7" value="Grocery and Pets">
+                                        Grocery and Pets
+                                    </option>
+                                    <option key="8" value="Home and Lifestyle">
+                                        Home and Lifestyle
+                                    </option>
+                                    <option
+                                        key="9"
+                                        value="Watches and Accessories"
+                                    >
+                                        Watches and Accessories
+                                    </option>
+                                    <option
+                                        key="10"
+                                        value="Automotive and Motorbike"
+                                    >
+                                        Automotive and Motorbike
+                                    </option>
+                                    <option key="12" value="Sports">
+                                        Sports
+                                    </option>
+                                </Select>
+                            )}
                         </Form.Item>
                         <h2>Add tags</h2>
 
                         <Form.Item
-                        validateStatus={tagsError ? 'error' : ''}
-                        help={tagsError || ''}
-                        >{getFieldDecorator('tags', {
-                            rules: [{ required: true, message: 'Please input your Product Description!' }],
-                          })(
-                            <Select
-                                mode="multiple"
-                                style={{ width: "100%" }}
-                                placeholder="Please select"
-                                defaultValue={["a10", "c12"]}
-                                // onChange={handletagsChange}
-                            >
-                                {children}
-                            </Select>
-                                                 )}
-
+                            validateStatus={tagsError ? "error" : ""}
+                            help={tagsError || ""}
+                        >
+                            {getFieldDecorator("tags", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message:
+                                            "Please input your Product Description!"
+                                    }
+                                ]
+                            })(
+                                <Select
+                                    mode="multiple"
+                                    style={{ width: "100%" }}
+                                    placeholder="Please select"
+                                    defaultValue={["a10", "c12"]}
+                                    // onChange={handletagsChange}
+                                >
+                                    {children}
+                                </Select>
+                            )}
                         </Form.Item>
 
                         <Form.Item>

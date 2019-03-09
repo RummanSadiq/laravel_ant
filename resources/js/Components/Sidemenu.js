@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import logo from "../Images/logo.png";
+import logo from "../react_images/logo.png";
 import { NavLink } from "react-router-dom";
 import { Layout, Icon, Menu, Divider, Row, Col } from "antd";
 import Axios from "axios";
@@ -12,12 +12,12 @@ class Sidemenu extends Component {
         collapsed: false
     };
 
-logout(){
-    Axios.get('/api/logout').then (res=>{
-        console.log(res);
-        console.log(res.data);
-    });
-}
+    logout() {
+        Axios.get("/api/logout").then(res => {
+            console.log(res);
+            console.log(res.data);
+        });
+    }
 
     onCollapse = collapsed => {
         console.log(collapsed);

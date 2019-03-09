@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import { Col, Row, Card, Input, Button, Upload } from "antd";
 import APostForm from "./AddPostForm";
 import axios from "axios";
-import image1 from "../Images/img1.jpg";
 const { Meta } = Card;
 const { TextArea } = Input;
 
 class Posts extends Component {
-  
     state = {
         post: [],
         description: "",
@@ -15,18 +13,6 @@ class Posts extends Component {
     };
 
     componentDidMount() {
-        axios.get("/api/posts").then(res => {
-            const postd = res.data;
-            this.setState({ post: postd });
-            console.log(this.state.post);
-        });
-    }
-
-    handleDelete = (id)=>{
-        axios.delete('/api/posts'+id).then(res => {
-            message.success('Deleted');
-        });
-
         axios.get("/api/posts").then(res => {
             const postd = res.data;
             this.setState({ post: postd });
@@ -43,8 +29,6 @@ class Posts extends Component {
             const postdata = res.data;
             console.log(postdata);
         });
-        this.setState({description: ''});
-    
     };
 
     handleUpload = event => {
@@ -90,7 +74,7 @@ class Posts extends Component {
                         >
                             <span style={{ padding: "1%" }} />
                             <Upload
-                                action="/api/post_attachment"
+                                action="/api/attachment/posts"
                                 onChange={this.handleUpload}
                                 name="image"
                             >
@@ -109,7 +93,6 @@ class Posts extends Component {
                                 icon="check"
                                 size={"medium"}
                                 onClick={this.handlePost}
-                                style={{marginTop:'2%'}}
                             >
                                 Done
                             </Button>
@@ -160,7 +143,6 @@ class Posts extends Component {
                                             type="danger"
                                             size={"large"}
                                             icon="delete"
-                                            onClick={()=>this.handleDelete(element.id)}
                                         />
                                     }
                                 >
