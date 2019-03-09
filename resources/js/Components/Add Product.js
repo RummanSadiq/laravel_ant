@@ -83,8 +83,11 @@ class AddProductForm extends React.Component {
         image_path: ""
     };
 
+<<<<<<< HEAD
    
 
+=======
+>>>>>>> 8be269ec27137d5a9664be8e9319dff820bdbc03
     handleUpload = event => {
         if (event.file.status !== "uploading") {
             console.log(event.file);
@@ -97,6 +100,7 @@ class AddProductForm extends React.Component {
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
+<<<<<<< HEAD
                 values.display_picture= this.state.image_path;
                 console.log("Received values of form: ", values);
 
@@ -104,6 +108,9 @@ class AddProductForm extends React.Component {
                     const data = res.data;
                    console.log(data);
                 });
+=======
+                console.log("Received values of form: ", values);
+>>>>>>> 8be269ec27137d5a9664be8e9319dff820bdbc03
             }
         });
     };
@@ -122,9 +129,15 @@ class AddProductForm extends React.Component {
         const descriptionError =
             isFieldTouched("description") && getFieldError("description");
         const pictureError =
+<<<<<<< HEAD
             isFieldTouched("display_picture") && getFieldError("display_picture");
         const categoryError =
             isFieldTouched("category_id") && getFieldError("category_id");
+=======
+            isFieldTouched("picture") && getFieldError("picture");
+        const categoryError =
+            isFieldTouched("category") && getFieldError("category");
+>>>>>>> 8be269ec27137d5a9664be8e9319dff820bdbc03
         const tagsError = isFieldTouched("tags") && getFieldError("tags");
         const priceError = isFieldTouched("price") && getFieldError("price");
         return (
@@ -155,6 +168,7 @@ class AddProductForm extends React.Component {
                         <Form.Item
                             validateStatus={priceError ? "error" : ""}
                             help={descriptionError || ""}
+<<<<<<< HEAD
                         >
                             {getFieldDecorator("price", {
                                 rules: [
@@ -182,6 +196,46 @@ class AddProductForm extends React.Component {
                             help={descriptionError || ""}
                         >
                             {getFieldDecorator("description", {
+=======
+                        >
+                            {getFieldDecorator("price", {
+>>>>>>> 8be269ec27137d5a9664be8e9319dff820bdbc03
+                                rules: [
+                                    {
+                                        required: true,
+                                        message:
+<<<<<<< HEAD
+                                            "Please input your Product Description!"
+                                    }
+                                ]
+                            })(
+                                <TextArea
+                                    placeholder="Write complete product Description"
+                                    autosize={{ minRows: 3, maxRows: 6 }}
+                                />
+=======
+                                            "Please input your Product Price!"
+                                    }
+                                ]
+                            })(
+                                <Row>
+                                    <Col span={4}>
+                                        {" "}
+                                        <Input
+                                            size="small"
+                                            type="number"
+                                            placeholder="price"
+                                        />
+                                    </Col>
+                                </Row>
+>>>>>>> 8be269ec27137d5a9664be8e9319dff820bdbc03
+                            )}
+                        </Form.Item>
+                        <Form.Item
+                            validateStatus={descriptionError ? "error" : ""}
+                            help={descriptionError || ""}
+                        >
+                            {getFieldDecorator("description", {
                                 rules: [
                                     {
                                         required: true,
@@ -190,6 +244,8 @@ class AddProductForm extends React.Component {
                                     }
                                 ]
                             })(
+<<<<<<< HEAD
+=======
                                 <TextArea
                                     placeholder="Write complete product Description"
                                     autosize={{ minRows: 3, maxRows: 6 }}
@@ -199,18 +255,8 @@ class AddProductForm extends React.Component {
                         <div style={{ margin: "2%" }}>
                             <h3>Upload Pictures</h3>
                         </div>
-                        <Form.Item
-                            validateStatus={pictureError ? "error" : ""}
-                            help={pictureError || ""}
-                        >
-                            {getFieldDecorator("display_picture", {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: "Must Upload Picture"
-                                    }
-                                ]
-                            })(
+                        <Form.Item>
+>>>>>>> 8be269ec27137d5a9664be8e9319dff820bdbc03
                             <Upload
                                 action="/api/attachment/products"
                                 onChange={this.handleUpload}
@@ -229,7 +275,11 @@ class AddProductForm extends React.Component {
                         >
                             <h2>Select category</h2>
 
+<<<<<<< HEAD
                             {getFieldDecorator("category_id", {
+=======
+                            {getFieldDecorator("category", {
+>>>>>>> 8be269ec27137d5a9664be8e9319dff820bdbc03
                                 rules: [
                                     {
                                         required: true,
@@ -243,6 +293,7 @@ class AddProductForm extends React.Component {
                                     style={{ width: 320 }}
                                     // onChange={handleChangeCategory}
                                 >
+<<<<<<< HEAD
                                     <option value={1}>
                                         Women's Fashion
                                     </option>
@@ -251,6 +302,63 @@ class AddProductForm extends React.Component {
                             )}
                         </Form.Item>
                         {/* <h2>Add tags</h2>
+=======
+                                    <option value="Women's Fashion">
+                                        Women's Fashion
+                                    </option>
+                                    <option key="1" value="Men's Fashion">
+                                        Men's Fashion
+                                    </option>
+                                    <option
+                                        key="2"
+                                        value="Electronics and Devices"
+                                    >
+                                        Electronics and Devices
+                                    </option>
+                                    <option
+                                        key="3"
+                                        value="Electronic Accessories"
+                                    >
+                                        Electronic Accessories
+                                    </option>
+                                    <option
+                                        key="4"
+                                        value="TV and Home Applicances"
+                                    >
+                                        TV and Home Applicances
+                                    </option>
+                                    <option key="5" value="Health and Beauty">
+                                        Health and Beauty
+                                    </option>
+                                    <option key="6" value="Babies and Toys">
+                                        Babies and Toys
+                                    </option>
+                                    <option key="7" value="Grocery and Pets">
+                                        Grocery and Pets
+                                    </option>
+                                    <option key="8" value="Home and Lifestyle">
+                                        Home and Lifestyle
+                                    </option>
+                                    <option
+                                        key="9"
+                                        value="Watches and Accessories"
+                                    >
+                                        Watches and Accessories
+                                    </option>
+                                    <option
+                                        key="10"
+                                        value="Automotive and Motorbike"
+                                    >
+                                        Automotive and Motorbike
+                                    </option>
+                                    <option key="12" value="Sports">
+                                        Sports
+                                    </option>
+                                </Select>
+                            )}
+                        </Form.Item>
+                        <h2>Add tags</h2>
+>>>>>>> 8be269ec27137d5a9664be8e9319dff820bdbc03
 
                         <Form.Item
                             validateStatus={tagsError ? "error" : ""}
@@ -275,7 +383,11 @@ class AddProductForm extends React.Component {
                                     {children}
                                 </Select>
                             )}
+<<<<<<< HEAD
                         </Form.Item> */}
+=======
+                        </Form.Item>
+>>>>>>> 8be269ec27137d5a9664be8e9319dff820bdbc03
 
                         <Form.Item>
                             {" "}
