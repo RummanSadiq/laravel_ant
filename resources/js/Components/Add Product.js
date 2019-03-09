@@ -82,17 +82,15 @@ class AddProductForm extends React.Component {
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log("Received values of form: ", values);
-                this.props.form.resetFields();
+
+                values.display_picture=this.state.path;
 
                 console.log("Received values of form: ", values);
                 this.props.form.resetFields();
 
                 console.log("Received values of form: ", values);
+                this.props.form.resetFields();
 
-                console.log("Received values of form: ", values);
-
-                console.log("Received values of form: ", values);
             }
         });
     };
