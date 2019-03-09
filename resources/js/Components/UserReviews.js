@@ -58,6 +58,7 @@ class UserReviews extends Component {
                                     </div>
                                 }
                             >
+                            {/* <img src={element.}/> */}
                                 {element.description}
                             </Card>
                         </div>
