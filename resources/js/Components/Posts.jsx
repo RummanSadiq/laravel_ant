@@ -6,6 +6,7 @@ const { Meta } = Card;
 const { TextArea } = Input;
 
 class Posts extends Component {
+  
     state = {
         post: [],
         description: "",
@@ -13,6 +14,18 @@ class Posts extends Component {
     };
 
     componentDidMount() {
+        axios.get("/api/posts").then(res => {
+            const postd = res.data;
+            this.setState({ post: postd });
+            console.log(this.state.post);
+        });
+    }
+
+    handleDelete = (id)=>{
+        axios.delete('/api/posts'+id).then(res => {
+            message.success('Deleted');
+        });
+
         axios.get("/api/posts").then(res => {
             const postd = res.data;
             this.setState({ post: postd });
@@ -29,6 +42,8 @@ class Posts extends Component {
             const postdata = res.data;
             console.log(postdata);
         });
+        this.setState({description: ''});
+    
     };
 
     handleUpload = event => {
@@ -93,6 +108,7 @@ class Posts extends Component {
                                 icon="check"
                                 size={"medium"}
                                 onClick={this.handlePost}
+                                style={{marginTop:'2%'}}
                             >
                                 Done
                             </Button>
@@ -143,6 +159,7 @@ class Posts extends Component {
                                             type="danger"
                                             size={"large"}
                                             icon="delete"
+                                            onClick={()=>this.handleDelete(element.id)}
                                         />
                                     }
                                 >
