@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Button, Card, Modal, Input,message } from "antd";
+import { Row, Col, Button, Card, Modal, Input } from "antd";
 import axios from "axios";
 
 class Faqs extends Component {
@@ -33,9 +33,8 @@ class Faqs extends Component {
         this.setState({ faqs: counters });
         axios.delete("/api/faqs/" + id).then(res => {
             const faqsdata = res.data;
-            message.success('Deleted');
+            this.setState({ faqs: faqsdata });
         });
-
     }
 
     showModal = () => {
@@ -57,7 +56,6 @@ class Faqs extends Component {
         axios.post("/api/faqs", str).then(res => {
             console.log(res);
             console.log(res.data);
-            message.success('Updated');
         });
 
         this.state.faqs.push(str);

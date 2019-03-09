@@ -11,8 +11,7 @@ import {
     Carousel,
     TimePicker,
     Statistic,
-    Icon,
-    message
+    Icon
 } from "antd";
 import axios from "axios";
 
@@ -52,7 +51,6 @@ class Shop extends Component {
             const storedata = res.data;
             console.log(storedata);
             this.setState({ store: storedata });
-            console.log(this.state.store);
         });
 
         this.setState({edit:!this.state.edit});
@@ -203,6 +201,7 @@ class ShopForm extends React.Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
+                this.props.changeState();
 
                 values.open_time=moment.utc(values.open_time).format("HH:mm:ss");
 
@@ -217,18 +216,11 @@ class ShopForm extends React.Component {
                         // handle error
                         console.log(error);
                         console.log(values);
-                        message.error('Problem Updating Information please check your internet connection or values entereted and try again.');
-
                     });
-
-                    this.props.changeState();
-                    message.success('Updated Store Information!');
 
 
             } else {
                 console.log("Errors", err);
-                message.error('Please Fill all the fields with validated values!');
-
             }
         });
     };

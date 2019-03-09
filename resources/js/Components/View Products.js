@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Col, Card, Table, Tag, Divider } from "antd";
-import {Link} from 'react-router-dom';
 import axios from "axios";
 
 const columns = [
@@ -51,14 +50,9 @@ const columns = [
         title: "Action",
         key: "action",
         render: () => (
-            <div>
-                <span>
-                    <Link to="/Add">Edit</Link>
-                </span>
-                <span>
-                    <Link href="javascript:;">Delete</Link>
-                </span>
-            </div>
+            <span>
+                <a href="javascript:;">Delete</a>
+            </span>
         )
     }
 ];
