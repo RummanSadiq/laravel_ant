@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Col, Row, Card, Input, Button, Upload } from "antd";
 import APostForm from "./AddPostForm";
 import axios from "axios";
+import image1 from "../Images/img1.jpg";
 const { Meta } = Card;
 const { TextArea } = Input;
 
@@ -89,7 +90,7 @@ class Posts extends Component {
                         >
                             <span style={{ padding: "1%" }} />
                             <Upload
-                                action="/api/attachment/posts"
+                                action="/api/post_attachment"
                                 onChange={this.handleUpload}
                                 name="image"
                             >

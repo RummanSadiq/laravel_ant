@@ -54,6 +54,18 @@ class PostController extends Controller
         return response()->json($post, 201);
     }
 
+    public function attachment(Request $request) 
+    {
+        $image = $request->file('image');
+        $input['imagename'] = time() . '.' . $image->getClientOriginalExtension();
+        $destinationPath = public_path('images');
+        $image->move($destinationPath, $input['imagename']);
+
+        return response()->json([
+            'status'=> 'done',
+            'url'=> '../Images/'  . $input['imagename']
+            ]);
+    }
 
     /**
      * Display the specified resource.
