@@ -82,11 +82,6 @@ class AddProductForm extends React.Component {
         image_path: ""
     };
 
-<<<<<<< HEAD
-=======
-   
-
->>>>>>> 6d6a649bc82881018612fc64b100a72df1b97a20
     handleUpload = event => {
         if (event.file.status !== "uploading") {
             console.log(event.file);
@@ -99,11 +94,7 @@ class AddProductForm extends React.Component {
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
-<<<<<<< HEAD
                 values.display_picture = this.state.image_path;
-=======
-                values.display_picture= this.state.image_path;
->>>>>>> 6d6a649bc82881018612fc64b100a72df1b97a20
                 console.log("Received values of form: ", values);
 
                 axios.post("/api/products", values).then(res => {
@@ -128,12 +119,8 @@ class AddProductForm extends React.Component {
         const descriptionError =
             isFieldTouched("description") && getFieldError("description");
         const pictureError =
-<<<<<<< HEAD
             isFieldTouched("display_picture") &&
             getFieldError("display_picture");
-=======
-            isFieldTouched("display_picture") && getFieldError("display_picture");
->>>>>>> 6d6a649bc82881018612fc64b100a72df1b97a20
         const categoryError =
             isFieldTouched("category_id") && getFieldError("category_id");
         const tagsError = isFieldTouched("tags") && getFieldError("tags");
@@ -220,7 +207,6 @@ class AddProductForm extends React.Component {
                                     }
                                 ]
                             })(
-<<<<<<< HEAD
                                 <TextArea
                                     placeholder="Write complete product Description"
                                     autosize={{ minRows: 3, maxRows: 6 }}
@@ -231,8 +217,6 @@ class AddProductForm extends React.Component {
                             <h3>Upload Pictures</h3>
                         </div>
                         <Form.Item>
-=======
->>>>>>> 6d6a649bc82881018612fc64b100a72df1b97a20
                             <Upload
                                 action="/api/attachment/products"
                                 onChange={this.handleUpload}
@@ -265,14 +249,7 @@ class AddProductForm extends React.Component {
                                     style={{ width: 320 }}
                                     // onChange={handleChangeCategory}
                                 >
-<<<<<<< HEAD
                                     <option value={1}>Women's Fashion</option>
-=======
-                                    <option value={1}>
-                                        Women's Fashion
-                                    </option>
-                                   
->>>>>>> 6d6a649bc82881018612fc64b100a72df1b97a20
                                 </Select>
                             )}
                         </Form.Item>
