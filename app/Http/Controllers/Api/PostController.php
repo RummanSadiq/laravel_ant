@@ -22,6 +22,7 @@ class PostController extends Controller
         // $user = User::find(1);
 
         $store = $user->store;
+        // $posts = $store->posts->sortByDesc('created_at');
         $posts = $store->posts;
         return response()->json($posts);
     }

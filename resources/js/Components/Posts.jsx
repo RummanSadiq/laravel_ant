@@ -13,7 +13,6 @@ class Posts extends Component {
         image_path: "",
         redirect: false
     };
-
     componentDidMount() {
         this.getPosts();
     }
