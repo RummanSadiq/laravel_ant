@@ -17,15 +17,21 @@ class ViewProducts extends Component {
         });
     }
 
-    handleDelete(event, id, text) {
+    handleDelete(event, record) {
         console.log("Deleting");
-        console.log(id);
-        // axios.delete("/products/{id}");
+        //Prodcut Info
+        console.log("ID: " + record.id);
+        console.log("Name: " + record.name);
+        console.log("Description: " + record.description);
+        console.log("Price: " + record.price);
+        console.log("Category: " + record.category);
+        axios.delete("api/products/" + record.id);
     }
 
-    handleEdit = () => {
+    handleEdit(event, record) {
         console.log("Handling Edit");
-    };
+        console.log(record);
+    }
 
     render() {
         const columns = [
@@ -69,11 +75,12 @@ class ViewProducts extends Component {
                     <div>
                         <Button
                             icon="delete"
-                            onClick={event =>
-                                this.handleDelete(event, record.id)
-                            }
+                            onClick={event => this.handleDelete(event, record)}
                         />
-                        <Button icon="edit" onClick={this.handleEdit} />
+                        <Button
+                            icon="edit"
+                            onClick={event => this.handleEdit(event, record)}
+                        />
                     </div>
                 )
             }
