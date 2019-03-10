@@ -10,7 +10,9 @@ import Faqs from "./Components/FAQs";
 import Posts from "./Components/Posts";
 import UserReviews from "./Components/UserReviews";
 import AddProduct from "./Components/Add Product";
-import ViewProducts from "./Components/View Products";
+import ViewProducts from "./Components/ViewProductv2";
+
+
 import Shop from "./Components/Shop";
 class App extends Component {
     render() {
