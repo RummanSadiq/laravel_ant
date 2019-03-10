@@ -6,7 +6,7 @@ import axios from "axios";
 class ViewProducts extends Component {
     state = {
         products: [],
-        visible:false
+        visible: false
     };
 
     componentDidMount() {
@@ -17,10 +17,11 @@ class ViewProducts extends Component {
         });
     }
 
-    handleDelete = () => {
+    handleDelete(event, id, text) {
         console.log("Deleting");
-        axios.delete('/products/{id}');
-    };
+        console.log(id);
+        // axios.delete("/products/{id}");
+    }
 
     handleEdit = () => {
         console.log("Handling Edit");
@@ -29,9 +30,9 @@ class ViewProducts extends Component {
     render() {
         const columns = [
             {
-                title:'ID',
-                dataIndex:'id',
-                key:'id',
+                title: "ID",
+                dataIndex: "id",
+                key: "id"
             },
             {
                 title: "Name",
@@ -60,35 +61,19 @@ class ViewProducts extends Component {
                 dataIndex: "category",
                 key: "category"
             },
-            // {
-            //     title: "Tags",
-            //     key: "tags",
-            //     dataIndex: "tags",
-            //     render: tags => (
-            //         <span>
-            //             {tags.map(tag => {
-            //                 let color = "geekblue";
-            //                 return (
-            //                     <Tag color={color} key={tag}>
-            //                         {tag.toUpperCase()}
-            //                     </Tag>
-            //                 );
-            //             })}
-            //         </span>
-            //     )
-            // },
             {
                 title: "Action",
-                dataIndex:'id',
+                dataIndex: "id",
                 key: "actions",
-                render: () => (
+                render: (text, record) => (
                     <div>
-                        <Button icon="delete" onClick={this.handleDelete}/>
                         <Button
-                        
-                            icon="edit"
-                            onClick={this.handleEdit}
+                            icon="delete"
+                            onClick={event =>
+                                this.handleDelete(event, record.id)
+                            }
                         />
+                        <Button icon="edit" onClick={this.handleEdit} />
                     </div>
                 )
             }
@@ -104,8 +89,6 @@ class ViewProducts extends Component {
 
                     <Table columns={columns} dataSource={this.state.products} />
                 </Col>
-
-              
             </div>
         );
     }

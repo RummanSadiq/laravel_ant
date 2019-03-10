@@ -108,6 +108,7 @@ class Posts extends Component {
                                 icon="check"
                                 size={"medium"}
                                 onClick={this.handlePost}
+                                style={{ margin: 5 }}
                             >
                                 Done
                             </Button>

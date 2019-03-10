@@ -19,7 +19,7 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $store = $user->store;
-        $products = $store->products;
+        $products = $store->products->reverse()->values();
         foreach($products as $prod) {
             $prod["key"] = $prod->id;
             $prod["category"] = Category::find($prod->category_id)->name;

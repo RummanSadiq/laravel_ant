@@ -23,7 +23,7 @@ class PostController extends Controller
 
         $store = $user->store;
         // $posts = $store->posts->sortByDesc('created_at');
-        $posts = $store->posts;
+        $posts = $store->posts->reverse()->values();
         return response()->json($posts);
     }
 
