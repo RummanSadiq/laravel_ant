@@ -10,7 +10,7 @@ import Faqs from "./Components/FAQs";
 import Posts from "./Components/Posts";
 import UserReviews from "./Components/UserReviews";
 import AddProduct from "./Components/Add Product";
-import ViewProducts from "./Components/ViewProductv2";
+import ViewProducts from "./Components/View Products";
 
 
 import Shop from "./Components/Shop";
