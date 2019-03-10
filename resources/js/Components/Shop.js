@@ -46,15 +46,15 @@ class Shop extends Component {
         this.setState({ edit: !this.state.edit });
     };
 
-    handleStateChange = ()=>{
+    handleStateChange = () => {
         axios.get("/api/myshop").then(res => {
             const storedata = res.data;
             console.log(storedata);
             this.setState({ store: storedata });
         });
 
-        this.setState({edit:!this.state.edit});
-        }
+        this.setState({ edit: !this.state.edit });
+    };
 
     componentDidMount() {}
     render() {
@@ -78,7 +78,6 @@ class Shop extends Component {
                                         Edit info
                                     </Button>
                                 )}
-
                             </div>
                         }
                         bordered={false}
@@ -86,37 +85,72 @@ class Shop extends Component {
                         {!this.state.edit && (
                             <Row>
                                 <Col span={12}>
-                                   <div><span style={{fontWeight:'bold'}}>Store Type: </span>{this.state.store.store_type}</div>
-                                   <div><span style={{fontWeight:'bold'}}>Store Contact: </span>{this.state.store.contact}</div>
-                                   <div><span style={{fontWeight:'bold'}}>Store Address: </span>{this.state.store.address}</div>
-                                   <div><span style={{fontWeight:'bold'}}>Store opens At: </span>{this.state.store.open_time}</div>
-                                   <div><span style={{fontWeight:'bold'}}>Store Closes At: </span>{this.state.store.close_time}</div>
-                                   <div><span style={{fontWeight:'bold'}}>Store Type: </span>{this.state.store.store_type}</div>
-
-                                   {this.state.delivery > 0 &&
-                                   <div style={{fontWeight:'bold'}}>Store Provides Delivery</div>
-
-                                   } {!this.state.delivery > 0 &&
-
-                                    <div style={{fontWeight:'bold'}}>Store does not Provide Delivery</div>
- 
-                                   }
-                                {this.state.wifi > 0 &&
-                                   <div style={{fontWeight:'bold'}}>Store has Wifi</div>
-
-                                   }
-                                {!this.state.wifi > 0 &&
-                                    <div style={{fontWeight:'bold'}}>Store does not have Wifi</div>
- 
-                                   }
-                                    {this.state.card_payment > 0 &&
-                                   <div style={{fontWeight:'bold'}}>Store has Card Payment</div>
-
-                                   }
-                                    {!this.state.card_payment > 0 &&
-                                    <div style={{fontWeight:'bold'}}>Store does not have Card Payment</div>
- 
-                                   }
+                                    <div>
+                                        <span style={{ fontWeight: "bold" }}>
+                                            Store Type:{" "}
+                                        </span>
+                                        {this.state.store.store_type}
+                                    </div>
+                                    <div>
+                                        <span style={{ fontWeight: "bold" }}>
+                                            Store Contact:{" "}
+                                        </span>
+                                        {this.state.store.contact}
+                                    </div>
+                                    <div>
+                                        <span style={{ fontWeight: "bold" }}>
+                                            Store Address:{" "}
+                                        </span>
+                                        {this.state.store.address}
+                                    </div>
+                                    <div>
+                                        <span style={{ fontWeight: "bold" }}>
+                                            Store opens At:{" "}
+                                        </span>
+                                        {this.state.store.open_time}
+                                    </div>
+                                    <div>
+                                        <span style={{ fontWeight: "bold" }}>
+                                            Store Closes At:{" "}
+                                        </span>
+                                        {this.state.store.close_time}
+                                    </div>
+                                    <div>
+                                        <span style={{ fontWeight: "bold" }}>
+                                            Store Type:{" "}
+                                        </span>
+                                        {this.state.store.store_type}
+                                    </div>
+                                    {this.state.delivery > 0 && (
+                                        <div style={{ fontWeight: "bold" }}>
+                                            Store Provides Delivery
+                                        </div>
+                                    )}{" "}
+                                    {!this.state.delivery > 0 && (
+                                        <div style={{ fontWeight: "bold" }}>
+                                            Store does not Provide Delivery
+                                        </div>
+                                    )}
+                                    {this.state.wifi > 0 && (
+                                        <div style={{ fontWeight: "bold" }}>
+                                            Store has Wifi
+                                        </div>
+                                    )}
+                                    {!this.state.wifi > 0 && (
+                                        <div style={{ fontWeight: "bold" }}>
+                                            Store does not have Wifi
+                                        </div>
+                                    )}
+                                    {this.state.card_payment > 0 && (
+                                        <div style={{ fontWeight: "bold" }}>
+                                            Store has Card Payment
+                                        </div>
+                                    )}
+                                    {!this.state.card_payment > 0 && (
+                                        <div style={{ fontWeight: "bold" }}>
+                                            Store does not have Card Payment
+                                        </div>
+                                    )}
                                     {/* if(this.state.OpensonWeekend>0){
                                    <div style={{fontWeight:'bold'}}>Store opens on Weekend </div>
 
@@ -203,9 +237,13 @@ class ShopForm extends React.Component {
                 console.log("Received values of form: ", values);
                 this.props.changeState();
 
-                values.open_time=moment.utc(values.open_time).format("HH:mm:ss");
+                values.open_time = moment
+                    .utc(values.open_time)
+                    .format("HH:mm:ss");
 
-                values.close_time=moment.utc(values.close_time).format("HH:mm:ss");
+                values.close_time = moment
+                    .utc(values.close_time)
+                    .format("HH:mm:ss");
 
                 axios
                     .post("/api/updateshop", values)
@@ -217,8 +255,6 @@ class ShopForm extends React.Component {
                         console.log(error);
                         console.log(values);
                     });
-
-
             } else {
                 console.log("Errors", err);
             }
@@ -311,73 +347,64 @@ class ShopForm extends React.Component {
                             ]
                         })(<Input placeholder="Store Name" />)}
                     </Form.Item>
-                        <Row>
-                            <Col span={12}>
-                                <Form.Item
-                                    validateStatus={
-                                        openTimeError ? "error" : ""
-                                    }
-                                    help={openTimeError || ""}
-                                    label="Accepts Card?"
-                                    label="Opens at:"
+                    <Row>
+                        <Col span={12}>
+                            <Form.Item
+                                validateStatus={openTimeError ? "error" : ""}
+                                help={openTimeError || ""}
+                                label="Accepts Card?"
+                                label="Opens at:"
+                            >
+                                {getFieldDecorator("open_time", {
+                                    initialValue: moment(
+                                        this.props.OpeningTime,
+                                        "HH:mm:ss "
+                                    ),
 
-
-                                >
-                                    {getFieldDecorator("open_time", {
-                                        initialValue: moment(
-                                            this.props.OpeningTime,
-                                            "HH:mm:ss "
-                                        ),
-
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: "Store opens at"
-                                            }
-                                        ]
-                                    })(
-                                        <TimePicker
-                                            use12Hours
-                                            format="h:mm a"
-                                            placeholder="Opening Time"
-
-                                        />
-                                        // <Input type="time" />
-
-                                    )}
-                                </Form.Item>
-                            </Col>
-                            <Col span={12}>
-                                <Form.Item
-                                    validateStatus={
-                                        closeTimeError ? "error" : ""
-                                    }
-                                    help={closeTimeError || ""}
-                                    label="Closes at:"
-
-                                >
-                                    {getFieldDecorator("close_time", {
-                                        initialValue: moment(
-                                            this.props.ClosingTime,
-                                            "HH:mm:ss"
-                                        ),
-                                        rules: [
-                                            {
-                                                required: true,
-                                                message: "Store closes at"
-                                            }
-                                        ]
-                                    })(
-                                        <TimePicker
-                                            use12Hours
-                                            format="h:mm a"
-                                            placeholder="Closing Time"
-                                        />
-                                        // <Input type="time" />
-                                    )}
-                                </Form.Item>
-                            </Col>
-                        </Row>
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: "Store opens at"
+                                        }
+                                    ]
+                                })(
+                                    <TimePicker
+                                        use12Hours
+                                        format="h:mm a"
+                                        placeholder="Opening Time"
+                                    />
+                                    // <Input type="time" />
+                                )}
+                            </Form.Item>
+                        </Col>
+                        <Col span={12}>
+                            <Form.Item
+                                validateStatus={closeTimeError ? "error" : ""}
+                                help={closeTimeError || ""}
+                                label="Closes at:"
+                            >
+                                {getFieldDecorator("close_time", {
+                                    initialValue: moment(
+                                        this.props.ClosingTime,
+                                        "HH:mm:ss"
+                                    ),
+                                    rules: [
+                                        {
+                                            required: true,
+                                            message: "Store closes at"
+                                        }
+                                    ]
+                                })(
+                                    <TimePicker
+                                        use12Hours
+                                        format="h:mm a"
+                                        placeholder="Closing Time"
+                                    />
+                                    // <Input type="time" />
+                                )}
+                            </Form.Item>
+                        </Col>
+                    </Row>
                     <Form.Item
                         validateStatus={ContactError ? "error" : ""}
                         help={ContactError || ""}
@@ -454,9 +481,9 @@ class ShopForm extends React.Component {
                                 <Option value={0}>No</Option>
                             </Select>
                         )}
-                    </Form.Item> 
+                    </Form.Item>
 
-                 <Form.Item
+                    <Form.Item
                         validateStatus={cityError ? "error" : ""}
                         help={cityError || ""}
                         label="City:"

@@ -10,6 +10,10 @@ class ViewProducts extends Component {
     };
 
     componentDidMount() {
+        this.getProducts();
+    }
+
+    getProducts() {
         axios.get("/api/products").then(res => {
             const productsData = res.data;
             console.log(productsData);
@@ -26,6 +30,7 @@ class ViewProducts extends Component {
         console.log("Price: " + record.price);
         console.log("Category: " + record.category);
         axios.delete("api/products/" + record.id);
+        this.getProducts();
     }
 
     handleEdit(event, record) {
