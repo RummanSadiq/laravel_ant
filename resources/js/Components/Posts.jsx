@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Col, Row, Card, Input, Button, Upload } from "antd";
 import APostForm from "./AddPostForm";
+import { Redirect } from "react-router-dom";
 import axios from "axios";
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -9,10 +10,15 @@ class Posts extends Component {
     state = {
         post: [],
         description: "",
-        image_path: ""
+        image_path: "",
+        redirect: false
     };
 
     componentDidMount() {
+        this.getPosts();
+    }
+
+    getPosts() {
         axios.get("/api/posts").then(res => {
             const postd = res.data;
             this.setState({ post: postd });
@@ -28,6 +34,7 @@ class Posts extends Component {
         axios.post("/api/posts", arr).then(res => {
             const postdata = res.data;
             console.log(postdata);
+            this.getPosts();
         });
     };
 
@@ -43,7 +50,16 @@ class Posts extends Component {
         console.log(event.target.value);
     };
 
+    handleDelete(event, id) {
+        axios.delete("/api/posts/" + id).then(res => {
+            this.getPosts();
+        });
+    }
+
     render() {
+        // if (this.state.redirect) {
+        //     return <Redirect to="/Posts" />;
+        // }
         return (
             <div>
                 {/* <Row> */}
@@ -143,6 +159,12 @@ class Posts extends Component {
                                             type="danger"
                                             size={"large"}
                                             icon="delete"
+                                            onClick={event =>
+                                                this.handleDelete(
+                                                    event,
+                                                    element.id
+                                                )
+                                            }
                                         />
                                     }
                                 >
@@ -153,7 +175,6 @@ class Posts extends Component {
                         </div>
                     </Card>
                 </Col>
-                {/* </Row> */}
             </div>
         );
     }

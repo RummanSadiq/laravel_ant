@@ -3,7 +3,7 @@ import "./App.css";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import "antd/dist/antd";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import Chat from "./Components/Chat";
 import Sidemenu from "./Components/Sidemenu";
 import Faqs from "./Components/FAQs";
