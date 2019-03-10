@@ -34,6 +34,7 @@ class Posts extends Component {
         axios.post("/api/posts", arr).then(res => {
             const postdata = res.data;
             console.log(postdata);
+            this.setState({description:'',image_path:''});
             this.getPosts();
         });
     };
@@ -78,6 +79,7 @@ class Posts extends Component {
                             placeholder="Write Something"
                             autosize={{ minRows: 2, maxRows: 6 }}
                             onChange={this.handleChange}
+                            value={this.state.description}
                         />
 
                         <div
@@ -93,6 +95,7 @@ class Posts extends Component {
                                 action="/api/attachment/posts"
                                 onChange={this.handleUpload}
                                 name="image"
+                                value={this.state.image_path}
                             >
                                 <Button
                                     type="secondary"
@@ -109,6 +112,7 @@ class Posts extends Component {
                                 icon="check"
                                 size={"medium"}
                                 onClick={this.handlePost}
+                                style={{marginTop:'3%'}}
                             >
                                 Done
                             </Button>
@@ -123,25 +127,6 @@ class Posts extends Component {
                         headStyle={{ textAlign: "center" }}
                     >
                         <div style={{ paddingTop: "3%" }}>
-                            {/* <Card
-                                hoverable={true}
-                                bordered={false}
-                                cover={<img alt="postimage" src={image1} />}
-                                extra={
-                                    <Button
-                                        type="danger"
-                                        size={"large"}
-                                        icon="delete"
-                                    />
-                                }
-                            >
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Veniam quia neque perferendis
-                                earum. Sunt voluptatem blanditiis officia! Odio
-                                dignissimos, vitae unde animi maxime, eius
-                                suscipit quis distinctio iure accusamus ab?
-                                <Meta description="2/8/2019 7:09Pm" />
-                            </Card> */}
 
                             {this.state.post.map(element => (
                                 <Card

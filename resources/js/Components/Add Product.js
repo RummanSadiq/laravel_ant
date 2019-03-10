@@ -248,33 +248,7 @@ class AddProductForm extends React.Component {
                                 </Select>
                             )}
                         </Form.Item>
-                        {/* <h2>Add tags</h2>
-
-                        <Form.Item
-                            validateStatus={tagsError ? "error" : ""}
-                            help={tagsError || ""}
-                        >
-                            {getFieldDecorator("tags", {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message:
-                                            "Please input your Product Description!"
-                                    }
-                                ]
-                            })(
-                                <Select
-                                    mode="multiple"
-                                    style={{ width: "100%" }}
-                                    placeholder="Please select"
-                                    defaultValue={["a10", "c12"]}
-                                    // onChange={handletagsChange}
-                                >
-                                    {children}
-                                </Select>
-                            )}
-                        </Form.Item> */}
-
+                       
                         <Form.Item>
                             {" "}
                             <div style={{ marginLeft: "90%", marginTop: "2%" }}>
