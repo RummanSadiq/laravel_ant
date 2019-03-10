@@ -10,6 +10,7 @@ import Faqs from "./Components/FAQs";
 import Posts from "./Components/Posts";
 import UserReviews from "./Components/UserReviews";
 import AddProduct from "./Components/Add Product";
+import EPForm from './Components/EditProduct';
 import ViewProducts from "./Components/View Products";
 
 
@@ -30,6 +31,7 @@ class App extends Component {
                     <Route path="/Posts" component={Posts} />
                     <Route path="/Add" component={AddProduct} />
                     <Route path="/ViewProduct" component={ViewProducts} />
+                    <Route path="/Edit" component={EPForm} />
                     <Route path="/Shop" component={Shop} />
                     <Route
                         path="/logout"

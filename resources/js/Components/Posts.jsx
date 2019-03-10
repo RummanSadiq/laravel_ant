@@ -13,7 +13,6 @@ class Posts extends Component {
         image_path: "",
         redirect: false
     };
-
     componentDidMount() {
         this.getPosts();
     }
@@ -95,7 +94,8 @@ class Posts extends Component {
                                 action="/api/attachment/posts"
                                 onChange={this.handleUpload}
                                 name="image"
-                                value={this.state.image_path}
+                                listType="picture"
+                                // value={this.state.image_path}
                             >
                                 <Button
                                     type="secondary"
@@ -112,7 +112,7 @@ class Posts extends Component {
                                 icon="check"
                                 size={"medium"}
                                 onClick={this.handlePost}
-                                style={{marginTop:'3%'}}
+                                style={{ margin: 5 }}
                             >
                                 Done
                             </Button>

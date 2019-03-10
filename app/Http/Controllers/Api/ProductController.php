@@ -19,7 +19,7 @@ class ProductController extends Controller
     {
         $user = Auth::user();
         $store = $user->store;
-        $products = $store->products;
+        $products = $store->products->reverse()->values();
         foreach($products as $prod) {
             $prod["key"] = $prod->id;
             $prod["category"] = Category::find($prod->category_id)->name;
@@ -84,6 +84,12 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $product = Product::find($id);
+
+        $category = Category::select('id')->where('name', $request['category'])->first();
+        $request['category_id'] = $category->id;
+        
+        unset($request['category']);
+
         $product->update($request->all());
         return response()->json($product, 201);
     }

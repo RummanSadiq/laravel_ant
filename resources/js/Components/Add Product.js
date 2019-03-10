@@ -72,7 +72,6 @@ function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
-
 class AddProductForm extends React.Component {
     // componentDidMount() {
     //     // To disabled submit button at the beginning.
@@ -82,8 +81,6 @@ class AddProductForm extends React.Component {
     state = {
         image_path: ""
     };
-
-   
 
     handleUpload = event => {
         if (event.file.status !== "uploading") {
@@ -97,12 +94,12 @@ class AddProductForm extends React.Component {
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                values.display_picture= this.state.image_path;
+                values.display_picture = this.state.image_path;
                 console.log("Received values of form: ", values);
 
                 axios.post("/api/products", values).then(res => {
                     const data = res.data;
-                   console.log(data);
+                    console.log(data);
                 });
             }
         });
@@ -122,7 +119,8 @@ class AddProductForm extends React.Component {
         const descriptionError =
             isFieldTouched("description") && getFieldError("description");
         const pictureError =
-            isFieldTouched("display_picture") && getFieldError("display_picture");
+            isFieldTouched("display_picture") &&
+            getFieldError("display_picture");
         const categoryError =
             isFieldTouched("category_id") && getFieldError("category_id");
         const tagsError = isFieldTouched("tags") && getFieldError("tags");
@@ -196,29 +194,33 @@ class AddProductForm extends React.Component {
                                 />
                             )}
                         </Form.Item>
+                     
+                        <div style={{ margin: "2%" }}>
+                            <h3>Upload Pictures</h3>
+                        </div>
                         <Form.Item
-                            validateStatus={descriptionError ? "error" : ""}
-                            help={descriptionError || ""}
+                            validateStatus={pictureError ? "error" : ""}
+                            help={pictureError || ""}
                         >
-                            {getFieldDecorator("description", {
+                            {getFieldDecorator("display_picture", {
                                 rules: [
                                     {
                                         required: true,
-                                        message:
-                                            "Please input your Product Description!"
+                                        message: "Must Upload Picture"
                                     }
                                 ]
-                            })(
+                            })(                            
                             <Upload
                                 action="/api/attachment/products"
                                 onChange={this.handleUpload}
+                                listType="picture"
                                 name="image"
                             >
                                 <Button>
                                     <Icon type="upload" /> Upload
                                 </Button>
                             </Upload>
-                              )}
+                            )}
                         </Form.Item>
 
                         <Form.Item
@@ -241,10 +243,7 @@ class AddProductForm extends React.Component {
                                     style={{ width: 320 }}
                                     // onChange={handleChangeCategory}
                                 >
-                                    <option value={1}>
-                                        Women's Fashion
-                                    </option>
-                                   
+                                    <option value={1}>Women's Fashion</option>
                                 </Select>
                             )}
                         </Form.Item>
