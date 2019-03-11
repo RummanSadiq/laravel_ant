@@ -194,32 +194,26 @@ class AddProductForm extends React.Component {
                                 />
                             )}
                         </Form.Item>
-                        <Form.Item
-                            validateStatus={descriptionError ? "error" : ""}
-                            help={descriptionError || ""}
-                        >
-                            {getFieldDecorator("description", {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message:
-                                            "Please input your Product Description!"
-                                    }
-                                ]
-                            })(
-                                <TextArea
-                                    placeholder="Write complete product Description"
-                                    autosize={{ minRows: 3, maxRows: 6 }}
-                                />
-                            )}
-                        </Form.Item>
+                     
                         <div style={{ margin: "2%" }}>
                             <h3>Upload Pictures</h3>
                         </div>
-                        <Form.Item>
+                        <Form.Item
+                            validateStatus={pictureError ? "error" : ""}
+                            help={pictureError || ""}
+                        >
+                            {getFieldDecorator("display_picture", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: "Must Upload Picture"
+                                    }
+                                ]
+                            })(                            
                             <Upload
                                 action="/api/attachment/products"
                                 onChange={this.handleUpload}
+                                listType="picture"
                                 name="image"
                             >
                                 <Button>
@@ -253,33 +247,7 @@ class AddProductForm extends React.Component {
                                 </Select>
                             )}
                         </Form.Item>
-                        {/* <h2>Add tags</h2>
-
-                        <Form.Item
-                            validateStatus={tagsError ? "error" : ""}
-                            help={tagsError || ""}
-                        >
-                            {getFieldDecorator("tags", {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message:
-                                            "Please input your Product Description!"
-                                    }
-                                ]
-                            })(
-                                <Select
-                                    mode="multiple"
-                                    style={{ width: "100%" }}
-                                    placeholder="Please select"
-                                    defaultValue={["a10", "c12"]}
-                                    // onChange={handletagsChange}
-                                >
-                                    {children}
-                                </Select>
-                            )}
-                        </Form.Item> */}
-
+                       
                         <Form.Item>
                             {" "}
                             <div style={{ marginLeft: "90%", marginTop: "2%" }}>
