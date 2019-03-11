@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Button, Card, Modal, Input } from "antd";
+import { Row, Col, Button, Card, Modal, message, Input } from "antd";
 import axios from "axios";
 
 class Faqs extends Component {
@@ -56,6 +56,7 @@ class Faqs extends Component {
         axios.post("/api/faqs", str).then(res => {
             console.log(res);
             console.log(res.data);
+            message.success("FAQ Added");
         });
 
         this.state.faqs.push(str);
@@ -109,7 +110,8 @@ class Faqs extends Component {
         let updatedfaq = faq[index];
         axios.post("/api/faqs/" + updatedfaq.id, updatedfaq).then(res => {
             const faqsdata = res.data;
-            this.setState({ faqs: faqsdata });
+            // this.setState({ faqs: faqsdata });
+            message.success("FAQ Updated");
         });
 
         this.setState({ faqs: faq });
@@ -155,6 +157,7 @@ class Faqs extends Component {
                                 placeholder="Question"
                                 allowClear
                                 onChange={this.onChangeQuestion}
+                                style={{ marginBottom: 20 }}
                             />
                             <Input
                                 placeholder="Answer"
@@ -170,11 +173,11 @@ class Faqs extends Component {
                                     type="inner"
                                     hoverable="true"
                                     bordered={false}
-                                    style={{ width: 1200 }}
+                                    // style={{ width: 1200 }}
                                     extra={
                                         <div>
                                             <Button
-                                                type="danger"
+                                                // type="primary"
                                                 size={"large"}
                                                 icon="edit"
                                                 onClick={() =>
@@ -214,6 +217,7 @@ class Faqs extends Component {
                                 allowClear
                                 onChange={this.onChangeQuestion}
                                 defaultValue={this.state.newfaq.question}
+                                style={{ marginBottom: 20 }}
                             />
                             <Input
                                 placeholder="Answer"

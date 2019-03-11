@@ -7,6 +7,7 @@ import {
     Button,
     Form,
     Select,
+    message,
     Input,
     Carousel,
     TimePicker,
@@ -249,6 +250,7 @@ class ShopForm extends React.Component {
                     .post("/api/updateshop", values)
                     .then(res => {
                         console.log(res);
+                        message.success("Shop Updated!");
                     })
                     .catch(function(error) {
                         // handle error

@@ -28,9 +28,13 @@ Route::get('/myshop', 'Api\StoreController@myShop');
 //Store Types
 Route::get('/storetypes', 'Api\StoreTypeController@index');
 
+//Categories
+Route::get('/categories', 'Api\CategoryController@index');
+
 //Posts
 Route::get('/posts', 'Api\PostController@index');
 Route::post('/posts', 'Api\PostController@store');
+Route::post('/product_post', 'Api\PostController@productPost');
 Route::post('/posts/{id}', 'Api\PostController@update');
 Route::delete('/posts/{id}', 'Api\PostController@destroy');
 // Route::get('/myposts', 'Api\PostController@show');

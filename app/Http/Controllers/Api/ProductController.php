@@ -52,6 +52,8 @@ class ProductController extends Controller
         return response()->json($product, 201);
     }
 
+    
+
     /**
      * Display the specified resource.
      *
@@ -85,10 +87,9 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        $category = Category::select('id')->where('name', $request['category'])->first();
-        $request['category_id'] = $category->id;
-        
-        unset($request['category']);
+        // $category = Category::select('id')->where('name', $request['category'])->first();
+        // $request['category_id'] = $category->id;
+        // unset($request['category']);
 
         $product->update($request->all());
         return response()->json($product, 201);

@@ -55,6 +55,17 @@ class PostController extends Controller
         return response()->json($post, 201);
     }
 
+    public function productPost(Request $request) 
+    {
+        $description = "We just added a new product to our store. Buy " . $request['name'] . " at Rs. " . $request['price'] . " only." . " Contact us for more info";
+
+        $request->replace([
+            "description" => $description,
+            "image_path" => $request['display_picture']
+        ]);
+
+        return $this->store($request);
+    }
 
     /**
      * Display the specified resource.

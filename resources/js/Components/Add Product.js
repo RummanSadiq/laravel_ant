@@ -11,6 +11,7 @@ import {
     Row,
     message
 } from "antd";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import axios from "axios";
 
 const { TextArea } = Input;
@@ -73,14 +74,20 @@ function hasErrors(fieldsError) {
 }
 
 class AddProductForm extends React.Component {
-    // componentDidMount() {
-    //     // To disabled submit button at the beginning.
-    //     this.props.form.validateFields();
-    // }
-
     state = {
-        image_path: ""
+        image_path: "",
+        categories: [],
+        goToPosts: false,
+        goToProducts: false
     };
+
+    componentDidMount() {
+        axios.get("/api/categories").then(res => {
+            const data = res.data;
+            console.log(data);
+            this.setState({ categories: data });
+        });
+    }
 
     handleUpload = event => {
         if (event.file.status !== "uploading") {
@@ -101,11 +108,22 @@ class AddProductForm extends React.Component {
                     const data = res.data;
                     console.log(data);
                 });
+
+                axios.post("/api/product_post", values).then(res => {
+                    const data = res.data;
+                    console.log(data);
+                    // this.setState({ goToPosts: true });
+                    message.success("Product Added");
+
+                    this.setState({ goToProducts: true });
+                });
             }
         });
     };
 
     render() {
+        if (this.state.goToProducts) return <Redirect to="/ViewProduct" />;
+
         const {
             getFieldDecorator,
             getFieldsError,
@@ -133,6 +151,9 @@ class AddProductForm extends React.Component {
                     }
                 >
                     <Form onSubmit={this.handleSubmit}>
+                        <div style={{ margin: "0%" }}>
+                            <h3>Title:</h3>
+                        </div>
                         <Form.Item
                             validateStatus={productNameError ? "error" : ""}
                             help={productNameError || ""}
@@ -148,7 +169,9 @@ class AddProductForm extends React.Component {
                                 <Input placeholder="Enter Product title/name" />
                             )}
                         </Form.Item>
-                        <div style={{ marginTop: "2%" }} />
+                        <div style={{ margin: "0%" }}>
+                            <h3>Price:</h3>
+                        </div>
 
                         <Form.Item
                             validateStatus={priceError ? "error" : ""}
@@ -163,18 +186,17 @@ class AddProductForm extends React.Component {
                                     }
                                 ]
                             })(
-                                <Row>
-                                    <Col span={4}>
-                                        {" "}
-                                        <Input
-                                            size="small"
-                                            type="number"
-                                            placeholder="price"
-                                        />
-                                    </Col>
-                                </Row>
+                                <Input
+                                    addonBefore="RS"
+                                    type="number"
+                                    style={{ width: "35%" }}
+                                    placeholder="Price"
+                                />
                             )}
                         </Form.Item>
+                        <div style={{ margin: "0%" }}>
+                            <h3>Description:</h3>
+                        </div>
                         <Form.Item
                             validateStatus={descriptionError ? "error" : ""}
                             help={descriptionError || ""}
@@ -194,8 +216,8 @@ class AddProductForm extends React.Component {
                                 />
                             )}
                         </Form.Item>
-                     
-                        <div style={{ margin: "2%" }}>
+
+                        <div style={{ margin: "0%" }}>
                             <h3>Upload Pictures</h3>
                         </div>
                         <Form.Item
@@ -209,17 +231,17 @@ class AddProductForm extends React.Component {
                                         message: "Must Upload Picture"
                                     }
                                 ]
-                            })(                            
-                            <Upload
-                                action="/api/attachment/products"
-                                onChange={this.handleUpload}
-                                listType="picture"
-                                name="image"
-                            >
-                                <Button>
-                                    <Icon type="upload" /> Upload
-                                </Button>
-                            </Upload>
+                            })(
+                                <Upload
+                                    action="/api/attachment/products"
+                                    onChange={this.handleUpload}
+                                    listType="picture"
+                                    name="image"
+                                >
+                                    <Button>
+                                        <Icon type="upload" /> Upload
+                                    </Button>
+                                </Upload>
                             )}
                         </Form.Item>
 
@@ -243,13 +265,16 @@ class AddProductForm extends React.Component {
                                     style={{ width: 320 }}
                                     // onChange={handleChangeCategory}
                                 >
-                                    <option value={1}>Women's Fashion</option>
+                                    {this.state.categories.map(element => (
+                                        <Option value={element.id}>
+                                            {element.name}
+                                        </Option>
+                                    ))}
                                 </Select>
                             )}
                         </Form.Item>
-                       
+
                         <Form.Item>
-                            {" "}
                             <div style={{ marginLeft: "90%", marginTop: "2%" }}>
                                 <Button
                                     type={"primary"}

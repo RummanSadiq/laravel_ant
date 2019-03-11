@@ -34,15 +34,14 @@ class Sidemenu extends Component {
                         onCollapse={this.onCollapse}
                         theme="light"
                     >
-                        <div className="logo">
-                            <img
-                                src={logo}
-                                alt="Shopx"
-                                width="100%"
-                                height="100%"
-                            />
-                        </div>
                         <Menu theme="light" mode="inline">
+                            <div className="logo">
+                                <img
+                                    src={logo}
+                                    alt="Shopx"
+                                    style={{ width: 180 }}
+                                />
+                            </div>
                             <Divider />
                             <Menu.Item key="1" style={{ fontSize: "22px" }}>
                                 <NavLink to="/shop">

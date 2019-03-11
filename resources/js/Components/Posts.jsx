@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row, Card, Input, Button, Upload } from "antd";
+import { Col, Row, Card, Input, Button, message, Upload } from "antd";
 import APostForm from "./AddPostForm";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
@@ -33,8 +33,9 @@ class Posts extends Component {
         axios.post("/api/posts", arr).then(res => {
             const postdata = res.data;
             console.log(postdata);
-            this.setState({description:'',image_path:''});
+            this.setState({ description: "", image_path: "" });
             this.getPosts();
+            message.success("Post Added");
         });
     };
 
@@ -127,7 +128,6 @@ class Posts extends Component {
                         headStyle={{ textAlign: "center" }}
                     >
                         <div style={{ paddingTop: "3%" }}>
-
                             {this.state.post.map(element => (
                                 <Card
                                     hoverable={true}
