@@ -29,6 +29,7 @@ class ViewProducts extends Component {
         console.log("Description: " + record.description);
         console.log("Price: " + record.price);
         console.log("Category: " + record.category);
+
         axios.delete("api/products/" + record.id);
         this.getProducts();
     }
