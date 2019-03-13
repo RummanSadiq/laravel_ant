@@ -211,22 +211,22 @@ class EditProduct extends Component {
     };
 
     render() {
-        const fileList = [
-            {
-                uid: "-2",
-                name: "current_picture.png",
-                status: "done",
-                url: this.props.display_picture
-            }
-        ];
+        // const fileList = [
+        //     {
+        //         uid: "-2",
+        //         name: "current_picture.png",
+        //         status: "done",
+        //         url: this.props.display_picture
+        //     }
+        // ];
 
-        const props = {
-            action: "/api/attachment/products",
-            onChange: this.handleUpload,
-            listType: "picture",
-            name: "image",
-            defaultFileList: [...fileList]
-        };
+        // const props = {
+        //     action: "/api/attachment/products",
+        //     onChange: this.handleUpload,
+        //     listType: "picture",
+        //     name: "image",
+        //     defaultFileList: [...fileList]
+        // };
 
         const {
             getFieldDecorator,

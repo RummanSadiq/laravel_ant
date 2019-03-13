@@ -12,7 +12,8 @@ import {
     Carousel,
     TimePicker,
     Statistic,
-    Icon
+    Icon,
+    Upload
 } from "antd";
 import axios from "axios";
 
@@ -20,17 +21,6 @@ const Option = Select.Option;
 
 class Shop extends Component {
     state = {
-        // StoreName: "Raheem Store",
-        // Contact: "+923355454",
-        // store_type: "Men's Fashion",
-        // OpeningTime: "10 am",
-        // ClosingTime: "10 pm",
-        // OpensonWeekend: "yes",
-        // AcceptsCard: "no",
-        // Wifi: "no",
-        // Delivery: "yes",
-        // Address: "SHop no. 65 5th street",
-        // City: "Lahore",
         store: {},
         edit: false
     };
@@ -176,6 +166,7 @@ class Shop extends Component {
                             Delivery={this.state.store.delivery}
                             Address={this.state.store.address}
                             City={this.state.store.city}
+                            display_picture = {this.state.store.display_picture}
                             changeState={this.handleStateChange}
                         />
                     )}
@@ -184,16 +175,25 @@ class Shop extends Component {
                 <Col span={12} offset={6}>
                     <Carousel>
                         <div>
-                            <h3>1</h3>
+                            <img
+                                src={this.state.store.display_picture}
+                                alt="Store Image"
+                            />
                         </div>
                         <div>
-                            <h3>2</h3>
+                            <img
+                                src={this.state.store.display_picture}
+                                alt="Store Image"
+                            />
                         </div>
                         <div>
-                            <h3>3</h3>
+                            <img
+                                src={this.state.store.display_picture}
+                                alt="Store Image"
+                            />
                         </div>
                         <div>
-                            <h3>4</h3>
+                            <img src={this.state.store.display_picture} alt="Store Image" />
                         </div>
                     </Carousel>
                 </Col>
@@ -219,7 +219,8 @@ function hasErrors(fieldsError) {
 }
 class ShopForm extends React.Component {
     state = {
-        store_types: []
+        store_types: [],
+        image: ""
     };
     componentDidMount() {
         // To disabled submit button at the beginning.
@@ -230,13 +231,23 @@ class ShopForm extends React.Component {
             this.setState({ store_types: storedata });
         });
     }
+    handleUpload = event => {
+        if (event.file.status !== "uploading") {
+            console.log(event.file);
+            this.setState({ image: event.file.response.url });
+        }
+    };
 
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
-                this.props.changeState();
+
+                if(this.state.image !==null){
+                    values.display_picture = this.state.image;
+                }
+                
 
                 values.open_time = moment
                     .utc(values.open_time)
@@ -257,6 +268,9 @@ class ShopForm extends React.Component {
                         console.log(error);
                         console.log(values);
                     });
+
+                    this.props.changeState();
+
             } else {
                 console.log("Errors", err);
             }
@@ -297,6 +311,9 @@ class ShopForm extends React.Component {
 
         const addressError =
             isFieldTouched("address") && getFieldError("address");
+
+            const pictureError =
+            isFieldTouched("display_picture") && getFieldError("display_picture");
 
         // const wheelchairError =
         //     isFieldTouched("wheel_chair") && getFieldError("wheel_chair");
@@ -349,6 +366,32 @@ class ShopForm extends React.Component {
                             ]
                         })(<Input placeholder="Store Name" />)}
                     </Form.Item>
+
+                    <Form.Item
+                        validateStatus={pictureError ? "error" : ""}
+                        help={pictureError || ""}
+                        label="Store Picture:"
+                    >
+                        {getFieldDecorator("display_picture", {
+                           initialValue: this.props.display_picture,
+
+                            rules: [
+                                {
+                                    required: true,
+                                    message: "Please input your Store picture"
+                                }
+                            ]
+                        })(
+                    <Upload
+                        action="/api/attachment/products"
+                        onChange={this.handleUpload}
+                        listType="picture"
+                        name="image"
+                    >
+                        <Button icon="upload">Upload File</Button>
+                    </Upload>)}
+                    </Form.Item>
+
                     <Row>
                         <Col span={12}>
                             <Form.Item
