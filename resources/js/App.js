@@ -3,7 +3,7 @@ import "./App.css";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import "antd/dist/antd";
-import { BrowserRouter, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import Chat from "./Components/Chat";
 import Sidemenu from "./Components/Sidemenu";
 import Faqs from "./Components/FAQs";
@@ -12,19 +12,17 @@ import UserReviews from "./Components/UserReviews";
 import AddProduct from "./Components/Add Product";
 import EPForm from './Components/EditProduct';
 import ViewProducts from "./Components/View Products";
-
+import background from './react_images/background.jpg'
 
 import Shop from "./Components/Shop";
 class App extends Component {
     render() {
         return (
             <BrowserRouter>
-                <div>
-                    {/* <Sidemenu /> */}
+                <div style={{background:{background}}}>
+
                     <Route path="" component={Sidemenu} />
                     <Route exact path="" component={Shop} />
-
-                    {/* <Route path="" component={Shop} /> */}
                     <Route path="/Messages" component={Chat} />
                     <Route path="/Faqs" component={Faqs} />
                     <Route path="/Reviews" component={UserReviews} />
@@ -40,6 +38,7 @@ class App extends Component {
                             return null;
                         }}
                     />
+                    
                 </div>
             </BrowserRouter>
         );

@@ -46,3 +46,13 @@
   font-size: 12px;
   margin-top: -4px;
 }
+
+.infoColumns{
+  
+      border: 1px solid;
+      padding: 1%;
+}
+
+span{
+  padding: 1%;
+}
