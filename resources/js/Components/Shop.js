@@ -51,6 +51,7 @@ class Shop extends Component {
     render() {
         return (
             <div>
+            <div style={{marginBottom: "15px"}}>
                 <Col span={12} offset={6}>
                     <h1 style={{ textAlign: "center" }}>
                         {this.state.store.name}
@@ -198,17 +199,26 @@ class Shop extends Component {
                     </Carousel>
                 </Col>
 
-                <Statistic
-                    title="Feedback"
-                    value={1128}
-                    prefix={<Icon type="like" />}
-                />
+                
+            </div>
+            <div>
+                <Col span={2} offset={6}>
+                    <Statistic
+                        title="Feedback"
+                        value={1128}
+                        prefix={<Icon type="like" />}
+                    />
+                </Col>
 
-                <Statistic
-                    title="Views"
-                    value={93}
-                    prefix={<Icon type="eye" />}
-                />
+                <Col span={2} offset={6}>
+                    <Statistic
+                        title="Views"
+                        value={93}
+                        prefix={<Icon type="eye" />}
+                    />
+                </Col>
+                
+            </div>
             </div>
         );
     }

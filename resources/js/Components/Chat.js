@@ -212,12 +212,11 @@ class Chat extends Component {
                   />
                   <Button
                     type="primary"
-                    shape="circle"
                     icon="check"
                     size="large"
                     style={{ float: "left" }}
                     onClick={this.handleSubmit}
-                  />
+                  >Send</Button>
                 </div>
             </Col>
           </Row>
