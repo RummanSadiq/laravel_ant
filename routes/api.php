@@ -60,11 +60,16 @@ Route::delete('/reviews/{id}', 'Api\ReviewController@destroy');
 
 
 //Messages
-Route::get('/messages', 'Api\MessageController@index');
+// Route::get('/messages', 'Api\MessageController@index');
 Route::get('/messages/{id}', 'Api\MessageController@show');
-Route::post('/messages', 'Api\MessageController@store'); //might not get used 
-Route::post('/messages/{id}', 'Api\MessageController@update'); //sending message to a specific id
+Route::post('/messages/shop', 'Api\MessageController@shopSent'); //might not get used 
+Route::post('/messages/customer', 'Api\MessageController@customerSent'); //might not get used 
+// Route::post('/messages', 'Api\MessageController@messageSent'); //sending message to a specific id
 Route::delete('/messages/{id}', 'Api\MessageController@destroy'); //Delete chat with some user
+
+//Conversations
+Route::get('/conversations/shop', 'Api\ConversationController@shopConversations');
+Route::get('/conversations/customer', 'Api\ConversationController@customerConversations');
 
 
 //Image Attachments 

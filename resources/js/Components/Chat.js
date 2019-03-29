@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import axios from "axios";
+
 import {
   Layout,
   Row,
@@ -11,6 +13,7 @@ import {
   message,
   Spin
 } from "antd";
+import { timingSafeEqual } from "crypto";
 
 const { TextArea } = Input;
 const { Header, Content } = Layout;
@@ -23,70 +26,74 @@ class Chat extends Component {
       }
   state = {
       newreply:'',
-    conversations: [
-      { username: "Ahmad", lastmessage: "my Last message" },
-      { username: "Umer", lastmessage: "This ismy last Message" }
-    ],
-    chat: [
-      {
-        message: "Hey I wanted to ask you something",
-        reply: "yeah sure?",
-        time: "10:00 am",
-        date: "24/01/2019"
-      },
-      {
-        message: "Never Mind, got it",
-        reply: "anytime",
-        time: "10:00 am",
-        date: "24/01/2019"
-      },
-      {
-        message: "yeh",
-        reply: "okay",
-        time: "10:00 am",
-        date: "24/01/2019"
-      },
-      {
-        message: "yeh",
-        reply: "okay",
-        time: "10:00 am",
-        date: "24/01/2019"
-      },
-      {
-        message: "yeh",
-        reply: "okay",
-        time: "10:00 am",
-        date: "24/01/2019"
-      },
-      {
-        message: "yeh",
-        reply: "okay",
-        time: "10:00 am",
-        date: "24/01/2019"
-      }
-    ]
-  };
+      initial_screen: true,
+      conversation_id: '',
+      title: '',
+      conversations: [],
+      chat: []
+  }
 
   handleChange = (event)=>{
     this.setState({ newreply: event.target.value });
     this.inputreply = event.target.value;
   }
 
-  handleSubmit(event) {
-      var myreply= this.state.newreply;
-      var today = new Date();
-    var tdate = today.getDate() + '/' + (today.getMonth() + 1) + '/' + today.getFullYear() ;
-    var ttime= today.toLocaleTimeString();
+  componentDidMount() {
+    
+    this.getConversations();
+    
+  }
 
-    var str = { message:"", reply: myreply, time:ttime, date:tdate};
-    this.state.chat.push(str);
-    this.setState({ chat: this.state.chat });
-    event.preventDefault();
+  getConversations() {
+    axios.get("/api/conversations/shop").then(res => {
+      this.setState({ conversations: res.data });
+
+      if(this.state.initial_screen) {
+        this.getMessages(this.state.conversations[0].id, this.state.conversations[0].username);
+        this.setState({initial_screen: false});
+      }
+  });
+  }
+
+  getMessages(id, username) {
+    this.setState({ title: username});
+
+    if(id != this.state.conversation_id) {
+      this.setState({ chat: [] });
+    }
+    this.setState({ conversation_id: id});
+    
+    axios.get("/api/messages/" + id).then(res => {
+      this.setState({ chat: res.data });
+    });
+  }
+
+
+
+  handleSubmit(event) {
+      // var today = new Date();
+    // var tdate = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear() ;
+    // var ttime= today.toLocaleTimeString();
+
+    if(this.state.newreply != '') {
+      var str = { text:this.state.newreply, conversation_id: this.state.conversation_id };
+
+      axios.post("/api/messages/shop", str).then(res => {
+        //Refresh the messages
+        this.getMessages(this.state.conversation_id, this.state.title);
+        this.getConversations();
+        this.setState({newreply: ''});
+      });
+  
+      
+      
+      event.preventDefault();
+    }
+    
   }
 
   render() {
     return (
-
         <div>
           <Header style={{ backgroundColor: "#f5f5f5" }}>
             <div style={{ textAlign: "center" }}>
@@ -96,19 +103,19 @@ class Chat extends Component {
           <Row style={{position:"inherit"}}>
             <Col span={4} offset={4}>
               <Card title="Messages" bordered={false}>
-                {/* <div style={{ borderBottom: "2px solid" }}>
-                  <div style={{ fontWeight: "bold", fontSize: "24px" }}>
-                    <Avatar size="large" icon="user" />
-                    <span>Username</span>
-                  </div>
-                  <div style={{ fontSize: "20px" }}>Last Message</div>
-                </div> */}
-
                 <List
                   itemLayout="horizontal"
                   dataSource={this.state.conversations}
                   renderItem={item => (
-                    <List.Item>
+                    <List.Item
+                    onClick={() =>
+                      this.getMessages(item.id, item.username)
+                    }
+
+                    style={{cursor: "pointer"}}
+                    
+
+                  >
                       <List.Item.Meta
                         avatar={
                           <Avatar
@@ -116,8 +123,9 @@ class Chat extends Component {
                             src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                           />
                         }
-                        title={<a href="#">{item.username}</a>}
-                        description={item.lastmessage}
+                        title={item.username}
+                        description={item.prefix + item.last_message}
+                        
                       />
                     </List.Item>
                   )}
@@ -126,7 +134,7 @@ class Chat extends Component {
             </Col>
             <Col span={12}>
               <Card
-                title="Username"
+                title={this.state.title}
                 bordered={true}
                 style={{
                   marginLeft: "10dp",
@@ -138,7 +146,7 @@ class Chat extends Component {
                 >
                   {this.state.chat.map(element => (
                     <div>
-                      {element.message && (
+                      {element.receiver && (
                         <div
                           style={{
                             float: "left",
@@ -149,14 +157,14 @@ class Chat extends Component {
                             margin: "1%"
                           }}
                         >
-                          {element.message}
+                          {element.text}
                           <div style={{ marginLeft: "75%" }}>
-                            {element.date + " " + element.time}
+                          {element.created_at}
                           </div>
                         </div>
                       )}
 
-                      {element.reply && (
+                      {element.sender && (
                         <div
                           style={{
                             float: "right",
@@ -170,9 +178,9 @@ class Chat extends Component {
                             margin: "1%"
                           }}
                         >
-                          {element.reply}
+                          {element.text}
                           <div style={{ marginLeft: "75%" }}>
-                            {element.date + " " + element.time}
+                            {element.created_at}
                           </div>
                         </div>
                       )}
@@ -204,12 +212,11 @@ class Chat extends Component {
                   />
                   <Button
                     type="primary"
-                    shape="circle"
                     icon="check"
                     size="large"
                     style={{ float: "left" }}
                     onClick={this.handleSubmit}
-                  />
+                  >Send</Button>
                 </div>
             </Col>
           </Row>
