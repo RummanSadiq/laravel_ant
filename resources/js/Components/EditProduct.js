@@ -1,22 +1,9 @@
-import React, { Component } from 'react';
-import {
-    Col,
-    Input,
-    Button,
-    Upload,
-    Card,
-    Icon,
-    Select,
-    Form,
-    Row,
-    message
-} from "antd";
-import axios from 'axios';
+import React, { Component } from "react";
+import { Icon, message, Button, Form, Input, Upload, Select } from "antd";
+import axios from "axios";
 
 const { TextArea } = Input;
 const Option = Select.Option;
-
-
 
 class EditProduct extends Component {
     constructor (props){
@@ -27,18 +14,8 @@ class EditProduct extends Component {
     state = {
         image_path: "",
         categories: [],
-        product: {}
+        products: []
     };
-
-    fileList = [{
-        uid: '1',
-        name: 'current_image.png',
-        status: 'done',
-        response: 'Done', // custom error message to show
-        url: this.state.product.display_picture
-    }];
-
-    
 
     componentDidMount() {
         axios.get("/api/categories").then(res => {
@@ -46,8 +23,6 @@ class EditProduct extends Component {
             console.log(data);
             this.setState({ categories: data });
         });
-
-        console.log('state.product received are',this.state.product);
     }
 
     handleUpload = event => {
@@ -60,18 +35,19 @@ class EditProduct extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        console.log("value of id is" + this.state.product.id);
+        console.log("value of id is" + this.props.id);
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                if (this.state.image_path !== 'undefined'){
+                if (this.state.image_path != null) {
                     values.display_picture = this.state.image_path;
                 }
+
                 console.log("Received values of form: ", values);
 
                 message.success("DONE");
 
                 axios
-                    .post("api/products/" + this.state.product.id, values)
+                    .post("api/products/" + this.props.id, values)
                     .then(res => {
                         const data = res.data;
                         console.log(data);
@@ -127,7 +103,7 @@ class EditProduct extends Component {
                     help={productNameError || ""}
                 >
                     {getFieldDecorator("name", {
-                        initialValue: this.state.product.name,
+                        initialValue: this.props.name ? this.props.name : "",
                         rules: [
                             {
                                 required: true,
@@ -144,7 +120,7 @@ class EditProduct extends Component {
                     help={priceError || ""}
                 >
                     {getFieldDecorator("price", {
-                        initialValue: this.state.product.price,
+                        initialValue: this.props.price ? this.props.price : "",
                         rules: [
                             {
                                 required: true,
@@ -168,7 +144,9 @@ class EditProduct extends Component {
                     help={descriptionError || ""}
                 >
                     {getFieldDecorator("description", {
-                        initialValue: this.state.product.description,
+                        initialValue: this.props.description
+                            ? this.props.description
+                            : "",
 
                         rules: [
                             {
@@ -194,7 +172,9 @@ class EditProduct extends Component {
                     help={pictureError || ""}
                 >
                     {getFieldDecorator("display_picture", {
-                        initialValue: this.state.product.display_picture,
+                         initialValue: this.props.display_picture
+                         ? this.props.display_picture
+                         : "",
 
                         rules: [
                             {
@@ -203,7 +183,11 @@ class EditProduct extends Component {
                             }
                         ]
                     })(
-                        <Upload {...param}
+                        <Upload
+                            action="/api/attachment/products"
+                            onChange={this.handleUpload}
+                            listType="picture"
+                            name="image"
                         >
                             <Button>
                                 <Icon type="upload" /> Upload
@@ -219,7 +203,9 @@ class EditProduct extends Component {
                     <h2>Select category</h2>
 
                     {getFieldDecorator("category_id", {
-                        initialValue: this.state.product.category_id,
+                         initialValue: this.props.category_id
+                         ? this.props.category_id
+                         : "",
 
                         rules: [
                             {

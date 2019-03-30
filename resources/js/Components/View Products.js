@@ -147,17 +147,15 @@ class ViewProducts extends Component {
                         onOk={event => this.handleOk(event)}
                         onCancel={this.handleCancel}
                         destroyOnClose={true}
-                        // mquestion={this.state.newfaq.question}
-                        // manswer={this.state.newfaq.answer}
+                        footer={null}
                     >
                         <EPForm
-                            // id={this.state.erecord.id}
-                            // name={this.state.erecord.name}
-                            // description={this.state.erecord.description}
-                            // display_picture={this.state.erecord.display_picture}
+                            id={this.state.erecord.id}
+                            name={this.state.erecord.name}
+                            description={this.state.erecord.description}
+                            display_picture={this.state.erecord.display_picture}
                             // price={this.state.erecord.price}
-                            // category_id={this.state.erecord.category_id}
-                            record={this.state.erecord}
+                            category_id={this.state.erecord.category_id}
                             handleOk={this.handleOk}
                         />
                     </Modal>
