@@ -6,15 +6,15 @@ const { TextArea } = Input;
 const Option = Select.Option;
 
 class EditProduct extends Component {
-    constructor (props){
-        super (props);
+    constructor(props) {
+        super(props);
 
-        this.state.product = this.props.record;
+        this.state.record = this.props.record;
     }
     state = {
         image_path: "",
         categories: [],
-        products: []
+        record: {}
     };
 
     componentDidMount() {
@@ -23,6 +23,8 @@ class EditProduct extends Component {
             console.log(data);
             this.setState({ categories: data });
         });
+
+        console.log("received props are", this.state.record);
     }
 
     handleUpload = event => {
@@ -35,7 +37,6 @@ class EditProduct extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
-        console.log("value of id is" + this.props.id);
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 if (this.state.image_path != null) {
@@ -62,17 +63,11 @@ class EditProduct extends Component {
     };
 
     render() {
-   
-    
-
-        console.log("Rumman" + this.state.product.display_picture);
-
         const param = {
             action: "/api/attachment/products",
             onChange: this.handleUpload,
             listType: "picture",
-            name: "image",
-            defaultFileList: this.fileList
+            name: "image"
         };
 
         const {
@@ -103,7 +98,9 @@ class EditProduct extends Component {
                     help={productNameError || ""}
                 >
                     {getFieldDecorator("name", {
-                        initialValue: this.props.name ? this.props.name : "",
+                        initialValue: this.state.record.name
+                            ? this.state.record.name
+                            : "",
                         rules: [
                             {
                                 required: true,
@@ -120,7 +117,9 @@ class EditProduct extends Component {
                     help={priceError || ""}
                 >
                     {getFieldDecorator("price", {
-                        initialValue: this.props.price ? this.props.price : "",
+                        initialValue: this.state.record.price
+                            ? this.state.record.price
+                            : "",
                         rules: [
                             {
                                 required: true,
@@ -144,8 +143,8 @@ class EditProduct extends Component {
                     help={descriptionError || ""}
                 >
                     {getFieldDecorator("description", {
-                        initialValue: this.props.description
-                            ? this.props.description
+                        initialValue: this.state.record.description
+                            ? this.state.record.description
                             : "",
 
                         rules: [
@@ -172,9 +171,9 @@ class EditProduct extends Component {
                     help={pictureError || ""}
                 >
                     {getFieldDecorator("display_picture", {
-                         initialValue: this.props.display_picture
-                         ? this.props.display_picture
-                         : "",
+                        initialValue: this.state.record.display_picture
+                            ? this.state.record.display_picture
+                            : "",
 
                         rules: [
                             {
@@ -203,9 +202,9 @@ class EditProduct extends Component {
                     <h2>Select category</h2>
 
                     {getFieldDecorator("category_id", {
-                         initialValue: this.props.category_id
-                         ? this.props.category_id
-                         : "",
+                        initialValue: this.state.record.category_id
+                            ? this.state.record.category_id
+                            : "",
 
                         rules: [
                             {
