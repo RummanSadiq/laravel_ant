@@ -79,10 +79,13 @@ Route::post('/attachment/{type}', function(Request $request, $type)
         $input['imagename'] = time() . '.' . $image->getClientOriginalExtension();
         $destinationPath = public_path('images/' . $type);
         $image->move($destinationPath, $input['imagename']);
+        $destinationPath2 = __DIR__ . '../../../customer_ant/public/images/'. $type  .'/';
+        copy($destinationPath. '/'. $input['imagename'], $destinationPath2. '/'. $input['imagename']);
 
         return response()->json([
             'status'=> 'done',
+            // 'url'=> asset($_SERVER['DOCUMENT_ROOT'].'/../resources/images/'. $type  .'/'. $input['imagename'])
             'url'=> '../images/'. $type  .'/'. $input['imagename']
-            ]);
+        ]);
     }
 );
