@@ -15,7 +15,7 @@ import {
     Select,
     Modal
 } from "antd";
-import EPForm from './EditProduct';
+import EPForm from "./EditProduct";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -57,9 +57,8 @@ class ViewProducts extends Component {
 
     handleEdit(event, record) {
         console.log("Handling Edit");
-        this.setState({ erecord: record, show: true },function (){
-            console.log ('ERECORD IS:',this.state.erecord);
-
+        this.setState({ erecord: record, show: true }, function() {
+            console.log("ERECORD IS:", this.state.erecord);
         });
 
         console.log(record);
@@ -150,12 +149,13 @@ class ViewProducts extends Component {
                         footer={null}
                     >
                         <EPForm
-                            id={this.state.erecord.id}
-                            name={this.state.erecord.name}
-                            description={this.state.erecord.description}
-                            display_picture={this.state.erecord.display_picture}
-                            // price={this.state.erecord.price}
-                            category_id={this.state.erecord.category_id}
+                        record = {this.state.erecord}
+                            // id={this.state.erecord.id}
+                            // name={this.state.erecord.name}
+                            // description={this.state.erecord.description}
+                            // // display_picture={this.state.erecord.display_picture}
+                            // // price={this.state.erecord.price}
+                            // category_id={this.state.erecord.category_id}
                             handleOk={this.handleOk}
                         />
                     </Modal>
@@ -164,6 +164,5 @@ class ViewProducts extends Component {
         );
     }
 }
-
 
 export default ViewProducts;
