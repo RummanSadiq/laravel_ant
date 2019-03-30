@@ -42,23 +42,22 @@ class ShopForm extends React.Component {
             if (!err) {
                 console.log("Received values of form: ", values);
 
-                if (this.props.StoreName !== null){
-                    console.log('sorename');
+                if (this.props.StoreName !== null) {
+                    console.log("sorename");
 
                     if (this.state.image != null) {
                         values.display_picture = this.state.image;
                     }
-    
+
                     values.open_time = moment
                         .utc(values.open_time)
                         .format("HH:mm:ss");
-    
+
                     values.close_time = moment
                         .utc(values.close_time)
                         .format("HH:mm:ss");
-    
-                    
-                        // if (this.props.storeName)
+
+                    // if (this.props.storeName)
                     axios
                         .post("/api/updateshop", values)
                         .then(res => {
@@ -70,16 +69,13 @@ class ShopForm extends React.Component {
                             console.log(error);
                             console.log(values);
                         });
-    
+
                     this.props.changeState();
-                }else{
-                    console.log('No storename add api call here to create store');
-
+                } else {
+                    console.log(
+                        "No storename add api call here to create store"
+                    );
                 }
-               
-
-               
-               
             } else {
                 console.log("Errors", err);
                 message.error("Invalid Values", err);
@@ -382,6 +378,13 @@ class ShopForm extends React.Component {
                         </div>
                     </Form.Item>
                 </Form>
+                <Button
+                    type="danger"
+                    icon="close"
+                    onClick={this.props.changeState()}
+                >
+                    X Cancel
+                </Button>
             </Col>
         );
     }
