@@ -15,6 +15,9 @@ import axios from "axios";
 
 const Option = Select.Option;
 
+function hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some(field => fieldsError[field]);
+  }
 class ShopForm extends React.Component {
     constructor(props) {
         super(props);
@@ -138,8 +141,8 @@ class ShopForm extends React.Component {
             <Col    >
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Item
-                        validateStatus={store_typeError ? "error" : ""}
-                        help={store_typeError || ""}
+                        // validateStatus={store_typeError ? "error" : ""}
+                        // help={store_typeError || ""}
                         label="Store Type:"
                     >
                         {getFieldDecorator("store_type_id", {
@@ -168,8 +171,8 @@ class ShopForm extends React.Component {
                     </Form.Item>
                     <div style={{ marginTop: "2%" }} />
                     <Form.Item
-                        validateStatus={storeNameError ? "error" : ""}
-                        help={storeNameError || ""}
+                        // validateStatus={storeNameError ? "error" : ""}
+                        // help={storeNameError || ""}
                         label="Store Name:"
                     >
                         {getFieldDecorator("name", {
@@ -187,8 +190,8 @@ class ShopForm extends React.Component {
                     </Form.Item>
 
                     <Form.Item
-                        validateStatus={pictureError ? "error" : ""}
-                        help={pictureError || ""}
+                        // validateStatus={pictureError ? "error" : ""}
+                        // help={pictureError || ""}
                         label="Store Picture:"
                     >
                         {getFieldDecorator("display_picture", {
@@ -218,9 +221,8 @@ class ShopForm extends React.Component {
                     <Row>
                         <Col span={12}>
                             <Form.Item
-                                validateStatus={openTimeError ? "error" : ""}
-                                help={openTimeError || ""}
-                                label="Accepts Card?"
+                                // validateStatus={openTimeError ? "error" : ""}
+                                // help={openTimeError || ""}
                                 label="Opens at:"
                             >
                                 {getFieldDecorator("open_time", {
@@ -249,8 +251,8 @@ class ShopForm extends React.Component {
                         </Col>
                         <Col span={12}>
                             <Form.Item
-                                validateStatus={closeTimeError ? "error" : ""}
-                                help={closeTimeError || ""}
+                                // validateStatus={closeTimeError ? "error" : ""}
+                                // help={closeTimeError || ""}
                                 label="Closes at:"
                             >
                                 {getFieldDecorator("close_time", {
@@ -278,8 +280,8 @@ class ShopForm extends React.Component {
                         </Col>
                     </Row>
                     <Form.Item
-                        validateStatus={ContactError ? "error" : ""}
-                        help={ContactError || ""}
+                        // validateStatus={ContactError ? "error" : ""}
+                        // help={ContactError || ""}
                         label="Contact#"
                     >
                         {getFieldDecorator("contact", {
@@ -297,8 +299,8 @@ class ShopForm extends React.Component {
                         })(<Input placeholder="Contact" type="phone" />)}
                     </Form.Item>
                     <Form.Item
-                        validateStatus={cardError ? "error" : ""}
-                        help={cardError || ""}
+                        // validateStatus={cardError ? "error" : ""}
+                        // help={cardError || ""}
                         label="Accepts Card?"
                     >
                         {getFieldDecorator("card_payment", {
@@ -321,8 +323,8 @@ class ShopForm extends React.Component {
                         )}
                     </Form.Item>
                     <Form.Item
-                        validateStatus={wifiError ? "error" : ""}
-                        help={wifiError || ""}
+                        // validateStatus={wifiError ? "error" : ""}
+                        // help={wifiError || ""}
                         label="Has Wifi?"
                     >
                         {getFieldDecorator("wifi", {
@@ -344,8 +346,8 @@ class ShopForm extends React.Component {
                         )}
                     </Form.Item>
                     <Form.Item
-                        validateStatus={deliveryError ? "error" : ""}
-                        help={deliveryError || ""}
+                        // validateStatus={deliveryError ? "error" : ""}
+                        // help={deliveryError || ""}
                         label="Provides Delivery?"
                     >
                         {getFieldDecorator("delivery", {
@@ -367,8 +369,8 @@ class ShopForm extends React.Component {
                         )}
                     </Form.Item>
                     <Form.Item
-                        validateStatus={addressError ? "error" : ""}
-                        help={addressError || ""}
+                        // validateStatus={addressError ? "error" : ""}
+                        // help={addressError || ""}
                         label="Address:"
                     >
                         {getFieldDecorator("address", {
@@ -389,6 +391,8 @@ class ShopForm extends React.Component {
                                 htmlType="submit"
                                 size={"large"}
                                 icon={"check"}
+                                disabled={hasErrors(getFieldsError())}
+
                             >
                                 Submit
                             </Button>

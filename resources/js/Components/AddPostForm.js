@@ -3,6 +3,10 @@ import { Card, Form, Input, Button, Upload, message } from "antd";
 import axios from "axios";
 const { TextArea } = Input;
 
+
+function hasErrors(fieldsError) {
+    return Object.keys(fieldsError).some(field => fieldsError[field]);
+  }
 class AddPostForm extends Component {
     state = {};
 
@@ -20,8 +24,8 @@ class AddPostForm extends Component {
                     message.success("Post Added");
                 });
                 this.props.form.resetFields();
-            } else {
-                message.error("Error occured", err);
+            } if (err) {
+                message.error( err);
             }
         });
     };
@@ -58,8 +62,8 @@ class AddPostForm extends Component {
             >
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Item
-                        validateStatus={descriptionError ? "error" : ""}
-                        help={descriptionError || ""}
+                        // validateStatus={ "Field cannot be empty"}
+                        // help={descriptionError || ""}
                     >
                         {getFieldDecorator("description", {
                             rules: [
@@ -86,8 +90,8 @@ class AddPostForm extends Component {
                         }}
                     >
                         <Form.Item
-                        validateStatus={pictureError ? "error" : ""}
-                        help={pictureError || ""}
+                        // validateStatus={pictureError ? "error" : ""}
+                        // help={pictureError || ""}
                     >
                         {getFieldDecorator("display_picture", {
                            
@@ -95,7 +99,7 @@ class AddPostForm extends Component {
                             rules: [
                                 {
                                     required: true,
-                                    message: "Please input your Store picture"
+                                    message: "Please input picture"
                                 }
                             ]
                         })(
@@ -117,7 +121,8 @@ class AddPostForm extends Component {
                             icon="check"
                             size={"medium"}
                             htmlType="submit"
-                            onClick={this.handleSubmit}
+                            disabled={hasErrors(getFieldsError())}
+
                         >
                             Post
                         </Button>

@@ -43,39 +43,40 @@ class Sidemenu extends Component {
                                 />
                             </div>
                             <Divider />
-                            <Menu.Item key="1" style={{ fontSize: "22px" }}>
+                            <Menu.Item key="1" style={{ fontSize: "22px"}}>
                                 <NavLink to="/shop">
-                                    <Icon
+                                   
+                                 <Icon
                                         type="shop"
                                         theme="filled"
-                                        style={{ fontSize: "100%" }}
+                                        style={{ fontSize: "100%", color:'white' }}
                                     />
-                                    <span>Shop</span>
+                               <span style={{ color:'white' }}>      Shop</span>
                                 </NavLink>
                             </Menu.Item>
 
                             <Divider />
                             <Menu.Item key="2" style={{ fontSize: "22px" }}>
                                 <NavLink to="/Messages">
-                                    <Icon
+                                  <Icon
                                         type="message"
                                         theme="filled"
-                                        style={{ fontSize: "100%" }}
+                                        style={{ fontSize: "100%", color:'white' }}
                                     />
-                                    <span>Messages</span>
+                                <span style={{ color:'white' }}>      Messages</span>
                                 </NavLink>
                             </Menu.Item>
                             <Divider />
                             <SubMenu
                                 key="products"
                                 title={
-                                    <span style={{ fontSize: "22px" }}>
+                                   <span style={{ fontSize: "22px" }}>
                                         <Icon
                                             type="database"
                                             theme="filled"
-                                            style={{ fontSize: "100%" }}
+                                            style={{ fontSize: "100%", color:'white' }}
                                         />
-                                        <span>Products</span>
+                                 <span style={{color:'white' }}>        Products</span>
                                     </span>
                                 }
                             >
@@ -86,9 +87,9 @@ class Sidemenu extends Component {
                                         <Icon
                                             type="file-add"
                                             theme="filled"
-                                            style={{ fontSize: "80%" }}
+                                            style={{ fontSize: "80%", color:'white' }}
                                         />
-                                        <span>Add Product</span>
+                                   <span style={{fontSize: "22px",color:'white' }}>     Add Product</span>
                                     </NavLink>
                                 </Menu.Item>
                                 <Divider />
@@ -97,9 +98,9 @@ class Sidemenu extends Component {
                                     <NavLink to="/ViewProduct">
                                         <Icon
                                             type="table"
-                                            style={{ fontSize: "80%" }}
+                                            style={{ fontSize: "80%", color:'white' }}
                                         />
-                                        <span>View Products</span>
+                                   <span style={{ color:'white' }}>     View Products</span>
                                     </NavLink>
                                 </Menu.Item>
                             </SubMenu>
@@ -109,9 +110,9 @@ class Sidemenu extends Component {
                                     <Icon
                                         type="star"
                                         theme="filled"
-                                        style={{ fontSize: "100%" }}
+                                        style={{ fontSize: "100%", color:'white' }}
                                     />
-                                    <span>Reviews</span>
+                                    <span style={{ color:'white' }}>Reviews</span>
                                 </NavLink>
                             </Menu.Item>
                             <Divider />
@@ -119,9 +120,9 @@ class Sidemenu extends Component {
                                 <NavLink to="/FAQs">
                                     <Icon
                                         type="question"
-                                        style={{ fontSize: "100%" }}
+                                        style={{ fontSize: "100%", color:'white' }}
                                     />
-                                    <span>FAQ'S</span>
+                                    <span style={{ color:'white' }}>FAQ'S</span>
                                 </NavLink>
                             </Menu.Item>
                             <Divider />
@@ -130,9 +131,9 @@ class Sidemenu extends Component {
                                     <Icon
                                         type="layout"
                                         theme="filled"
-                                        style={{ fontSize: "100%" }}
+                                        style={{ fontSize: "100%", color:'white' }}
                                     />
-                                    <span>Posts</span>
+                                    <span style={{ color:'white' }}>Posts</span>
                                 </NavLink>
                             </Menu.Item>
                             <Divider />
