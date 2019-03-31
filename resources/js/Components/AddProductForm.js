@@ -62,6 +62,7 @@ class AddProductForm extends React.Component {
 
                     this.setState({ goToProducts: true });
                 });
+                this.props.form.resetFields();
             }
         });
     };

@@ -12,14 +12,16 @@ import UserReviews from "./Components/UserReviews";
 import AddProduct from "./Components/Add Product";
 import EPForm from './Components/EditProduct';
 import ViewProducts from "./Components/View Products";
-import background from './react_images/background.jpg'
+import background from './react_images/background.jpg';
 
 import Shop from "./Components/Shop";
 class App extends Component {
     render() {
         return (
+            <div >
+
             <BrowserRouter>
-                <div style={{background:{background}}}>
+                <div >
 
                     <Route path="" component={Sidemenu} />
                     <Route exact path="" component={Shop} />
@@ -40,7 +42,8 @@ class App extends Component {
                     />
                     
                 </div>
-            </BrowserRouter>
+                
+            </BrowserRouter></div>
         );
     }
 }

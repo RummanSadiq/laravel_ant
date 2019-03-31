@@ -11,7 +11,7 @@
 
         
     </head>
-    <body>
+    <body style="background-color: #E4E5E6">
         <div id="app">
             <script src="{{ asset('js/app.js') }}" ></script>
         </div>

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Card, Form, Input, Button, Upload } from "antd";
+import { Card, Form, Input, Button, Upload, message } from "antd";
+import axios from "axios";
 const { TextArea } = Input;
 
 class AddPostForm extends Component {
@@ -11,10 +12,26 @@ class AddPostForm extends Component {
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
+
+                axios.post("/api/posts", values).then(res => {
+                    const postdata = res.data;
+                    console.log(postdata);
+                    this.getPosts();
+                    message.success("Post Added");
+                });
+                this.props.form.resetFields();
+            } else {
+                message.error("Error occured", err);
             }
         });
     };
 
+    handleUpload = event => {
+        if (event.file.status !== "uploading") {
+            console.log('Uploading file is',event.file);
+            this.setState({ image: event.file.response.url });
+        }
+    };
     render() {
         const {
             getFieldDecorator,
@@ -26,6 +43,10 @@ class AddPostForm extends Component {
         // Only show error after a field is touched.
         const descriptionError =
             isFieldTouched("description") && getFieldError("description");
+
+        const pictureError =
+            isFieldTouched("display_picture") &&
+            getFieldError("display_picture");
         return (
             <Card
                 title={<h1> Create posts for annoucements </h1>}
@@ -64,27 +85,43 @@ class AddPostForm extends Component {
                             textAlign: "right"
                         }}
                     >
-                        <span style={{ padding: "1%" }} />
-                        <Upload>
-                            <Button
-                                type="secondary"
-                                shape="round"
-                                icon="upload"
-                                size={"medium"}
+                        <Form.Item
+                        validateStatus={pictureError ? "error" : ""}
+                        help={pictureError || ""}
+                    >
+                        {getFieldDecorator("display_picture", {
+                           
+
+                            rules: [
+                                {
+                                    required: true,
+                                    message: "Please input your Store picture"
+                                }
+                            ]
+                        })(
+                            <Upload
+                                action="/api/attachment/products"
+                                onChange={this.handleUpload}
+                                listType="picture"
+                                name="image"
                             >
-                                Upload photos
-                            </Button>
-                        </Upload>
+                                <Button icon="upload">Upload Picture</Button>
+                            </Upload>
+                        )}
+                    </Form.Item>
+                        
+                        </div>
                         <Button
                             type="primary"
                             shape="round"
                             icon="check"
                             size={"medium"}
-                            onClick={this.handlePost}
+                            htmlType="submit"
+                            onClick={this.handleSubmit}
                         >
-                            Done
+                            Post
                         </Button>
-                    </div>
+                    
                 </Form>
             </Card>
         );

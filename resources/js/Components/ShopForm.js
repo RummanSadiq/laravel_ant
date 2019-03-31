@@ -16,22 +16,29 @@ import axios from "axios";
 const Option = Select.Option;
 
 class ShopForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state.store = this.props.store;
+    }
     state = {
         store_types: [],
-        image: null
+        image: null,
+        store: {}
     };
     componentDidMount() {
         // To disabled submit button at the beginning.
         // this.props.form.validateFields();
         axios.get("/api/storetypes").then(res => {
             const storedata = res.data;
-            console.log(storedata);
+            console.log('store types are',storedata);
             this.setState({ store_types: storedata });
         });
+
+        console.log('STORE values inside form are',this.state.store);
     }
     handleUpload = event => {
         if (event.file.status !== "uploading") {
-            console.log(event.file);
+            console.log('Uploading file is',event.file);
             this.setState({ image: event.file.response.url });
         }
     };
@@ -42,7 +49,7 @@ class ShopForm extends React.Component {
             if (!err) {
                 console.log("Received values of form: ", values);
 
-                if (this.props.StoreName !== null) {
+                if (this.state.store.StoreName !== null) {
                     console.log("sorename");
 
                     if (this.state.image != null) {
@@ -57,7 +64,7 @@ class ShopForm extends React.Component {
                         .utc(values.close_time)
                         .format("HH:mm:ss");
 
-                    // if (this.props.storeName)
+                    // if (this.state.store.storeName)
                     axios
                         .post("/api/updateshop", values)
                         .then(res => {
@@ -128,7 +135,7 @@ class ShopForm extends React.Component {
         //     isFieldTouched("wash_room") && getFieldError("wash_room");
 
         return (
-            <Col span={12} offset={6}>
+            <Col    >
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Item
                         validateStatus={store_typeError ? "error" : ""}
@@ -136,9 +143,10 @@ class ShopForm extends React.Component {
                         label="Store Type:"
                     >
                         {getFieldDecorator("store_type_id", {
-                            initialValue: this.props.store_type
-                                ? this.props.store_type
-                                : "",
+                            initialValue: this.state.store.store_type_id
+                                // ? this.state.store.store_type
+                                // : ""
+                                ,
                             rules: [
                                 {
                                     required: true,
@@ -151,7 +159,7 @@ class ShopForm extends React.Component {
                                 style={{ width: 320 }}
                             >
                                 {this.state.store_types.map(element => (
-                                    <Option value={element.id}>
+                                    <Option value={element.id} key={element.id}>
                                         {element.name}
                                     </Option>
                                 ))}
@@ -165,9 +173,10 @@ class ShopForm extends React.Component {
                         label="Store Name:"
                     >
                         {getFieldDecorator("name", {
-                            initialValue: this.props.storeName
-                                ? this.props.storeName
-                                : "",
+                            initialValue: this.state.store.name
+                                // ? this.state.store.storeName
+                                // : ""
+                                ,
                             rules: [
                                 {
                                     required: true,
@@ -183,9 +192,10 @@ class ShopForm extends React.Component {
                         label="Store Picture:"
                     >
                         {getFieldDecorator("display_picture", {
-                            initialValue: this.props.display_picture
-                                ? this.props.display_picture
-                                : "",
+                            initialValue: this.state.store.display_picture
+                                // ? this.state.store.display_picture
+                                // : ""
+                                ,
 
                             rules: [
                                 {
@@ -215,9 +225,10 @@ class ShopForm extends React.Component {
                             >
                                 {getFieldDecorator("open_time", {
                                     initialValue: moment(
-                                        this.props.OpeningTime
-                                            ? this.props.OpeningTime
-                                            : "",
+                                        this.state.store.open_time
+                                            // ? this.state.store.OpeningTime
+                                            // : ""
+                                            ,
                                         "HH:mm:ss "
                                     ),
 
@@ -244,9 +255,10 @@ class ShopForm extends React.Component {
                             >
                                 {getFieldDecorator("close_time", {
                                     initialValue: moment(
-                                        this.props.ClosingTime
-                                            ? this.props.ClosingTime
-                                            : "",
+                                        this.state.store.close_time
+                                            // ? this.state.store.ClosingTime
+                                            // : ""
+                                            ,
                                         "HH:mm:ss"
                                     ),
                                     rules: [
@@ -271,9 +283,10 @@ class ShopForm extends React.Component {
                         label="Contact#"
                     >
                         {getFieldDecorator("contact", {
-                            initialValue: this.props.Contact
-                                ? this.props.Contact
-                                : "",
+                            initialValue: this.state.store.contact
+                                // ? this.state.store.Contact
+                                // : ""
+                                ,
                             rules: [
                                 {
                                     required: true,
@@ -289,9 +302,10 @@ class ShopForm extends React.Component {
                         label="Accepts Card?"
                     >
                         {getFieldDecorator("card_payment", {
-                            initialValue: this.props.AcceptsCard
-                                ? this.props.AcceptsCard
-                                : "",
+                            initialValue: this.state.store.card_payment
+                                // ? this.state.store.AcceptsCard
+                                // : ""
+                                ,
                             placeholder: "Store accepts credit card? ",
                             rules: [
                                 {
@@ -312,9 +326,10 @@ class ShopForm extends React.Component {
                         label="Has Wifi?"
                     >
                         {getFieldDecorator("wifi", {
-                            initialValue: this.props.Wifi
-                                ? this.props.Wifi
-                                : "",
+                            initialValue: this.state.store.wifi
+                                // ? this.state.store.Wifi
+                                // : ""
+                                ,
                             rules: [
                                 {
                                     required: true,
@@ -334,9 +349,10 @@ class ShopForm extends React.Component {
                         label="Provides Delivery?"
                     >
                         {getFieldDecorator("delivery", {
-                            initialValue: this.props.Delivery
-                                ? this.props.Delivery
-                                : "",
+                            initialValue: this.state.store.delivery
+                                // ? this.state.store.Delivery
+                                // : ""
+                                ,
                             rules: [
                                 {
                                     required: true,
@@ -356,9 +372,10 @@ class ShopForm extends React.Component {
                         label="Address:"
                     >
                         {getFieldDecorator("address", {
-                            initialValue: this.props.Address
-                                ? this.props.Address
-                                : "",
+                            initialValue: this.state.store.address
+                                // ? this.state.store.Address
+                                // : ""
+                                ,
                             rules: [
                                 { required: true, message: "Store address" }
                             ]
@@ -378,13 +395,6 @@ class ShopForm extends React.Component {
                         </div>
                     </Form.Item>
                 </Form>
-                <Button
-                    type="danger"
-                    icon="close"
-                    onClick={this.props.changeState()}
-                >
-                    X Cancel
-                </Button>
             </Col>
         );
     }

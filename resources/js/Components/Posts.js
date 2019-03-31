@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Col, Card, Input, Button, message, Upload } from "antd";
 import axios from "axios";
+import APostForm from './AddPostForm';
 const { Meta } = Card;
 const { TextArea } = Input;
 
@@ -61,7 +62,7 @@ class Posts extends Component {
             <div>
                 <Col span={16} offset={6}>
 
-                    <Card
+                  {/*  <Card
                         title={<h1> Create posts for annoucements </h1>}
                         type="inner"
                         hoverable="true"
@@ -69,7 +70,7 @@ class Posts extends Component {
                         style={{ width: 1000 }}
                         headStyle={{ textAlign: "center" }}
                     >
-                        <TextArea
+                         <TextArea
                             placeholder="Write Something"
                             autosize={{ minRows: 2, maxRows: 6 }}
                             onChange={this.handleChange}
@@ -110,8 +111,10 @@ class Posts extends Component {
                             >
                                 Done
                             </Button>
-                        </div>
-                    </Card>
+                        </div> 
+                        
+                    </Card>*/}
+                    <APostForm/>
                     <Card
                         title={<h3> Previous Posts </h3>}
                         type="inner"

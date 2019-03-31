@@ -27,14 +27,14 @@ class Sidemenu extends Component {
     render() {
         return (
             <Row style={{ position: "absolute" }}>
-                <Col span={8} style={{ minHeight: "50vh" }}>
+                <Col span={8} style={{ minHeight: "50%" }}>
                     <Sider
                         collapsible
                         collapsed={this.state.collapsed}
                         onCollapse={this.onCollapse}
-                        theme="light"
+                        theme="dark"
                     >
-                        <Menu theme="light" mode="inline">
+                        <Menu theme="dark" mode="inline">
                             <div className="logo">
                                 <img
                                     src={logo}
@@ -148,6 +148,10 @@ class Sidemenu extends Component {
                                     />
                                     <span style={{ color: "red" }}>Logout</span>
                                 </NavLink>
+                            </Menu.Item>
+                            <Divider />
+                            <Menu.Item >
+                                
                             </Menu.Item>
                             <Divider />
                         </Menu>

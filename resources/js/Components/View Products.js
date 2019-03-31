@@ -149,13 +149,7 @@ class ViewProducts extends Component {
                         footer={null}
                     >
                         <EPForm
-                        record = {this.state.erecord}
-                            // id={this.state.erecord.id}
-                            // name={this.state.erecord.name}
-                            // description={this.state.erecord.description}
-                            // // display_picture={this.state.erecord.display_picture}
-                            // // price={this.state.erecord.price}
-                            // category_id={this.state.erecord.category_id}
+                            record={this.state.erecord}
                             handleOk={this.handleOk}
                         />
                     </Modal>
