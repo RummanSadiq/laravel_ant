@@ -27,14 +27,14 @@ class Sidemenu extends Component {
     render() {
         return (
             <Row style={{ position: "absolute" }}>
-                <Col span={8} style={{ minHeight: "50%" }}>
+                <Col span={8} style={{ minHeight: "50vh" }}>
                     <Sider
                         collapsible
                         collapsed={this.state.collapsed}
                         onCollapse={this.onCollapse}
-                        theme="dark"
+                        theme="light"
                     >
-                        <Menu theme="dark" mode="inline">
+                        <Menu theme="light" mode="inline">
                             <div className="logo">
                                 <img
                                     src={logo}
@@ -43,40 +43,39 @@ class Sidemenu extends Component {
                                 />
                             </div>
                             <Divider />
-                            <Menu.Item key="1" style={{ fontSize: "22px"}}>
+                            <Menu.Item key="1" style={{ fontSize: "22px" }}>
                                 <NavLink to="/shop">
-                                   
-                                 <Icon
+                                    <Icon
                                         type="shop"
                                         theme="filled"
-                                        style={{ fontSize: "100%", color:'white' }}
+                                        style={{ fontSize: "100%" }}
                                     />
-                               <span style={{ color:'white' }}>      Shop</span>
+                                    <span>Shop</span>
                                 </NavLink>
                             </Menu.Item>
 
                             <Divider />
                             <Menu.Item key="2" style={{ fontSize: "22px" }}>
                                 <NavLink to="/Messages">
-                                  <Icon
+                                    <Icon
                                         type="message"
                                         theme="filled"
-                                        style={{ fontSize: "100%", color:'white' }}
+                                        style={{ fontSize: "100%" }}
                                     />
-                                <span style={{ color:'white' }}>      Messages</span>
+                                    <span>Messages</span>
                                 </NavLink>
                             </Menu.Item>
                             <Divider />
                             <SubMenu
                                 key="products"
                                 title={
-                                   <span style={{ fontSize: "22px" }}>
+                                    <span style={{ fontSize: "22px" }}>
                                         <Icon
                                             type="database"
                                             theme="filled"
-                                            style={{ fontSize: "100%", color:'white' }}
+                                            style={{ fontSize: "100%" }}
                                         />
-                                 <span style={{color:'white' }}>        Products</span>
+                                        <span>Products</span>
                                     </span>
                                 }
                             >
@@ -87,9 +86,9 @@ class Sidemenu extends Component {
                                         <Icon
                                             type="file-add"
                                             theme="filled"
-                                            style={{ fontSize: "80%", color:'white' }}
+                                            style={{ fontSize: "80%" }}
                                         />
-                                   <span style={{fontSize: "22px",color:'white' }}>     Add Product</span>
+                                        <span>Add Product</span>
                                     </NavLink>
                                 </Menu.Item>
                                 <Divider />
@@ -98,9 +97,9 @@ class Sidemenu extends Component {
                                     <NavLink to="/ViewProduct">
                                         <Icon
                                             type="table"
-                                            style={{ fontSize: "80%", color:'white' }}
+                                            style={{ fontSize: "80%" }}
                                         />
-                                   <span style={{ color:'white' }}>     View Products</span>
+                                        <span>View Products</span>
                                     </NavLink>
                                 </Menu.Item>
                             </SubMenu>
@@ -110,9 +109,9 @@ class Sidemenu extends Component {
                                     <Icon
                                         type="star"
                                         theme="filled"
-                                        style={{ fontSize: "100%", color:'white' }}
+                                        style={{ fontSize: "100%" }}
                                     />
-                                    <span style={{ color:'white' }}>Reviews</span>
+                                    <span>Reviews</span>
                                 </NavLink>
                             </Menu.Item>
                             <Divider />
@@ -120,9 +119,9 @@ class Sidemenu extends Component {
                                 <NavLink to="/FAQs">
                                     <Icon
                                         type="question"
-                                        style={{ fontSize: "100%", color:'white' }}
+                                        style={{ fontSize: "100%" }}
                                     />
-                                    <span style={{ color:'white' }}>FAQ'S</span>
+                                    <span>FAQ'S</span>
                                 </NavLink>
                             </Menu.Item>
                             <Divider />
@@ -131,13 +130,12 @@ class Sidemenu extends Component {
                                     <Icon
                                         type="layout"
                                         theme="filled"
-                                        style={{ fontSize: "100%", color:'white' }}
+                                        style={{ fontSize: "100%" }}
                                     />
-                                    <span style={{ color:'white' }}>Posts</span>
+                                    <span>Posts</span>
                                 </NavLink>
                             </Menu.Item>
                             <Divider />
-
                             <Menu.Item key="8" style={{ fontSize: "22px" }}>
                                 <NavLink to="/logout">
                                     <Icon
@@ -151,10 +149,10 @@ class Sidemenu extends Component {
                                 </NavLink>
                             </Menu.Item>
                             <Divider />
-                            <Menu.Item >
-                                
-                            </Menu.Item>
+                            
+                            <Menu.Item />
                             <Divider />
+
                         </Menu>
                     </Sider>
                 </Col>

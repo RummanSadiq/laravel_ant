@@ -20,6 +20,15 @@ import axios from "axios";
 import SHForm from "./ShopForm";
 
 
+const cardStyle = `
+        .ant-card-head {
+            background-color: rgb(44, 123, 229);
+        }
+        .ant-card-head-title > h1 {
+            color: white;
+        }
+    `;
+
 class Shop extends Component {
     state = {
         store: {},
@@ -57,21 +66,20 @@ class Shop extends Component {
         });
     };
 
+    
+
     render() {
         return (
             <div>
-                {" "}
-                <Col span={12} offset={6}>
-                    <h1 style={{ textAlign: "center" }}>
+                <Col span={12} offset={6} style={{marginTop: '2em'}}>
+                <style>{cardStyle}</style>
+                    <Card
+                    
+                    
+                        title={ 
+                            <h1 style={{ textAlign: "center", margin: 0}}>
                         {this.state.store.name}
                     </h1>
-                    <Card
-                        title={
-                            <h1>
-                                {" "}
-                                <Icon type="info-circle" />
-                                Store Information
-                            </h1>
                         }
                         extra={
                             <div>

@@ -33,6 +33,7 @@ class StoreController extends Controller
         $store['store_owner'] = $user->name;
         $store['store_type'] = StoreType::find($store->store_type_id)->name;
         $store['address'] = Address::find($store->address_id)->place;
+        $store['name'] = strtoupper($store->name);
 
         return response()->json($store);
     }
