@@ -26,13 +26,14 @@ class StoreController extends Controller
 
     public function myShop()
     {
-        
+
         $user = Auth::user();
         $store = $user->store;
 
         $store['store_owner'] = $user->name;
         $store['store_type'] = StoreType::find($store->store_type_id)->name;
         $store['address'] = Address::find($store->address_id)->place;
+        $store['city'] = Address::find($store->address_id)->city;
         $store['name'] = strtoupper($store->name);
 
         return response()->json($store);
@@ -59,11 +60,11 @@ class StoreController extends Controller
         $user = Auth::user();
 
         $address = Address::create([
-            'place'=>$request->input('place'),
-            'latitude'=>$request->input('latitude'),
-            'longitude'=>$request->input('longitude'),
-            'zip'=>$request->input('zip'),
-            'country'=>$request->input('country')
+            'place' => $request->input('place'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
+            'zip' => $request->input('zip'),
+            'country' => $request->input('country')
         ]);
 
         $storetype = StoreType::select('id')->where('name', $request['store_type'])->first();
@@ -72,7 +73,7 @@ class StoreController extends Controller
         $request['address_id'] = $address->id;
 
         $store = Store::create([
-            'name'=>$request->input('name')
+            'name' => $request->input('name')
         ]);
         return response()->json($store, 201);
     }
@@ -111,15 +112,15 @@ class StoreController extends Controller
         $user = Auth::user();
         // $user = User::find(1);
         $store = $user->store;
-        
+
         $address = Address::find($store->address_id);
         $address->update([
-            'place'=>$request->input('address'),
-            'latitude'=>$request->input('latitude'),
-            'longitude'=>$request->input('longitude'),
-            'zip'=>$request->input('zip'),
-            'city'=>$request->input('city'),
-            'country'=>$request->input('country')
+            'place' => $request->input('address'),
+            'latitude' => $request->input('latitude'),
+            'longitude' => $request->input('longitude'),
+            'zip' => $request->input('zip'),
+            'city' => $request->input('city'),
+            'country' => $request->input('country')
         ]);
 
         unset($request['address']);

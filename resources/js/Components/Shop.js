@@ -19,13 +19,21 @@ import {
 import axios from "axios";
 import SHForm from "./ShopForm";
 
-
 const cardStyle = `
         .ant-card-head {
             background-color: rgb(44, 123, 229);
         }
         .ant-card-head-title > h1 {
             color: white;
+        }
+
+        .ant-card-body {
+            padding: 0 0;
+        }
+
+        img {
+            min-width: 100%;
+            width: 100%;
         }
     `;
 
@@ -66,20 +74,16 @@ class Shop extends Component {
         });
     };
 
-    
-
     render() {
         return (
             <div>
-                <Col span={12} offset={6} style={{marginTop: '2em'}}>
-                <style>{cardStyle}</style>
+                <Col span={13} offset={6} style={{ marginTop: "2em" }}>
+                    <style>{cardStyle}</style>
                     <Card
-                    
-                    
-                        title={ 
-                            <h1 style={{ textAlign: "center", margin: 0}}>
-                        {this.state.store.name}
-                    </h1>
+                        title={
+                            <h1 style={{ textAlign: "center", margin: 0 }}>
+                                {this.state.store.name}
+                            </h1>
                         }
                         extra={
                             <div>
@@ -104,6 +108,65 @@ class Shop extends Component {
                             }}
                         >
                             <Row>
+                                <Col>
+                                    <Carousel>
+                                        <div>
+                                            <img
+                                                src={
+                                                    this.state.store
+                                                        .display_picture
+                                                }
+                                                alt="Store Image"
+                                            />
+                                        </div>
+                                        <div>
+                                            <img
+                                                src={
+                                                    this.state.store
+                                                        .display_picture
+                                                }
+                                                alt="Store Image"
+                                            />
+                                        </div>
+                                        <div>
+                                            <img
+                                                src={
+                                                    this.state.store
+                                                        .display_picture
+                                                }
+                                                alt="Store Image"
+                                            />
+                                        </div>
+                                        <div>
+                                            <img
+                                                src={
+                                                    this.state.store
+                                                        .display_picture
+                                                }
+                                                alt="Store Image"
+                                            />
+                                        </div>
+                                    </Carousel>
+                                </Col>
+                            </Row>
+
+                            <Row>
+                                <Col span={20}>
+                                    <Statistic
+                                        title="Feedback"
+                                        value={1128}
+                                        prefix={<Icon type="like" />}
+                                    />
+                                </Col>
+                                <Col>
+                                    <Statistic
+                                        title="Views"
+                                        value={93}
+                                        prefix={<Icon type="eye" />}
+                                    />
+                                </Col>
+                            </Row>
+                            <Row style={{ marginTop: "2em" }}>
                                 <Col span={12} className="infoColumns">
                                     <span>Store Type: </span>
                                     {this.state.store.store_type}
@@ -123,7 +186,7 @@ class Shop extends Component {
                                 </Col>
                                 <Col span={12} className="infoColumns">
                                     <span>Store City: </span>
-                                    {this.state.store.store_type}
+                                    {this.state.store.city}
                                 </Col>
                             </Row>
                             <Row>
@@ -132,7 +195,6 @@ class Shop extends Component {
                                     {this.state.store.open_time}
                                 </Col>
                                 <Col span={12} className="infoColumns">
-                                    {" "}
                                     <span>Closing Time</span>
                                     {this.state.store.close_time}
                                 </Col>
@@ -142,14 +204,13 @@ class Shop extends Component {
                                     {this.state.store.delivery > 0 && (
                                         <span>Store Provides Delivery</span>
                                     )}
-                                    {this.state.delivery <= 0 && (
+                                    {this.state.store.delivery <= 0 && (
                                         <span>
                                             Store does not Provide Delivery
                                         </span>
                                     )}
                                 </Col>
                                 <Col span={12} className="infoColumns">
-                                    {" "}
                                     {this.state.store.wifi > 0 && (
                                         <span>
                                             <Icon type="wifi" />
@@ -171,7 +232,7 @@ class Shop extends Component {
                             </Row>
 
                             <Row>
-                                <Col span={12} className="infoColumns">
+                                <Col className="infoColumns">
                                     {" "}
                                     {this.state.store.card_payment > 0 && (
                                         <span>
@@ -196,50 +257,10 @@ class Shop extends Component {
                                         </span>
                                     )}
                                 </Col>
-                                {/* <Col span={12} className="infoColumns" /> */}
                             </Row>
                         </div>
-                        {/* // )} */}
                     </Card>
-                </Col>{" "}
-                <Col span={12} offset={6}>
-                    <Carousel>
-                        <div>
-                            <img
-                                src={this.state.store.display_picture}
-                                alt="Store Image"
-                            />
-                        </div>
-                        <div>
-                            <img
-                                src={this.state.store.display_picture}
-                                alt="Store Image"
-                            />
-                        </div>
-                        <div>
-                            <img
-                                src={this.state.store.display_picture}
-                                alt="Store Image"
-                            />
-                        </div>
-                        <div>
-                            <img
-                                src={this.state.store.display_picture}
-                                alt="Store Image"
-                            />
-                        </div>
-                    </Carousel>
                 </Col>
-                <Statistic
-                    title="Feedback"
-                    value={1128}
-                    prefix={<Icon type="like" />}
-                />
-                <Statistic
-                    title="Views"
-                    value={93}
-                    prefix={<Icon type="eye" />}
-                />{" "}
                 <Modal
                     title="Edit Store details"
                     visible={this.state.show}
@@ -247,7 +268,6 @@ class Shop extends Component {
                     onCancel={this.handleCancel}
                     destroyOnClose={true}
                     style={{ top: 20 }}
-
                     footer={null}
                 >
                     <SHForm
