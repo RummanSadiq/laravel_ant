@@ -17,6 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/users/shop', 'Api\UserController@hasShop');
+
+
 //Shop
 Route::get('/shops', 'Api\StoreController@index');
 Route::post('/shop', 'Api\StoreController@store');
@@ -73,19 +76,21 @@ Route::get('/conversations/customer', 'Api\ConversationController@customerConver
 
 
 //Image Attachments 
-Route::post('/attachment/{type}', function(Request $request, $type) 
-    {
+
+Route::post(
+    '/attachment/{ty pe}',
+    function (Request $request, $type) {
         $image = $request->file('image');
         $input['imagename'] = time() . '.' . $image->getClientOriginalExtension();
         $destinationPath = public_path('images/' . $type);
         $image->move($destinationPath, $input['imagename']);
-        $destinationPath2 = __DIR__ . '../../../customer_ant/public/images/'. $type  .'/';
-        copy($destinationPath. '/'. $input['imagename'], $destinationPath2. '/'. $input['imagename']);
+        $destinationPath2 = __DIR__ . '../../../customer_ant/p ublic/imag es/' . $type  . '/';
+        copy($destinationPath . '/' . $input['imagename'], $destinationPath2 . '/' . $input['imagename']);
 
         return response()->json([
-            'status'=> 'done',
+            'status' => 'done',
             // 'url'=> asset($_SERVER['DOCUMENT_ROOT'].'/../resources/images/'. $type  .'/'. $input['imagename'])
-            'url'=> '../images/'. $type  .'/'. $input['imagename']
+            'url' => '../images/' . $type  . '/' . $input['imagename']
         ]);
     }
 );

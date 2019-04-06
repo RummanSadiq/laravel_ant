@@ -5,20 +5,6 @@ import axios from "axios";
 class UserReviews extends Component {
     state = {
         reviews: []
-        // Review: [
-        //   {
-        //     username: "John",
-        //     time: "12/12/12",
-        //     description: "this is not a good store",
-        //     rating: 1
-        //   },
-        //   {
-        //     username: "John",
-        //     time: "12/12/12",
-        //     description: "this is not a good store",
-        //     rating: 2
-        //   }
-        // ]
     };
 
     componentDidMount() {
