@@ -99,46 +99,8 @@ class ShopForm extends React.Component {
             getFieldError,
             isFieldTouched
         } = this.props.form;
-
-        // Only show error after a field is touched.
-        const store_typeError =
-            isFieldTouched("store_type_id") && getFieldError("store_type_id");
-
-        const storeNameError = isFieldTouched("name") && getFieldError("name");
-
-        const ContactError =
-            isFieldTouched("contact") && getFieldError("contact");
-
-        const openTimeError =
-            isFieldTouched("open_time") && getFieldError("open_time");
-
-        const closeTimeError =
-            isFieldTouched("close_time") && getFieldError("close_time");
-
-        const cardError =
-            isFieldTouched("card_payment") && getFieldError("card_payment");
-
-        const wifiError = isFieldTouched("wifi") && getFieldError("wifi");
-
-        const deliveryError =
-            isFieldTouched("delivery") && getFieldError("delivery");
-
-        const cityError = isFieldTouched("city") && getFieldError("city");
-
-        const addressError =
-            isFieldTouched("address") && getFieldError("address");
-
-        const pictureError =
-            isFieldTouched("display_picture") &&
-            getFieldError("display_picture");
-
-        // const wheelchairError =
-        //     isFieldTouched("wheel_chair") && getFieldError("wheel_chair");
-        // const washroomError =
-        //     isFieldTouched("wash_room") && getFieldError("wash_room");
-
         return (
-            <Col    >
+            <Col>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Item
                         // validateStatus={store_typeError ? "error" : ""}

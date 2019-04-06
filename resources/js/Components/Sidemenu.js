@@ -3,7 +3,7 @@ import logo from "../react_images/logo.png";
 import { NavLink } from "react-router-dom";
 import { Layout, Icon, Menu, Divider, Row, Col } from "antd";
 import Axios from "axios";
-const {  Sider } = Layout;
+const { Sider } = Layout;
 
 const SubMenu = Menu.SubMenu;
 
@@ -149,10 +149,9 @@ class Sidemenu extends Component {
                                 </NavLink>
                             </Menu.Item>
                             <Divider />
-                            
+
                             <Menu.Item />
                             <Divider />
-
                         </Menu>
                     </Sider>
                 </Col>

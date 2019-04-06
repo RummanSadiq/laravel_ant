@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
-import Index from "./Index.js";
-import ShopCreate from "./ShopCreate.js";
+import Index from "./Index";
+import ShopCreate from "./Components/ShopCreate";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import "antd/dist/antd";
@@ -11,7 +11,8 @@ import { BrowserRouter, Route } from "react-router-dom";
 
 var shop;
 class App extends Component {
-    constructor() {
+    constructor(props) {
+        super(props);
         axios.get("/api/users/shop").then(res => {
             console.log(res.data);
             shop = res.data.shop;
