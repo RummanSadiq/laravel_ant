@@ -47,20 +47,19 @@ class Shop extends Component {
     componentDidMount() {
         axios.get("/api/myshop").then(res => {
             const storedata = res.data;
-            console.log("SHOP.JS", storedata);
-            this.setState({ store: storedata });
+            console.log("SHOP.JS", storedata.attachments);
+            this.setState({ store: storedata }, () => {
+                console.log(
+                    "Attachments are,",
+                    this.state.store.attachments[0].attachment
+                );
+            });
         });
     }
 
     handleCancel = () => {
         this.setState({ show: false });
     };
-
-    // handleOk = event => {
-    //     this.setState({ show: false });
-    //     console.log("handeling ok!");
-    //     this.getProducts();
-    // };
 
     handleedit = () => {
         this.setState({ show: true });
@@ -87,7 +86,6 @@ class Shop extends Component {
                         }
                         extra={
                             <div>
-                                {/* {!this.state.edit && ( */}
                                 <Button
                                     shape="round"
                                     icon="edit"
@@ -96,12 +94,9 @@ class Shop extends Component {
                                 >
                                     Edit info
                                 </Button>
-                                {/* )} */}
                             </div>
                         }
-                        // bordered={false}
                     >
-                        {/* {!this.state.edit && ( */}
                         <div
                             style={{
                                 fontWeight: "bold"
@@ -110,42 +105,19 @@ class Shop extends Component {
                             <Row>
                                 <Col>
                                     <Carousel>
-                                        <div>
-                                            <img
-                                                src={
-                                                    this.state.store
-                                                        .display_picture
-                                                }
-                                                alt="Store Image"
-                                            />
-                                        </div>
-                                        <div>
-                                            <img
-                                                src={
-                                                    this.state.store
-                                                        .display_picture
-                                                }
-                                                alt="Store Image"
-                                            />
-                                        </div>
-                                        <div>
-                                            <img
-                                                src={
-                                                    this.state.store
-                                                        .display_picture
-                                                }
-                                                alt="Store Image"
-                                            />
-                                        </div>
-                                        <div>
-                                            <img
-                                                src={
-                                                    this.state.store
-                                                        .display_picture
-                                                }
-                                                alt="Store Image"
-                                            />
-                                        </div>
+                                        {this.state.store.attachments &&
+                                            this.state.store.attachments.map(
+                                                element => (
+                                                    <div>
+                                                        <img
+                                                            src={
+                                                                element.attachment
+                                                            }
+                                                            alt="Store Image"
+                                                        />
+                                                    </div>
+                                                )
+                                            )}
                                     </Carousel>
                                 </Col>
                             </Row>
@@ -185,8 +157,28 @@ class Shop extends Component {
                                     {this.state.store.address}
                                 </Col>
                                 <Col span={12} className="infoColumns">
-                                    <span>Store City: </span>
-                                    {this.state.store.city}
+                                    {" "}
+                                    {this.state.store.card_payment > 0 && (
+                                        <span>
+                                            {/* <Icon
+                                                type="credit-card"
+                                                theme="twoTone"
+                                            /> */}
+                                            Store has Card Payment
+                                        </span>
+                                    )}
+                                    {!this.state.store.card_payment > 0 && (
+                                        <span>
+                                            {/* <Icon
+                                                type="credit-card"
+                                                theme="filled"
+                                                style={{
+                                                    fontSize: "50px",
+                                                    color: "#F81D22"
+                                                }} */}
+                                            Store does not have Card Payment
+                                        </span>
+                                    )}
                                 </Col>
                             </Row>
                             <Row>
@@ -213,17 +205,17 @@ class Shop extends Component {
                                 <Col span={12} className="infoColumns">
                                     {this.state.store.wifi > 0 && (
                                         <span>
-                                            <Icon type="wifi" />
+                                            {/* <Icon type="wifi" /> */}
                                             Store has Wifi
                                         </span>
                                     )}
                                     {!this.state.store.wifi > 0 && (
                                         <span>
                                             <Icon
-                                                type="wifi"
-                                                style={{
-                                                    color: "#F81D22"
-                                                }}
+                                            // type="wifi"
+                                            // style={{
+                                            //     color: "#F81D22"
+                                            // }}
                                             />
                                             /> Store does not have Wifi
                                         </span>
@@ -231,33 +223,7 @@ class Shop extends Component {
                                 </Col>
                             </Row>
 
-                            <Row>
-                                <Col className="infoColumns">
-                                    {" "}
-                                    {this.state.store.card_payment > 0 && (
-                                        <span>
-                                            <Icon
-                                                type="credit-card"
-                                                theme="twoTone"
-                                            />
-                                            Store has Card Payment
-                                        </span>
-                                    )}
-                                    {!this.state.store.card_payment > 0 && (
-                                        <span>
-                                            <Icon
-                                                type="credit-card"
-                                                theme="filled"
-                                                style={{
-                                                    fontSize: "50px",
-                                                    color: "#F81D22"
-                                                }}
-                                            />
-                                            Store does not have Card Payment
-                                        </span>
-                                    )}
-                                </Col>
-                            </Row>
+                            <Row />
                         </div>
                     </Card>
                 </Col>

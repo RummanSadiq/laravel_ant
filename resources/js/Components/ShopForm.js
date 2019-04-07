@@ -85,16 +85,14 @@ class ShopForm extends React.Component {
                         .utc(values.close_time)
                         .format("HH:mm:ss");
 
-                    // if (this.state.store.storeName)
-                    axios
+                     axios
                         .post("/api/updateshop", values)
                         .then(res => {
                             console.log(res);
                             message.success("Shop Updated!");
                         })
                         .catch(function(error) {
-                            // handle error
-                            console.log(error);
+                             console.log(error);
                             console.log(values);
                         });
 
@@ -120,15 +118,10 @@ class ShopForm extends React.Component {
         return (
             <Col>
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Item
-                        // validateStatus={store_typeError ? "error" : ""}
-                        // help={store_typeError || ""}
-                        label="Store Type:"
-                    >
+                    <Form.Item label="Store Type:">
                         {getFieldDecorator("store_type_id", {
                             initialValue: this.state.store.store_type_id,
-                            // ? this.state.store.store_type
-                            // : ""
+
                             rules: [
                                 {
                                     required: true,
@@ -149,15 +142,10 @@ class ShopForm extends React.Component {
                         )}
                     </Form.Item>
                     <div style={{ marginTop: "2%" }} />
-                    <Form.Item
-                        // validateStatus={storeNameError ? "error" : ""}
-                        // help={storeNameError || ""}
-                        label="Store Name:"
-                    >
+                    <Form.Item label="Store Name:">
                         {getFieldDecorator("name", {
                             initialValue: this.state.store.name,
-                            // ? this.state.store.storeName
-                            // : ""
+
                             rules: [
                                 {
                                     required: true,
@@ -167,15 +155,10 @@ class ShopForm extends React.Component {
                         })(<Input placeholder="Store Name" />)}
                     </Form.Item>
 
-                    <Form.Item
-                        // validateStatus={pictureError ? "error" : ""}
-                        // help={pictureError || ""}
-                        label="Store Picture:"
-                    >
+                    <Form.Item label="Store Picture:">
                         {getFieldDecorator("display_picture", {
-                            initialValue: this.state.store.display_picture,
-                            // ? this.state.store.display_picture
-                            // : ""
+                            initialValue: this.state.store.attachments,
+
                             rules: [
                                 {
                                     required: true,
@@ -197,16 +180,11 @@ class ShopForm extends React.Component {
 
                     <Row>
                         <Col span={12}>
-                            <Form.Item
-                                // validateStatus={openTimeError ? "error" : ""}
-                                // help={openTimeError || ""}
-                                label="Opens at:"
-                            >
+                            <Form.Item label="Opens at:">
                                 {getFieldDecorator("open_time", {
                                     initialValue: moment(
                                         this.state.store.open_time,
-                                        // ? this.state.store.OpeningTime
-                                        // : ""
+
                                         "HH:mm:ss "
                                     ),
 
@@ -226,16 +204,11 @@ class ShopForm extends React.Component {
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item
-                                // validateStatus={closeTimeError ? "error" : ""}
-                                // help={closeTimeError || ""}
-                                label="Closes at:"
-                            >
+                            <Form.Item label="Closes at:">
                                 {getFieldDecorator("close_time", {
                                     initialValue: moment(
                                         this.state.store.close_time,
-                                        // ? this.state.store.ClosingTime
-                                        // : ""
+
                                         "HH:mm:ss"
                                     ),
                                     rules: [
@@ -254,15 +227,10 @@ class ShopForm extends React.Component {
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Form.Item
-                        // validateStatus={ContactError ? "error" : ""}
-                        // help={ContactError || ""}
-                        label="Contact#"
-                    >
+                    <Form.Item label="Contact#">
                         {getFieldDecorator("contact", {
                             initialValue: this.state.store.contact,
-                            // ? this.state.store.Contact
-                            // : ""
+
                             rules: [
                                 {
                                     required: true,
@@ -272,15 +240,10 @@ class ShopForm extends React.Component {
                             ]
                         })(<Input placeholder="Contact" type="phone" />)}
                     </Form.Item>
-                    <Form.Item
-                        // validateStatus={cardError ? "error" : ""}
-                        // help={cardError || ""}
-                        label="Accepts Card?"
-                    >
+                    <Form.Item label="Accepts Card?">
                         {getFieldDecorator("card_payment", {
                             initialValue: this.state.store.card_payment,
-                            // ? this.state.store.AcceptsCard
-                            // : ""
+
                             placeholder: "Store accepts credit card? ",
                             rules: [
                                 {
@@ -295,15 +258,10 @@ class ShopForm extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-                    <Form.Item
-                        // validateStatus={wifiError ? "error" : ""}
-                        // help={wifiError || ""}
-                        label="Has Wifi?"
-                    >
+                    <Form.Item label="Has Wifi?">
                         {getFieldDecorator("wifi", {
                             initialValue: this.state.store.wifi,
-                            // ? this.state.store.Wifi
-                            // : ""
+
                             rules: [
                                 {
                                     required: true,
@@ -317,15 +275,10 @@ class ShopForm extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-                    <Form.Item
-                        // validateStatus={deliveryError ? "error" : ""}
-                        // help={deliveryError || ""}
-                        label="Provides Delivery?"
-                    >
+                    <Form.Item label="Provides Delivery?">
                         {getFieldDecorator("delivery", {
                             initialValue: this.state.store.delivery,
-                            // ? this.state.store.Delivery
-                            // : ""
+
                             rules: [
                                 {
                                     required: true,
@@ -339,15 +292,10 @@ class ShopForm extends React.Component {
                             </Select>
                         )}
                     </Form.Item>
-                    <Form.Item
-                        // validateStatus={addressError ? "error" : ""}
-                        // help={addressError || ""}
-                        label="Address:"
-                    >
+                    <Form.Item label="Address:">
                         {getFieldDecorator("address", {
                             initialValue: this.state.store.address,
-                            // ? this.state.store.Address
-                            // : ""
+
                             rules: [
                                 { required: true, message: "Store address" }
                             ]

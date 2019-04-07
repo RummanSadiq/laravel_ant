@@ -18,7 +18,9 @@ class ShopCreate extends Component {
                         <div>
                             {/* <Route path="/" component={Index} /> */}
                             <Card title="Please enter your store information">
-                                <SCForm />
+                                <SCForm
+                                 lift={this.props.lift}
+                                 />
                             </Card>
                         </div>
                     </BrowserRouter>
