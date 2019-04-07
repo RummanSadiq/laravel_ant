@@ -13,21 +13,21 @@ var shop;
 class App extends Component {
     constructor(props) {
         super(props);
-        axios.get("/api/myshop").then(res => {
-            console.log('Shop data is',res.data);
-            // this.setState({shop:res.data});
-            this.state.shop = res.data;
-        }).catch(err=>{
-            console.log('api cannot be accessed', err);
-        });
+        axios
+            .get("/api/users/shop")
+            .then(res => {
+                console.log("Shop data is", res.data);
+                this.setState({ shop: res.data.shop });
+            })
+            .catch(err => {
+                console.log("api cannot be accessed", err);
+            });
     }
-    componentWillMount(){
-        
-    }
+    componentWillMount() {}
 
-    state={
-        shop:{}
-    }
+    state = {
+        shop: {}
+    };
 
     render() {
         return (

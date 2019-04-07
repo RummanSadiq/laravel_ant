@@ -35,8 +35,8 @@ class UserController extends Controller
 
     public function hasShop()
     {
-        $shop = Auth::User()->shop;
-        // $shop = User::find(2)->store;
+        $shop = Auth::User()->store;
+        // $shop = User::find(1)->store;
         if ($shop) {
             $res = true;
         } else {
