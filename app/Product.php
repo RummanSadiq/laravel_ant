@@ -20,7 +20,7 @@ class Product extends Model
         return $this->belongsTo('App\Store');
     }
 
-    public function category() 
+    public function category()
     {
         return $this->belongsTo('App\Category');
     }
@@ -33,5 +33,10 @@ class Product extends Model
     public function promotion()
     {
         return $this->hasOne('App\Promotion');
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany('App\PostAttachment');
     }
 }

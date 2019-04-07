@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import Index from "./Index";
+import Dashboard from "./Components/Dashboard";
 import ShopCreate from "./Components/ShopCreate";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
@@ -26,7 +26,7 @@ class App extends Component {
     render() {
         return (
             <div>
-                {this.state.shop && <Index />}
+                {this.state.shop && <Dashboard />}
                 {!this.state.shop && <ShopCreate />}
             </div>
         );
