@@ -21,6 +21,9 @@ function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 class CreateShopForm extends Component {
+    constructor(props) {
+        super(props);
+    }
     state = {
         store_types: [],
         image: [],
@@ -31,20 +34,18 @@ class CreateShopForm extends Component {
     componentDidMount() {
         axios.get("/api/storetypes").then(res => {
             const storedata = res.data;
-            console.log("store types are", storedata);
             this.setState({ store_types: storedata });
         });
     }
     handleUpload = event => {
         if (event.file.status !== "uploading") {
-            console.log("Event filelist", event.fileList);
             this.setState({ image: event.fileList });
         }
     };
 
     handleSubmit = e => {
         e.preventDefault();
-        console.log("images file list is", this.state.image);
+
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
@@ -66,9 +67,9 @@ class CreateShopForm extends Component {
                     .then(res => {
                         console.log(res);
                         message.success("Shop Updated!");
-                        {
-                            this.setRedirect();
-                        }
+
+                        this.props.lift();
+                        // this.setRedirect();
                     })
                     .catch(function(error) {
                         console.log(error);
@@ -85,6 +86,7 @@ class CreateShopForm extends Component {
     };
 
     setRedirect = () => {
+        console.log("Here to set redirect state to true");
         this.setState({
             redirect: true
         });
@@ -105,7 +107,7 @@ class CreateShopForm extends Component {
 
         return (
             <div>
-                {this.renderRedirect()}
+                {/* {this.renderRedirect()} */}
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Item label="Store Type:">
                         {getFieldDecorator("store_type_id", {

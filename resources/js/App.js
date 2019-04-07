@@ -23,17 +23,23 @@ class App extends Component {
                 console.log("api cannot be accessed", err);
             });
     }
-    componentWillMount() {}
 
     state = {
         shop: 0
     };
 
+    change = () =>{
+        console.log('changing the state, it must redirect');
+        this.setState({shop:1});
+    }
+
+
     render() {
         return (
             <div>
                 {this.state.shop > 0 && <Dashboard />}
-                {this.state.shop < 0 && <ShopCreate />}
+                {this.state.shop < 0 && <ShopCreate lift={this.change}/>}
+                {/* <Dashboard/> */}
             </div>
         );
     }

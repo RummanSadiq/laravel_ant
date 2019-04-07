@@ -155,7 +155,7 @@ class ShopForm extends React.Component {
                         label="Store Picture:"
                     >
                         {getFieldDecorator("display_picture", {
-                            initialValue: this.state.store.display_picture,
+                            // initialValue: this.state.store.attachments,
                             // ? this.state.store.display_picture
                             // : ""
                             rules: [
@@ -170,6 +170,7 @@ class ShopForm extends React.Component {
                                 onChange={this.handleUpload}
                                 listType="picture"
                                 name="image"
+                                defaultFileList={this.state.store.attachments}
                             >
                                 <Button icon="upload">Upload File</Button>
                             </Upload>
