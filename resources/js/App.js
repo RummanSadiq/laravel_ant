@@ -13,10 +13,14 @@ var shop;
 class App extends Component {
     constructor(props) {
         super(props);
-        axios.get("/api/users/shop").then(res => {
-            console.log(res.data);
-            this.state.shop = res.data.shop;
+        axios.get("/api/myshop").then(res => {
+            console.log('Shop data is',res.data);
+            // this.setState({shop:res.data});
+            this.state.shop = res.data;
         });
+    }
+    componentWillMount(){
+        
     }
 
     state={
