@@ -94,7 +94,7 @@ Route::post(
         return response()->json([
             'status' => 'done',
             // 'url'=> asset($_SERVER['DOCUMENT_ROOT'].'/../resources/images/'. $type  .'/'. $input['imagename'])
-            'url' => '../images/' . $type  . '/' . $input['imagename']
+            'url' => '../attachments/shops/' . $type  . '/' . $input['imagename']
         ]);
     }
 );
