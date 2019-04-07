@@ -11,7 +11,7 @@ class ShopCreate extends Component {
         return (
             <Row>
                 <Col span={8} style={{ textAlign: "center" }}>
-                    Some other portion
+                    {/* Some other portion */}
                 </Col>
                 <Col span={8}>
                     <BrowserRouter>

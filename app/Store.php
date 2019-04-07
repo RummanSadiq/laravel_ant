@@ -46,7 +46,7 @@ class Store extends Model
 
     public function attachments()
     {
-        return $this->hasMany('App\ShopAttachment');
+        return $this->hasMany('App\ShopAttachment', 'shop_id');
     }
 
     public function storeType()

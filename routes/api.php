@@ -27,6 +27,10 @@ Route::post('/updateshop', 'Api\StoreController@update');
 Route::delete('/shops/{id}', 'Api\StoreController@destroy');
 Route::get('/myshop', 'Api\StoreController@myShop');
 
+//Shop Attachments
+Route::get('/attachments/shop', 'Api\ShopAttachmentController@index');
+Route::post('/attachments/shop', 'Api\ShopAttachmentController@store');
+
 
 //Store Types
 Route::get('/storetypes', 'Api\StoreTypeController@index');
@@ -78,13 +82,13 @@ Route::get('/conversations/customer', 'Api\ConversationController@customerConver
 //Image Attachments 
 
 Route::post(
-    '/attachment/{ty pe}',
+    '/attachment/{type}',
     function (Request $request, $type) {
         $image = $request->file('image');
         $input['imagename'] = time() . '.' . $image->getClientOriginalExtension();
-        $destinationPath = public_path('images/' . $type);
+        $destinationPath = public_path('attachments/shops/' . $type);
         $image->move($destinationPath, $input['imagename']);
-        $destinationPath2 = __DIR__ . '../../../customer_ant/p ublic/imag es/' . $type  . '/';
+        $destinationPath2 = __DIR__ . '../../../customer_ant/public/attachments/shops/' . $type  . '/';
         copy($destinationPath . '/' . $input['imagename'], $destinationPath2 . '/' . $input['imagename']);
 
         return response()->json([

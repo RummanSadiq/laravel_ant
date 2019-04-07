@@ -17,7 +17,7 @@ const Option = Select.Option;
 
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
-  }
+}
 class ShopForm extends React.Component {
     constructor(props) {
         super(props);
@@ -33,15 +33,15 @@ class ShopForm extends React.Component {
         // this.props.form.validateFields();
         axios.get("/api/storetypes").then(res => {
             const storedata = res.data;
-            console.log('store types are',storedata);
+            console.log("store types are", storedata);
             this.setState({ store_types: storedata });
         });
 
-        console.log('STORE values inside form are',this.state.store);
+        console.log("STORE values inside form are", this.state.store);
     }
     handleUpload = event => {
         if (event.file.status !== "uploading") {
-            console.log('Uploading file is',event.file);
+            console.log("Uploading file is", event.file);
             this.setState({ image: event.file.response.url });
         }
     };
@@ -108,10 +108,9 @@ class ShopForm extends React.Component {
                         label="Store Type:"
                     >
                         {getFieldDecorator("store_type_id", {
-                            initialValue: this.state.store.store_type_id
-                                // ? this.state.store.store_type
-                                // : ""
-                                ,
+                            initialValue: this.state.store.store_type_id,
+                            // ? this.state.store.store_type
+                            // : ""
                             rules: [
                                 {
                                     required: true,
@@ -138,10 +137,9 @@ class ShopForm extends React.Component {
                         label="Store Name:"
                     >
                         {getFieldDecorator("name", {
-                            initialValue: this.state.store.name
-                                // ? this.state.store.storeName
-                                // : ""
-                                ,
+                            initialValue: this.state.store.name,
+                            // ? this.state.store.storeName
+                            // : ""
                             rules: [
                                 {
                                     required: true,
@@ -157,11 +155,9 @@ class ShopForm extends React.Component {
                         label="Store Picture:"
                     >
                         {getFieldDecorator("display_picture", {
-                            initialValue: this.state.store.display_picture
-                                // ? this.state.store.display_picture
-                                // : ""
-                                ,
-
+                            initialValue: this.state.store.display_picture,
+                            // ? this.state.store.display_picture
+                            // : ""
                             rules: [
                                 {
                                     required: true,
@@ -170,7 +166,7 @@ class ShopForm extends React.Component {
                             ]
                         })(
                             <Upload
-                                action="/api/attachment/products"
+                                action="/api/attachment/profile/"
                                 onChange={this.handleUpload}
                                 listType="picture"
                                 name="image"
@@ -189,10 +185,9 @@ class ShopForm extends React.Component {
                             >
                                 {getFieldDecorator("open_time", {
                                     initialValue: moment(
-                                        this.state.store.open_time
-                                            // ? this.state.store.OpeningTime
-                                            // : ""
-                                            ,
+                                        this.state.store.open_time,
+                                        // ? this.state.store.OpeningTime
+                                        // : ""
                                         "HH:mm:ss "
                                     ),
 
@@ -219,10 +214,9 @@ class ShopForm extends React.Component {
                             >
                                 {getFieldDecorator("close_time", {
                                     initialValue: moment(
-                                        this.state.store.close_time
-                                            // ? this.state.store.ClosingTime
-                                            // : ""
-                                            ,
+                                        this.state.store.close_time,
+                                        // ? this.state.store.ClosingTime
+                                        // : ""
                                         "HH:mm:ss"
                                     ),
                                     rules: [
@@ -247,10 +241,9 @@ class ShopForm extends React.Component {
                         label="Contact#"
                     >
                         {getFieldDecorator("contact", {
-                            initialValue: this.state.store.contact
-                                // ? this.state.store.Contact
-                                // : ""
-                                ,
+                            initialValue: this.state.store.contact,
+                            // ? this.state.store.Contact
+                            // : ""
                             rules: [
                                 {
                                     required: true,
@@ -266,10 +259,9 @@ class ShopForm extends React.Component {
                         label="Accepts Card?"
                     >
                         {getFieldDecorator("card_payment", {
-                            initialValue: this.state.store.card_payment
-                                // ? this.state.store.AcceptsCard
-                                // : ""
-                                ,
+                            initialValue: this.state.store.card_payment,
+                            // ? this.state.store.AcceptsCard
+                            // : ""
                             placeholder: "Store accepts credit card? ",
                             rules: [
                                 {
@@ -290,10 +282,9 @@ class ShopForm extends React.Component {
                         label="Has Wifi?"
                     >
                         {getFieldDecorator("wifi", {
-                            initialValue: this.state.store.wifi
-                                // ? this.state.store.Wifi
-                                // : ""
-                                ,
+                            initialValue: this.state.store.wifi,
+                            // ? this.state.store.Wifi
+                            // : ""
                             rules: [
                                 {
                                     required: true,
@@ -313,10 +304,9 @@ class ShopForm extends React.Component {
                         label="Provides Delivery?"
                     >
                         {getFieldDecorator("delivery", {
-                            initialValue: this.state.store.delivery
-                                // ? this.state.store.Delivery
-                                // : ""
-                                ,
+                            initialValue: this.state.store.delivery,
+                            // ? this.state.store.Delivery
+                            // : ""
                             rules: [
                                 {
                                     required: true,
@@ -336,10 +326,9 @@ class ShopForm extends React.Component {
                         label="Address:"
                     >
                         {getFieldDecorator("address", {
-                            initialValue: this.state.store.address
-                                // ? this.state.store.Address
-                                // : ""
-                                ,
+                            initialValue: this.state.store.address,
+                            // ? this.state.store.Address
+                            // : ""
                             rules: [
                                 { required: true, message: "Store address" }
                             ]
@@ -354,7 +343,6 @@ class ShopForm extends React.Component {
                                 size={"large"}
                                 icon={"check"}
                                 disabled={hasErrors(getFieldsError())}
-
                             >
                                 Submit
                             </Button>

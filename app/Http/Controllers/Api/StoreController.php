@@ -6,6 +6,7 @@ use App\Store;
 use App\StoreType;
 use App\Address;
 use App\User;
+use App\ShopAttachment;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,6 +29,7 @@ class StoreController extends Controller
     {
 
         $user = Auth::user();
+        // $user = User::find(5);
         $store = $user->store;
 
         $store['store_owner'] = $user->name;
@@ -35,6 +37,8 @@ class StoreController extends Controller
         $store['address'] = Address::find($store->address_id)->place;
         $store['city'] = Address::find($store->address_id)->city;
         $store['name'] = strtoupper($store->name);
+
+        $store->attachments;
 
         return response()->json($store);
     }
@@ -60,7 +64,7 @@ class StoreController extends Controller
         $user = Auth::user();
 
         $address = Address::create([
-            'place' => $request->input('place'),
+            'place' => $request->input('address'),
             'latitude' => $request->input('latitude'),
             'longitude' => $request->input('longitude'),
             'zip' => $request->input('zip'),
@@ -68,13 +72,31 @@ class StoreController extends Controller
         ]);
 
         $storetype = StoreType::select('id')->where('name', $request['store_type'])->first();
-        $request['store_type_id'] = $storetype->id;
+        // $request['store_type_id'] = $storetype->id;
         $request['user_id'] = $user->id;
         $request['address_id'] = $address->id;
 
-        $store = Store::create([
-            'name' => $request->input('name')
-        ]);
+        $attachments = $request['attachments'];
+
+
+        unset($request['address']);
+        unset($request['latitude']);
+        unset($request['longitude']);
+        unset($request['zip']);
+        unset($request['country']);
+        unset($request['city']);
+        unset($request['attachments']);
+
+
+        $store = Store::create($request->all());
+
+        foreach ($attachments as $attachment) {
+            ShopAttachment::create([
+                'attachment' => $attachment['response']['url'],
+                'shop_id' => $store->id
+            ]);
+        }
+
         return response()->json($store, 201);
     }
 
