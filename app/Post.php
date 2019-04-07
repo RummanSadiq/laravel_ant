@@ -15,8 +15,13 @@ class Post extends Model
         'store_id', 'description', 'image_path'
     ];
 
-    public function store() 
+    public function store()
     {
         return $this->belongsTo('App\Store');
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany('App\PostAttachment');
     }
 }

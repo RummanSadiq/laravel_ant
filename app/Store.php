@@ -12,8 +12,8 @@ class Store extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 
-        'store_type_id', 
+        'user_id',
+        'store_type_id',
         'address_id',
         'name',
         'contact',
@@ -34,14 +34,19 @@ class Store extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function address() 
+    public function address()
     {
         return $this->hasOne('App\Address');
     }
 
-    public function products() 
+    public function products()
     {
         return $this->hasMany('App\Product');
+    }
+
+    public function attachments()
+    {
+        return $this->hasMany('App\ShopAttachment');
     }
 
     public function storeType()
@@ -49,12 +54,12 @@ class Store extends Model
         return $this->belongsTo('App\StoreType');
     }
 
-    public function storeFollowers() 
+    public function storeFollowers()
     {
         return $this->hasMany('App\StoreFollower');
-    } 
-    
-    public function reviews() 
+    }
+
+    public function reviews()
     {
         return $this->hasMany('App\Review');
     }
