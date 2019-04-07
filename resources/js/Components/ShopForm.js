@@ -25,24 +25,8 @@ class ShopForm extends React.Component {
     }
     state = {
         store_types: [],
-        image: null,
+        image: [],
         store: {}
-        // fileList: [
-        //     {
-        //         uid: "1",
-        //         name: "xxx.png",
-        //         status: "done",
-        //         url:
-        //             "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-        //     },
-        //     {
-        //         uid: "12",
-        //         name: "xxux.png",
-        //         status: "done",
-        //         url:
-        //             "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-        //     }
-        // ]
     };
 
     componentDidMount() {
@@ -59,8 +43,8 @@ class ShopForm extends React.Component {
 
     handleUpload = event => {
         if (event.file.status !== "uploading") {
-            console.log("Uploading file is", event.file);
-            // this.setState({ image: event.file.response.url });
+            this.setState({ image: event.fileList });
+            console.log(event.fileList);
         }
     };
 
@@ -71,11 +55,9 @@ class ShopForm extends React.Component {
                 console.log("Received values of form: ", values);
 
                 if (this.state.store.StoreName !== null) {
-                    console.log("sorename");
+                    console.log("storename");
 
-                    if (this.state.image != null) {
-                        values.display_picture = this.state.image;
-                    }
+                    values.attachments = this.state.image;
 
                     values.open_time = moment
                         .utc(values.open_time)
@@ -85,14 +67,14 @@ class ShopForm extends React.Component {
                         .utc(values.close_time)
                         .format("HH:mm:ss");
 
-                     axios
+                    axios
                         .post("/api/updateshop", values)
                         .then(res => {
                             console.log(res);
                             message.success("Shop Updated!");
                         })
                         .catch(function(error) {
-                             console.log(error);
+                            console.log(error);
                             console.log(values);
                         });
 
@@ -156,7 +138,7 @@ class ShopForm extends React.Component {
                     </Form.Item>
 
                     <Form.Item label="Store Picture:">
-                        {getFieldDecorator("display_picture", {
+                        {getFieldDecorator("attachments", {
                             initialValue: this.state.store.attachments,
 
                             rules: [

@@ -30,6 +30,7 @@ Route::get('/myshop', 'Api\StoreController@myShop');
 //Shop Attachments
 Route::get('/attachments/shop', 'Api\ShopAttachmentController@index');
 Route::post('/attachments/shop', 'Api\ShopAttachmentController@store');
+Route::delete('/attachments/shop/{id}', 'Api\ShopAttachmentController@destroy');
 
 
 //Store Types

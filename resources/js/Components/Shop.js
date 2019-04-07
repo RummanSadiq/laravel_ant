@@ -48,12 +48,7 @@ class Shop extends Component {
         axios.get("/api/myshop").then(res => {
             const storedata = res.data;
             console.log("SHOP.JS", storedata.attachments);
-            this.setState({ store: storedata }, () => {
-                console.log(
-                    "Attachments are,",
-                    this.state.store.attachments[0].url
-                );
-            });
+            this.setState({ store: storedata }, () => {});
         });
     }
 
@@ -68,7 +63,7 @@ class Shop extends Component {
     handleStateChange = () => {
         axios.get("/api/myshop").then(res => {
             const storedata = res.data;
-            console.log(storedata);
+            // console.log(storedata);
             this.setState({ store: storedata, show: false });
         });
     };

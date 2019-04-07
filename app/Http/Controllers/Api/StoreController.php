@@ -78,7 +78,6 @@ class StoreController extends Controller
         ]);
 
         $storetype = StoreType::select('id')->where('name', $request['store_type'])->first();
-        // $request['store_type_id'] = $storetype->id;
         $request['user_id'] = $user->id;
         $request['address_id'] = $address->id;
 
@@ -139,8 +138,9 @@ class StoreController extends Controller
     public function update(Request $request)
     {
         $user = Auth::user();
-        // $user = User::find(1);
+        // $user = User::find(2);
         $store = $user->store;
+
 
         $address = Address::find($store->address_id);
         $address->update([
@@ -152,6 +152,8 @@ class StoreController extends Controller
             'country' => $request->input('country')
         ]);
 
+
+
         unset($request['address']);
         unset($request['latitude']);
         unset($request['longitude']);
@@ -159,7 +161,30 @@ class StoreController extends Controller
         unset($request['country']);
         unset($request['city']);
 
+
+        if (!empty($request['attachments'])) {
+
+            $store->attachments()->delete();
+            $attachments = $request['attachments'];
+            unset($request['attachments']);
+
+            foreach ($attachments as $attachment) {
+
+                if (isset($attachment['response'])) {
+                    $url =  $attachment['response']['url'];
+                } else {
+                    $url =  $attachment['url'];
+                }
+                ShopAttachment::create([
+                    'name' => $attachment['name'],
+                    'url' => $url,
+                    'shop_id' => $store->id
+                ]);
+            }
+        }
+
         $store->update($request->all());
+
         return response()->json($store, 201);
     }
 

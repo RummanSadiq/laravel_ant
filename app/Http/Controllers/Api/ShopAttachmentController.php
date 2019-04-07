@@ -83,6 +83,7 @@ class ShopAttachmentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $attachment = ShopAttachment::find($id);
+        $attachment->delete();
     }
 }
