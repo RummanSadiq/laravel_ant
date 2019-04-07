@@ -51,7 +51,7 @@ class Shop extends Component {
             this.setState({ store: storedata }, () => {
                 console.log(
                     "Attachments are,",
-                    this.state.store.attachments[0].attachment
+                    this.state.store.attachments[0].url
                 );
             });
         });
@@ -110,9 +110,7 @@ class Shop extends Component {
                                                 element => (
                                                     <div>
                                                         <img
-                                                            src={
-                                                                element.attachment
-                                                            }
+                                                            src={element.url}
                                                             alt="Store Image"
                                                         />
                                                     </div>
