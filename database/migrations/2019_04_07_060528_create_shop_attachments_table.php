@@ -16,7 +16,8 @@ class CreateShopAttachmentsTable extends Migration
         Schema::create('shop_attachments', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('attachment');
+            $table->string('name');
+            $table->string('url');
             $table->integer('shop_id')->unsigned();
             $table->foreign('shop_id')->references('id')->on('stores');
 

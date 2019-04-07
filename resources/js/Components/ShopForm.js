@@ -27,7 +27,24 @@ class ShopForm extends React.Component {
         store_types: [],
         image: null,
         store: {}
+        // fileList: [
+        //     {
+        //         uid: "1",
+        //         name: "xxx.png",
+        //         status: "done",
+        //         url:
+        //             "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+        //     },
+        //     {
+        //         uid: "12",
+        //         name: "xxux.png",
+        //         status: "done",
+        //         url:
+        //             "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+        //     }
+        // ]
     };
+
     componentDidMount() {
         // To disabled submit button at the beginning.
         // this.props.form.validateFields();
@@ -39,10 +56,11 @@ class ShopForm extends React.Component {
 
         console.log("STORE values inside form are", this.state.store);
     }
+
     handleUpload = event => {
         if (event.file.status !== "uploading") {
             console.log("Uploading file is", event.file);
-            this.setState({ image: event.file.response.url });
+            // this.setState({ image: event.file.response.url });
         }
     };
 
@@ -170,6 +188,7 @@ class ShopForm extends React.Component {
                                 onChange={this.handleUpload}
                                 listType="picture"
                                 name="image"
+                                defaultFileList={this.state.store.attachments}
                             >
                                 <Button icon="upload">Upload File</Button>
                             </Upload>

@@ -40,6 +40,12 @@ class StoreController extends Controller
 
         $store->attachments;
 
+        foreach ($store['attachments'] as $attachment) {
+
+            $attachment['status'] = 'Done';
+            $attachment['uid'] = $attachment['id'];
+        }
+
         return response()->json($store);
     }
 
@@ -92,7 +98,8 @@ class StoreController extends Controller
 
         foreach ($attachments as $attachment) {
             ShopAttachment::create([
-                'attachment' => $attachment['response']['url'],
+                'name' => $attachment['name'],
+                'url' => $attachment['response']['url'],
                 'shop_id' => $store->id
             ]);
         }
