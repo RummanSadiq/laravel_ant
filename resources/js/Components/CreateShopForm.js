@@ -23,7 +23,7 @@ function hasErrors(fieldsError) {
 class CreateShopForm extends Component {
     state = {
         store_types: [],
-        image: null,
+        image: [],
         store: {},
         redirect: false
     };
@@ -38,7 +38,8 @@ class CreateShopForm extends Component {
     handleUpload = event => {
         if (event.file.status !== "uploading") {
             console.log("Uploading file is", event.file);
-            this.setState({ image: event.file.response.url });
+            this.state.image.push(event.file.response.url);
+            this.setState({ image: this.state.image });
         }
     };
 
@@ -61,7 +62,7 @@ class CreateShopForm extends Component {
                     .format("HH:mm:ss");
 
                 axios
-                    .post("/api/updateshop", values)
+                    .post("/api/shop", values)
                     .then(res => {
                         console.log(res);
                         message.success("Shop Updated!");
@@ -70,7 +71,6 @@ class CreateShopForm extends Component {
                         }
                     })
                     .catch(function(error) {
-                        // handle error
                         console.log(error);
                         console.log(values);
                         message.error(
