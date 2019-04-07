@@ -15,15 +15,19 @@ class App extends Component {
         super(props);
         axios.get("/api/users/shop").then(res => {
             console.log(res.data);
-            shop = res.data.shop;
+            this.state.shop = res.data.shop;
         });
+    }
+
+    state={
+        shop:{}
     }
 
     render() {
         return (
             <div>
-                {shop && <Index />}
-                {!shop && <ShopCreate />}
+                {this.state.shop && <Index />}
+                {!this.state.shop && <ShopCreate />}
             </div>
         );
     }
