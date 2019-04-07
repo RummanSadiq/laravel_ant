@@ -17,6 +17,8 @@ class App extends Component {
             console.log('Shop data is',res.data);
             // this.setState({shop:res.data});
             this.state.shop = res.data;
+        }).catch(err=>{
+            console.log('api cannot be accessed', err);
         });
     }
     componentWillMount(){
