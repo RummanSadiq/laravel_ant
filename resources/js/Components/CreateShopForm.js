@@ -23,7 +23,7 @@ function hasErrors(fieldsError) {
 class CreateShopForm extends Component {
     state = {
         store_types: [],
-        image: null,
+        image: [],
         store: {},
         redirect: false
     };
@@ -37,13 +37,15 @@ class CreateShopForm extends Component {
     }
     handleUpload = event => {
         if (event.file.status !== "uploading") {
-            console.log("Uploading file is", event.file);
-            this.setState({ image: event.file.response.url });
+            console.log("Event filelist", event.fileList);
+            // this.state.image.push(event.file.response.url);s
+            this.setState({ image: event.fileList });
         }
     };
 
     handleSubmit = e => {
         e.preventDefault();
+        console.log('images file list is', this.state.image);
         this.props.form.validateFields((err, values) => {
             if (!err) {
                 console.log("Received values of form: ", values);
@@ -61,7 +63,7 @@ class CreateShopForm extends Component {
                     .format("HH:mm:ss");
 
                 axios
-                    .post("/api/updateshop", values)
+                    .post("/api/shop", values)
                     .then(res => {
                         console.log(res);
                         message.success("Shop Updated!");
@@ -70,7 +72,6 @@ class CreateShopForm extends Component {
                         }
                     })
                     .catch(function(error) {
-                        // handle error
                         console.log(error);
                         console.log(values);
                         message.error(
