@@ -38,9 +38,9 @@ class UserController extends Controller
         $shop = Auth::User()->store;
         // $shop = User::find(1)->store;
         if ($shop) {
-            $res = true;
+            $res = 1;
         } else {
-            $res = false;
+            $res = -1;
         }
 
         return response()->json([

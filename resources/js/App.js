@@ -26,14 +26,14 @@ class App extends Component {
     componentWillMount() {}
 
     state = {
-        shop: {}
+        shop: 0
     };
 
     render() {
         return (
             <div>
-                {this.state.shop && <Dashboard />}
-                {!this.state.shop && <ShopCreate />}
+                {this.state.shop > 0 && <Dashboard />}
+                {this.state.shop < 0 && <ShopCreate />}
             </div>
         );
     }
