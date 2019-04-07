@@ -38,7 +38,6 @@ class CreateShopForm extends Component {
     handleUpload = event => {
         if (event.file.status !== "uploading") {
             console.log("Event filelist", event.fileList);
-            // this.state.image.push(event.file.response.url);s
             this.setState({ image: event.fileList });
         }
     };
