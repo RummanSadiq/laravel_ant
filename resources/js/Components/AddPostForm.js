@@ -62,8 +62,7 @@ class AddPostForm extends Component {
             >
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Item
-                        // validateStatus={ "Field cannot be empty"}
-                        // help={descriptionError || ""}
+                        
                     >
                         {getFieldDecorator("description", {
                             rules: [
@@ -90,8 +89,7 @@ class AddPostForm extends Component {
                         }}
                     >
                         <Form.Item
-                        // validateStatus={pictureError ? "error" : ""}
-                        // help={pictureError || ""}
+                        
                     >
                         {getFieldDecorator("display_picture", {
                            

@@ -30,8 +30,6 @@ class ShopForm extends React.Component {
     };
 
     componentDidMount() {
-        // To disabled submit button at the beginning.
-        // this.props.form.validateFields();
         axios.get("/api/storetypes").then(res => {
             const storedata = res.data;
             console.log("store types are", storedata);
@@ -76,6 +74,7 @@ class ShopForm extends React.Component {
                         .catch(function(error) {
                             console.log(error);
                             console.log(values);
+                            message.error('Error occurred, inside catch',error);
                         });
 
                     this.props.changeState();

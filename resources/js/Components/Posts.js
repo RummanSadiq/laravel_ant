@@ -62,58 +62,6 @@ class Posts extends Component {
             <div>
                 <Col span={16} offset={6}>
 
-                  {/*  <Card
-                        title={<h1> Create posts for annoucements </h1>}
-                        type="inner"
-                        hoverable="true"
-                        bordered={false}
-                        style={{ width: 1000 }}
-                        headStyle={{ textAlign: "center" }}
-                    >
-                         <TextArea
-                            placeholder="Write Something"
-                            autosize={{ minRows: 2, maxRows: 6 }}
-                            onChange={this.handleChange}
-                            value={this.state.description}
-                        />
-
-                        <div
-                            style={{
-                                marginLeft: "60%",
-                                display: "inline block",
-                                paddingTop: "1%",
-                                textAlign: "right"
-                            }}
-                        >
-                            <span style={{ padding: "1%" }} />
-                            <Upload
-                                action="/api/attachment/posts"
-                                onChange={this.handleUpload}
-                                name="image"
-                                listType="picture"
-                            >
-                                <Button
-                                    type="secondary"
-                                    shape="round"
-                                    icon="upload"
-                                    size={"medium"}
-                                >
-                                    Upload photos
-                                </Button>
-                            </Upload>
-                            <Button
-                                type="primary"
-                                shape="round"
-                                icon="check"
-                                size={"medium"}
-                                onClick={this.handlePost}
-                                style={{ margin: 5 }}
-                            >
-                                Done
-                            </Button>
-                        </div> 
-                        
-                    </Card>*/}
                     <APostForm/>
                     <Card
                         title={<h3> Previous Posts </h3>}
