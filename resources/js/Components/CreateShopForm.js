@@ -72,6 +72,7 @@ class CreateShopForm extends Component {
                         // this.setRedirect();
                     })
                     .catch(function(error) {
+                        throw(error);
                         console.log(error);
                         console.log(values);
                         message.error(

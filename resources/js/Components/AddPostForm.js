@@ -15,22 +15,11 @@ class AddPostForm extends Component {
     state = {
         posts: [],
         description: "",
-        image_path: ""
+        image_path: "",
+        posted:false
     };
 
-    handlePost = () => {
-        var arr = {
-            description: this.state.description,
-            image_path: this.state.image_path
-        };
-        axios.post("/api/posts", arr).then(res => {
-            const postdata = res.data;
-            console.log(postdata);
-            this.setState({ description: "", image_path: "" });
-            this.props.newPosts();
-            message.success("Post Added");
-        });
-    };
+
 
     handleChange = event => {
         this.setState({ description: event.target.value });
@@ -40,14 +29,24 @@ class AddPostForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
+
         this.props.form.validateFields((err, values) => {
+            console.log("values received are", values);
             if (!err) {
-                this.handlePost();
-                this.props.form.resetFields();
+                axios.post("/api/posts", values).then(res => {
+                    this.props.form.resetFields();
+                    window.location.reload();
+                   
+                    this.props.newPosts();
+                    this.setState({posted:!this.state.posted});
+                    message.success("Post Added");
+                });
+            } else {
+                message.error("Couldnt upload to database", err);
+                console.log("Error received is ", err);
             }
-            if (err) {
-                message.error(err);
-            }
+            this.props.form.resetFields();
+
         });
     };
 
@@ -66,13 +65,6 @@ class AddPostForm extends Component {
             isFieldTouched
         } = this.props.form;
 
-        // Only show error after a field is touched.
-        const descriptionError =
-            isFieldTouched("description") && getFieldError("description");
-
-        const pictureError =
-            isFieldTouched("display_picture") &&
-            getFieldError("display_picture");
         return (
             <Card
                 title={<h1> Create posts for annoucements </h1>}
@@ -95,7 +87,6 @@ class AddPostForm extends Component {
                             <TextArea
                                 placeholder="Write Something"
                                 autosize={{ minRows: 2, maxRows: 6 }}
-                                onChange={this.handleChange}
                             />
                         )}
                     </Form.Item>
@@ -103,7 +94,6 @@ class AddPostForm extends Component {
                     <div
                         style={{
                             marginLeft: "60%",
-                            display: "inline block",
                             paddingTop: "1%",
                             textAlign: "right"
                         }}
@@ -112,7 +102,7 @@ class AddPostForm extends Component {
                             {getFieldDecorator("display_picture", {
                                 rules: [
                                     {
-                                        required: true,
+                                        required: false,
                                         message: "Please input picture"
                                     }
                                 ]
@@ -134,7 +124,7 @@ class AddPostForm extends Component {
                         type="primary"
                         shape="round"
                         icon="check"
-                        size={"medium"}
+                        // size={"medium"}
                         htmlType="submit"
                         disabled={hasErrors(getFieldsError())}
                     >

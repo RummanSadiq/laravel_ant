@@ -72,9 +72,12 @@ class ShopForm extends React.Component {
                             message.success("Shop Updated!");
                         })
                         .catch(function(error) {
-                            console.log(error);
+                            console.log("This is the error happening", error);
                             console.log(values);
-                            message.error('Error occurred, inside catch',error);
+                            message.error(
+                                "Error occurred, inside catch",
+                                error
+                            );
                         });
 
                     this.props.changeState();
@@ -83,9 +86,6 @@ class ShopForm extends React.Component {
                         "No storename add api call here to create store"
                     );
                 }
-            } else {
-                console.log("Errors", err);
-                message.error("Invalid Values", err);
             }
         });
     };
