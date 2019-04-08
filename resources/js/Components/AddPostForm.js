@@ -3,37 +3,59 @@ import { Card, Form, Input, Button, Upload, message } from "antd";
 import axios from "axios";
 const { TextArea } = Input;
 
-
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
-  }
+}
 class AddPostForm extends Component {
-    state = {};
+    constructor(props) {
+        super(props);
+        this.state.posts = this.props.posts;
+    }
+
+    state = {
+        posts: [],
+        description: "",
+        image_path: ""
+    };
+
+    handlePost = () => {
+        var arr = {
+            description: this.state.description,
+            image_path: this.state.image_path
+        };
+        axios.post("/api/posts", arr).then(res => {
+            const postdata = res.data;
+            console.log(postdata);
+            this.setState({ description: "", image_path: "" });
+            this.props.newPosts();
+            message.success("Post Added");
+        });
+    };
+
+    handleChange = event => {
+        this.setState({ description: event.target.value });
+        console.log(event.target.value);
+    };
 
     handleSubmit = e => {
         e.preventDefault();
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log("Received values of form: ", values);
-
-                axios.post("/api/posts", values).then(res => {
-                    const postdata = res.data;
-                    console.log(postdata);
-                    this.getPosts();
-                    message.success("Post Added");
-                });
+                this.handlePost();
                 this.props.form.resetFields();
-            } if (err) {
-                message.error( err);
+            }
+            if (err) {
+                message.error(err);
             }
         });
     };
 
     handleUpload = event => {
         if (event.file.status !== "uploading") {
-            console.log('Uploading file is',event.file);
-            this.setState({ image: event.file.response.url });
+            console.log("Uploading file is", event.file);
+            this.setState({ image_path: event.file.response.url });
+            this.setState({ uploadEvent: event });
         }
     };
     render() {
@@ -61,9 +83,7 @@ class AddPostForm extends Component {
                 headStyle={{ textAlign: "center" }}
             >
                 <Form onSubmit={this.handleSubmit}>
-                    <Form.Item
-                        
-                    >
+                    <Form.Item>
                         {getFieldDecorator("description", {
                             rules: [
                                 {
@@ -88,43 +108,38 @@ class AddPostForm extends Component {
                             textAlign: "right"
                         }}
                     >
-                        <Form.Item
-                        
+                        <Form.Item>
+                            {getFieldDecorator("display_picture", {
+                                rules: [
+                                    {
+                                        required: true,
+                                        message: "Please input picture"
+                                    }
+                                ]
+                            })(
+                                <Upload
+                                    action="/api/attachment/posts"
+                                    onChange={this.handleUpload}
+                                    listType="picture"
+                                    name="image"
+                                >
+                                    <Button icon="upload">
+                                        Upload Picture
+                                    </Button>
+                                </Upload>
+                            )}
+                        </Form.Item>
+                    </div>
+                    <Button
+                        type="primary"
+                        shape="round"
+                        icon="check"
+                        size={"medium"}
+                        htmlType="submit"
+                        disabled={hasErrors(getFieldsError())}
                     >
-                        {getFieldDecorator("display_picture", {
-                           
-
-                            rules: [
-                                {
-                                    required: true,
-                                    message: "Please input picture"
-                                }
-                            ]
-                        })(
-                            <Upload
-                                action="/api/attachment/products"
-                                onChange={this.handleUpload}
-                                listType="picture"
-                                name="image"
-                            >
-                                <Button icon="upload">Upload Picture</Button>
-                            </Upload>
-                        )}
-                    </Form.Item>
-                        
-                        </div>
-                        <Button
-                            type="primary"
-                            shape="round"
-                            icon="check"
-                            size={"medium"}
-                            htmlType="submit"
-                            disabled={hasErrors(getFieldsError())}
-
-                        >
-                            Post
-                        </Button>
-                    
+                        Post
+                    </Button>
                 </Form>
             </Card>
         );
