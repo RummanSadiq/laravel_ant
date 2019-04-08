@@ -19,7 +19,7 @@ const Option = Select.Option;
 
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
-  }
+}
 class AddProductForm extends React.Component {
     state = {
         image_path: "",
@@ -34,7 +34,6 @@ class AddProductForm extends React.Component {
             console.log(data);
             this.setState({ categories: data });
         });
-       
     }
 
     handleUpload = event => {
@@ -65,8 +64,8 @@ class AddProductForm extends React.Component {
                     this.setState({ goToProducts: true });
                 });
                 this.props.form.resetFields();
-            }else {
-                message.error('Error processing request');
+            } else {
+                message.error("Error processing request");
             }
         });
     };
@@ -104,8 +103,8 @@ class AddProductForm extends React.Component {
                             <h3>Title:</h3>
                         </div>
                         <Form.Item
-                            // validateStatus={productNameError ? "error" : ""}
-                            // help={productNameError || ""}
+                        // validateStatus={productNameError ? "error" : ""}
+                        // help={productNameError || ""}
                         >
                             {getFieldDecorator("name", {
                                 rules: [
@@ -123,8 +122,8 @@ class AddProductForm extends React.Component {
                         </div>
 
                         <Form.Item
-                            // validateStatus={priceError ? "error" : ""}
-                            // help={descriptionError || ""}
+                        // validateStatus={priceError ? "error" : ""}
+                        // help={descriptionError || ""}
                         >
                             {getFieldDecorator("price", {
                                 rules: [
@@ -147,8 +146,8 @@ class AddProductForm extends React.Component {
                             <h3>Description:</h3>
                         </div>
                         <Form.Item
-                            // validateStatus={descriptionError ? "error" : ""}
-                            // help={descriptionError || ""}
+                        // validateStatus={descriptionError ? "error" : ""}
+                        // help={descriptionError || ""}
                         >
                             {getFieldDecorator("description", {
                                 rules: [
@@ -160,8 +159,8 @@ class AddProductForm extends React.Component {
                                 ]
                             })(
                                 <TextArea
-                                    // placeholder="Write complete product Description"
-                                    // autosize={{ minRows: 3, maxRows: 6 }}
+                                // placeholder="Write complete product Description"
+                                // autosize={{ minRows: 3, maxRows: 6 }}
                                 />
                             )}
                         </Form.Item>
@@ -170,8 +169,8 @@ class AddProductForm extends React.Component {
                             <h3>Upload Pictures</h3>
                         </div>
                         <Form.Item
-                            // validateStatus={pictureError ? "error" : ""}
-                            // help={pictureError || ""}
+                        // validateStatus={pictureError ? "error" : ""}
+                        // help={pictureError || ""}
                         >
                             {getFieldDecorator("display_picture", {
                                 rules: [
@@ -182,7 +181,7 @@ class AddProductForm extends React.Component {
                                 ]
                             })(
                                 <Upload
-                                    action="/api/attachment/products"
+                                    action="/api/attachment/products/"
                                     onChange={this.handleUpload}
                                     listType="picture"
                                     name="image"
@@ -195,8 +194,8 @@ class AddProductForm extends React.Component {
                         </Form.Item>
 
                         <Form.Item
-                            // validateStatus={categoryError ? "Please select Category" : ""}
-                            // help={categoryError || ""}
+                        // validateStatus={categoryError ? "Please select Category" : ""}
+                        // help={categoryError || ""}
                         >
                             <h2>Select category</h2>
 
