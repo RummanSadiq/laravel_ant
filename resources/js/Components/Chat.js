@@ -23,6 +23,7 @@ class Chat extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.myChat = React.createRef();
     }
     state = {
         newreply: "",
@@ -66,6 +67,8 @@ class Chat extends Component {
 
         axios.get("/api/messages/" + id).then(res => {
             this.setState({ chat: res.data });
+            console.log(this.myChat);
+            this.myChat.current.scrollTop = this.myChat.current.scrollHeight;
         });
     }
 
@@ -86,8 +89,6 @@ class Chat extends Component {
                 this.getConversations();
                 this.setState({ newreply: "" });
             });
-
-            event.preventDefault();
         }
     }
 
@@ -141,7 +142,10 @@ class Chat extends Component {
                                 width: "100%"
                             }}
                         >
-                            <div style={{ height: "700px", overflow: "auto" }}>
+                            <div
+                                ref={this.myChat}
+                                style={{ height: "700px", overflow: "auto" }}
+                            >
                                 {this.state.chat.map(element => (
                                     <div>
                                         {element.receiver && (
