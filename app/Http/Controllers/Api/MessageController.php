@@ -41,21 +41,22 @@ class MessageController extends Controller
      */
     public function shopSent(Request $request)
     {
-        // $user_id = Auth::user()->id;
-        $user_id = User::find(1)->id;
+        $user_id = Auth::User()->id;
+        // $user_id = User::find(1)->id;
 
         $conversation = Conversation::find($request['conversation_id']);
 
         return $this->sentMessage($conversation, $request['text'], $user_id);
     }
 
-    private function sentMessage($conversation, $text, $user_id) {
+    private function sentMessage($conversation, $text, $user_id)
+    {
 
         $data = [
             "last_sender_id" => $user_id,
             "msg_read" => '0',
             "last_message" => $text
-            
+
         ];
 
         $conversation->update($data);
@@ -73,16 +74,16 @@ class MessageController extends Controller
     {
 
         //Fields required in the $request are 'participant_id', 'participant_type' => 0 for customer and 1 for shop, 'text'
-        // $user_id = Auth::user()->id;
-        $user_id = User::find(4)->id;
-        
+        $user_id = Auth::user()->id;
+        // $user_id = User::find(4)->id;
+
         $data = [
             "first_participant_id" => $user_id,
             "second_participant_id" => $request['participant_id'],
-            "first_participant_type" => '0', 
+            "first_participant_type" => '0',
             "second_participant_type" => $request['participant_type']
         ];
-        
+
         $conversation = Conversation::firstOrCreate($data);
 
         return $this->sentMessage($conversation, $request['text'], $user_id);
@@ -107,16 +108,15 @@ class MessageController extends Controller
         $conversation = Conversation::find($id);
         $messages = $conversation->messages;
 
-        foreach($messages as $msg) {
-            if($msg['sender_id'] == $user->id) {
+        foreach ($messages as $msg) {
+            if ($msg['sender_id'] == $user->id) {
                 $msg['sender'] = 'true';
             } else {
                 $msg['receiver'] = 'true';
             }
-        } 
+        }
 
         return response()->json($messages);
-
     }
 
     /**
