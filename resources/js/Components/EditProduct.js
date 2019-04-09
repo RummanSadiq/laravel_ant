@@ -171,9 +171,7 @@ class EditProduct extends Component {
                     help={pictureError || ""}
                 >
                     {getFieldDecorator("display_picture", {
-                        initialValue: this.state.record.display_picture
-                            ? this.state.record.display_picture
-                            : "",
+                        initialValue: this.state.record.attachments,
 
                         rules: [
                             {
@@ -187,6 +185,8 @@ class EditProduct extends Component {
                             onChange={this.handleUpload}
                             listType="picture"
                             name="image"
+                            defaultFileList={this.state.record.attachments}
+
                         >
                             <Button>
                                 <Icon type="upload" /> Upload
