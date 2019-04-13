@@ -39,4 +39,9 @@ class Product extends Model
     {
         return $this->hasMany('App\PostAttachment');
     }
+
+    public function reviews()
+    {
+        return $this->hasMany('App\ProductReview');
+    }
 }

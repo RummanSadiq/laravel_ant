@@ -37,49 +37,55 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function store() 
+    public function store()
     {
         return $this->hasOne('App\Store');
     }
 
-    public function messages() 
+    public function messages()
     {
         return $this->hasMany('App\Message');
     }
 
-    public function reviews() 
+    public function reviews()
     {
         return $this->hasMany('App\Review');
     }
 
-    public function shoppingLists() 
+    public function productReviews()
+    {
+        return $this->hasMany('App\ProductReview');
+    }
+
+    public function shoppingLists()
     {
         return $this->hasMany('App\ShoppingList');
     }
-    
-    public function storeFollowers() 
+
+    public function storeFollowers()
     {
         return $this->hasMany('App\StoreFollower');
     }
 
-    public function firstParticipantConversations() 
+    public function firstParticipantConversations()
     {
         return $this->hasMany('App\Conversation', 'first_participant_id');
     }
 
-    public function secondParticipantConversations() 
+    public function secondParticipantConversations()
     {
         return $this->hasMany('App\Conversation', 'second_participant_id');
     }
 
-    public function shopConversations() {
+    public function shopConversations()
+    {
         return $this->firstParticipantConversations->where('first_participant_type', '1')
-        ->merge($this->secondParticipantConversations->where('second_participant_type', '1'));
+            ->merge($this->secondParticipantConversations->where('second_participant_type', '1'));
     }
 
-    public function customerConversations() {
+    public function customerConversations()
+    {
         return $this->firstParticipantConversations->where('first_participant_type', '0')
-        ->merge($this->secondParticipantConversations->where('second_participant_type', '0'));
+            ->merge($this->secondParticipantConversations->where('second_participant_type', '0'));
     }
-
 }
