@@ -9,7 +9,7 @@ const SubMenu = Menu.SubMenu;
 
 class Sidemenu extends Component {
     state = {
-        collapsed: false
+        collapsed: true
     };
 
     logout() {
@@ -28,7 +28,7 @@ class Sidemenu extends Component {
         return (
             <Affix offsetTop={0} style={{ backgroundColor: "white" }}>
                 <Row style={{ position: "absolute" }}>
-                    <Col span={8} style={{ minHeight: "50vh" }}>
+                    <Col xl={8} lg={8} sm={4} xs={4} md={6} style={{ minHeight: "50vh" }}>
                         <Sider
                             collapsible
                             collapsed={this.state.collapsed}
@@ -40,7 +40,8 @@ class Sidemenu extends Component {
                                     <img
                                         src={logo}
                                         alt="Shopx"
-                                        style={{ width: 180 }}
+                                        width='100'
+                                        height='100'
                                     />
                                 </div>
                                 <Divider />
@@ -61,7 +62,7 @@ class Sidemenu extends Component {
                                         <Icon
                                             type="message"
                                             theme="filled"
-                                            style={{ fontSize: "100%" }}
+                                            style={{ fontSizse: "100%" }}
                                         />
                                         <span>Messages</span>
                                     </NavLink>
@@ -80,7 +81,7 @@ class Sidemenu extends Component {
                                         </span>
                                     }
                                 >
-                                    <Divider />
+                                    
                                     <Menu.Item
                                         key="3"
                                         style={{ fontSize: "20px" }}

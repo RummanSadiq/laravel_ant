@@ -10,20 +10,11 @@ class EditProduct extends Component {
         super(props);
 
         this.state.record = this.props.record;
-        this.state.fileList = [
-            {
-                uid: "-1",
-                name: "Current Picture",
-                status: "done",
-                url: this.state.record.display_picture
-            }
-        ];
     }
     state = {
         image_path: "",
         categories: [],
-        record: {},
-        fileList: []
+        record: {}
     };
 
     componentDidMount() {
@@ -48,14 +39,8 @@ class EditProduct extends Component {
 
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                if (this.state.image_path !== "") {
-                    values["display_picture"] = this.state.image_path;
-                    console.log("Rumman");
-                } else {
-                    values[
-                        "display_picture"
-                    ] = this.state.record.display_picture;
-                    console.log("Sadiq");
+                if (this.state.image_path != null) {
+                    values.display_picture = this.state.image_path;
                 }
 
                 console.log("Received values of form: ", values);
@@ -63,7 +48,7 @@ class EditProduct extends Component {
                 message.success("DONE");
 
                 axios
-                    .post("api/products/" + this.state.record.id, values)
+                    .post("api/products/" + this.props.id, values)
                     .then(res => {
                         const data = res.data;
                         console.log(data);
@@ -78,6 +63,13 @@ class EditProduct extends Component {
     };
 
     render() {
+        const param = {
+            action: "/api/attachment/products",
+            onChange: this.handleUpload,
+            listType: "picture",
+            name: "image"
+        };
+
         const {
             getFieldDecorator,
             getFieldsError,
@@ -179,7 +171,7 @@ class EditProduct extends Component {
                     help={pictureError || ""}
                 >
                     {getFieldDecorator("display_picture", {
-                        initialValue: this.state.record.display_picture,
+                        initialValue: this.state.record.attachments,
 
                         rules: [
                             {
@@ -193,7 +185,8 @@ class EditProduct extends Component {
                             onChange={this.handleUpload}
                             listType="picture"
                             name="image"
-                            fileList={this.state.fileList}
+                            defaultFileList={this.state.record.attachments}
+
                         >
                             <Button>
                                 <Icon type="upload" /> Upload

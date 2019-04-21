@@ -23,7 +23,6 @@ class Chat extends Component {
         super(props);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.myChat = React.createRef();
     }
     state = {
         newreply: "",
@@ -67,8 +66,6 @@ class Chat extends Component {
 
         axios.get("/api/messages/" + id).then(res => {
             this.setState({ chat: res.data });
-            console.log(this.myChat);
-            this.myChat.current.scrollTop = this.myChat.current.scrollHeight;
         });
     }
 
@@ -89,19 +86,22 @@ class Chat extends Component {
                 this.getConversations();
                 this.setState({ newreply: "" });
             });
+
+            event.preventDefault();
         }
     }
 
     render() {
         return (
-            <div>
+            <Row>
+                <Col xl={13} lg={14} sm={16} xs={16} md={16} style={{ marginTop: "2em", marginLeft:'25%' }}>
                 <Header style={{ backgroundColor: "#f5f5f5" }}>
                     <div style={{ textAlign: "center" }}>
                         <h1>Customer Queries</h1>
                     </div>
                 </Header>
                 <Row style={{ position: "inherit" }}>
-                    <Col span={4} offset={4}>
+                    <Col span={8}>
                         <Card title="Messages" bordered={false}>
                             <List
                                 itemLayout="horizontal"
@@ -133,7 +133,7 @@ class Chat extends Component {
                             />
                         </Card>
                     </Col>
-                    <Col span={12}>
+                    <Col span={16}>
                         <Card
                             title={this.state.title}
                             bordered={true}
@@ -142,10 +142,7 @@ class Chat extends Component {
                                 width: "100%"
                             }}
                         >
-                            <div
-                                ref={this.myChat}
-                                style={{ height: "700px", overflow: "auto" }}
-                            >
+                            <div style={{ height: "700px", overflow: "auto" }}>
                                 {this.state.chat.map(element => (
                                     <div>
                                         {element.receiver && (
@@ -237,7 +234,8 @@ class Chat extends Component {
                         </div>
                     </Col>
                 </Row>
-            </div>
+                </Col>
+            </Row>
         );
     }
 }

@@ -10,16 +10,16 @@ class AddPostForm extends Component {
     constructor(props) {
         super(props);
         this.state.posts = this.props.posts;
-        this.myUpload = React.createRef();
     }
 
     state = {
         posts: [],
         description: "",
         image_path: "",
-        posted: false,
-        uploadedFile: ""
+        posted:false
     };
+
+
 
     handleChange = event => {
         this.setState({ description: event.target.value });
@@ -29,22 +29,16 @@ class AddPostForm extends Component {
     handleSubmit = e => {
         e.preventDefault();
 
+
         this.props.form.validateFields((err, values) => {
             console.log("values received are", values);
             if (!err) {
-                var arr = {
-                    description: this.state.description,
-                    image_path: this.state.image_path
-                };
-                axios.post("/api/posts", arr).then(res => {
+                axios.post("/api/posts", values).then(res => {
                     this.props.form.resetFields();
-                    console.log(this.myUpload.current);
-                    this.myUpload.current.handleManualRemove(
-                        this.state.uploadedFile
-                    );
-
+                    window.location.reload();
+                   
                     this.props.newPosts();
-                    this.setState({ posted: !this.state.posted });
+                    this.setState({posted:!this.state.posted});
                     message.success("Post Added");
                 });
             } else {
@@ -52,6 +46,7 @@ class AddPostForm extends Component {
                 console.log("Error received is ", err);
             }
             this.props.form.resetFields();
+
         });
     };
 
@@ -59,7 +54,7 @@ class AddPostForm extends Component {
         if (event.file.status !== "uploading") {
             console.log("Uploading file is", event.file);
             this.setState({ image_path: event.file.response.url });
-            this.setState({ uploadedFile: event.file });
+            this.setState({ uploadEvent: event });
         }
     };
     render() {
@@ -76,7 +71,7 @@ class AddPostForm extends Component {
                 type="inner"
                 hoverable="true"
                 bordered={false}
-                style={{ width: 1000 }}
+                // style={{ width: 1000 }}
                 headStyle={{ textAlign: "center" }}
             >
                 <Form onSubmit={this.handleSubmit}>
@@ -92,17 +87,16 @@ class AddPostForm extends Component {
                             <TextArea
                                 placeholder="Write Something"
                                 autosize={{ minRows: 2, maxRows: 6 }}
-                                onChange={this.handleChange}
                             />
                         )}
                     </Form.Item>
 
                     <div
-                        style={{
-                            marginLeft: "60%",
-                            paddingTop: "1%",
-                            textAlign: "right"
-                        }}
+                        // style={{
+                        //     marginLeft: "40%",
+                        //     paddingTop: "1%",
+                        //     textAlign: "right"
+                        // }}
                     >
                         <Form.Item>
                             {getFieldDecorator("display_picture", {
@@ -118,7 +112,6 @@ class AddPostForm extends Component {
                                     onChange={this.handleUpload}
                                     listType="picture"
                                     name="image"
-                                    ref={this.myUpload}
                                 >
                                     <Button icon="upload">
                                         Upload Picture

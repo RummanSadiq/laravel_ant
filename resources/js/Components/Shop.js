@@ -23,7 +23,7 @@ const cardStyle = `
         .ant-card-head {
             background-color: rgb(44, 123, 229);
         }
-        .ant-card-head-title > h1 {
+        .ant-card-head-title > h2 {
             color: white;
         }
 
@@ -71,20 +71,22 @@ class Shop extends Component {
     render() {
         return (
             <div>
-                <Col span={13} offset={6} style={{ marginTop: "2em" }}>
+                <Col xl={13} sm={16} xs={16}  style={{ marginTop: "2em", marginLeft:'25%' }}>
                     <style>{cardStyle}</style>
                     <Card
                         title={
-                            <h1 style={{ textAlign: "center", margin: 0 }}>
+                            <h2
+                            style={{ textAlign: "center", margin: 0 }}
+                            >
                                 {this.state.store.name}
-                            </h1>
+                            </h2>
                         }
                         extra={
                             <div>
                                 <Button
                                     shape="round"
                                     icon="edit"
-                                    size={"large"}
+                                    // size={"large"}
                                     onClick={this.handleedit}
                                 >
                                     Edit info
@@ -99,7 +101,12 @@ class Shop extends Component {
                         >
                             <Row>
                                 <Col>
-                                    <Carousel>
+                                    <Carousel
+                                        // style={{
+                                        //     width: "100px",
+                                        //     height: "40px"
+                                        // }}
+                                    >
                                         {this.state.store.attachments &&
                                             this.state.store.attachments.map(
                                                 element => (

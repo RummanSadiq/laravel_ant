@@ -41,14 +41,14 @@ class Posts extends Component {
     render() {
         return (
             <div>
-                <Col span={16} offset={6}>
+                <Col xl={13} lg={14} sm={16} xs={16} md={16} style={{ marginTop: "2em", marginLeft:'25%' }}>
                     <APostForm newPosts={this.getPosts} />
                     <Card
                         title={<h3> Previous Posts </h3>}
                         type="inner"
                         hoverable="true"
                         bordered={false}
-                        style={{ width: 1000 }}
+                        // style={{ width: 1000 }}
                         headStyle={{ textAlign: "center" }}
                     >
                         <div style={{ paddingTop: "3%" }}>
@@ -62,6 +62,8 @@ class Posts extends Component {
                                         <img
                                             alt="postimage"
                                             src={element.image_path}
+                                            width={100}
+                                            height={100}
                                         />
                                     }
                                     extra={

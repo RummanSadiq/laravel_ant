@@ -17,11 +17,14 @@ class UserReviews extends Component {
 
     render() {
         return (
-            <div style={{ maxWidth: "80%" }}>
-                <Col span={16} offset={6}>
+            <div
+             style={{ maxWidth: "80%" }}
+            >
+                <Col xl={13} lg={14} sm={16} xs={16} md={16} style={{ marginTop: "2em", marginLeft:'25%' }}>
                     <h1 style={{ textAlign: "center" }}>
                         What Users think about your store
                     </h1>
+                    
                     {this.state.reviews.map(element => (
                         <div key={element.key} style={{ padding: "3%" }}>
                             <Card

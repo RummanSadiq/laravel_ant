@@ -92,152 +92,149 @@ class AddProductForm extends React.Component {
             isFieldTouched("category_id") && getFieldError("category_id");
         const priceError = isFieldTouched("price") && getFieldError("price");
         return (
-            <Col span={12} offset={6}>
-                <Card
-                    title={
-                        <h1 style={{ textAlign: "center" }}>Add a Product</h1>
-                    }
-                >
-                    <Form onSubmit={this.handleSubmit}>
-                        <div style={{ margin: "0%" }}>
-                            <h3>Title:</h3>
-                        </div>
-                        <Form.Item
-                        // validateStatus={productNameError ? "error" : ""}
-                        // help={productNameError || ""}
-                        >
-                            {getFieldDecorator("name", {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: "Please input your username!"
-                                    }
-                                ]
-                            })(
-                                <Input placeholder="Enter Product title/name" />
-                            )}
-                        </Form.Item>
-                        <div style={{ margin: "0%" }}>
-                            <h3>Price:</h3>
-                        </div>
+            // <Col span={12} offset={6}>
+            <Card
+                title={<h2 style={{ textAlign: "center" }}>Add a Product</h2>}
+            >
+                <Form onSubmit={this.handleSubmit}>
+                    <div style={{ margin: "0%" }}>
+                        <h3>Title:</h3>
+                    </div>
+                    <Form.Item
+                    // validateStatus={productNameError ? "error" : ""}
+                    // help={productNameError || ""}
+                    >
+                        {getFieldDecorator("name", {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: "Please input your username!"
+                                }
+                            ]
+                        })(<Input placeholder="Enter Product title/name" />)}
+                    </Form.Item>
+                    <div style={{ margin: "0%" }}>
+                        <h3>Price:</h3>
+                    </div>
 
-                        <Form.Item
-                        // validateStatus={priceError ? "error" : ""}
-                        // help={descriptionError || ""}
-                        >
-                            {getFieldDecorator("price", {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message:
-                                            "Please input your Product Price!"
-                                    }
-                                ]
-                            })(
-                                <Input
-                                    addonBefore="RS"
-                                    type="number"
-                                    style={{ width: "35%" }}
-                                    placeholder="Price"
-                                />
-                            )}
-                        </Form.Item>
-                        <div style={{ margin: "0%" }}>
-                            <h3>Description:</h3>
-                        </div>
-                        <Form.Item
-                        // validateStatus={descriptionError ? "error" : ""}
-                        // help={descriptionError || ""}
-                        >
-                            {getFieldDecorator("description", {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message:
-                                            "Please input your Product Description!"
-                                    }
-                                ]
-                            })(
-                                <TextArea
-                                // placeholder="Write complete product Description"
-                                // autosize={{ minRows: 3, maxRows: 6 }}
-                                />
-                            )}
-                        </Form.Item>
+                    <Form.Item
+                    // validateStatus={priceError ? "error" : ""}
+                    // help={descriptionError || ""}
+                    >
+                        {getFieldDecorator("price", {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: "Please input your Product Price!"
+                                }
+                            ]
+                        })(
+                            <Input
+                                addonBefore="RS"
+                                type="number"
+                                style={{ width: "60%" }}
+                                placeholder="Price"
+                            />
+                        )}
+                    </Form.Item>
+                    <div style={{ margin: "0%" }}>
+                        <h3>Description:</h3>
+                    </div>
+                    <Form.Item
+                    // validateStatus={descriptionError ? "error" : ""}
+                    // help={descriptionError || ""}
+                    >
+                        {getFieldDecorator("description", {
+                            rules: [
+                                {
+                                    required: true,
+                                    message:
+                                        "Please input your Product Description!"
+                                }
+                            ]
+                        })(
+                            <TextArea
+                            // placeholder="Write complete product Description"
+                            // autosize={{ minRows: 3, maxRows: 6 }}
+                            />
+                        )}
+                    </Form.Item>
 
-                        <div style={{ margin: "0%" }}>
-                            <h3>Upload Pictures</h3>
-                        </div>
-                        <Form.Item
-                        // validateStatus={pictureError ? "error" : ""}
-                        // help={pictureError || ""}
-                        >
-                            {getFieldDecorator("display_picture", {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message: "Must Upload Picture"
-                                    }
-                                ]
-                            })(
-                                <Upload
-                                    action="/api/attachment/products/"
-                                    onChange={this.handleUpload}
-                                    listType="picture"
-                                    name="image"
-                                >
-                                    <Button>
-                                        <Icon type="upload" /> Upload
-                                    </Button>
-                                </Upload>
-                            )}
-                        </Form.Item>
-
-                        <Form.Item
-                        // validateStatus={categoryError ? "Please select Category" : ""}
-                        // help={categoryError || ""}
-                        >
-                            <h2>Select category</h2>
-
-                            {getFieldDecorator("category_id", {
-                                rules: [
-                                    {
-                                        required: true,
-                                        message:
-                                            "Please input your Product Description!"
-                                    }
-                                ]
-                            })(
-                                <Select
-                                    placeholder="Select Category"
-                                    style={{ width: 320 }}
-                                    // onChange={handleChangeCategory}
-                                >
-                                    {this.state.categories.map(element => (
-                                        <Option value={element.id}>
-                                            {element.name}
-                                        </Option>
-                                    ))}
-                                </Select>
-                            )}
-                        </Form.Item>
-
-                        <Form.Item>
-                            <div style={{ marginLeft: "90%", marginTop: "2%" }}>
-                                <Button
-                                    type={"primary"}
-                                    htmlType="submit"
-                                    size={"large"}
-                                    icon={"check"}
-                                    disabled={hasErrors(getFieldsError())}
-                                >
-                                    Done
+                    <div style={{ margin: "0%" }}>
+                        <h3>Upload Pictures</h3>
+                    </div>
+                    <Form.Item
+                    // validateStatus={pictureError ? "error" : ""}
+                    // help={pictureError || ""}
+                    >
+                        {getFieldDecorator("display_picture", {
+                            rules: [
+                                {
+                                    required: true,
+                                    message: "Must Upload Picture"
+                                }
+                            ]
+                        })(
+                            <Upload
+                                action="/api/attachment/products/"
+                                onChange={this.handleUpload}
+                                listType="picture"
+                                name="image"
+                            >
+                                <Button>
+                                    <Icon type="upload" /> Upload
                                 </Button>
-                            </div>
-                        </Form.Item>
-                    </Form>
-                </Card>
-            </Col>
+                            </Upload>
+                        )}
+                    </Form.Item>
+
+                    <Form.Item
+                    // validateStatus={categoryError ? "Please select Category" : ""}
+                    // help={categoryError || ""}
+                    >
+                        <h2>Select category</h2>
+
+                        {getFieldDecorator("category_id", {
+                            rules: [
+                                {
+                                    required: true,
+                                    message:
+                                        "Please input your Product Description!"
+                                }
+                            ]
+                        })(
+                            <Select
+                                placeholder="Select Category"
+                                style={{ width: "100%" }}
+                                // onChange={handleChangeCategory}
+                            >
+                                {this.state.categories.map(element => (
+                                    <Option value={element.id}>
+                                        {element.name}
+                                    </Option>
+                                ))}
+                            </Select>
+                        )}
+                    </Form.Item>
+
+                    <Form.Item>
+                        <div
+                        //  style={{ marginLeft: "90%", marginTop: "2%" }}
+                        >
+                            <Button
+                                type={"primary"}
+                                htmlType="submit"
+                                size={"large"}
+                                icon={"check"}
+                                disabled={hasErrors(getFieldsError())}
+                            >
+                                Done
+                            </Button>
+                        </div>
+                    </Form.Item>
+                </Form>
+            </Card>
+            // </Col>
         );
     }
 }

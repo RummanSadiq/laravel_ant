@@ -132,7 +132,7 @@ class ViewProducts extends Component {
         ];
         return (
             <div>
-                <Col span={14} offset={6}>
+                <Col xl={13} lg={14} sm={16} xs={16} md={16} style={{ marginTop: "2em", marginLeft:'25%' }}>
                     <div>
                         <h1 style={{ textAlign: "center" }}>
                             These are all the products you have listed.
